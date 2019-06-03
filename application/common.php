@@ -11,7 +11,9 @@
 
 // 应用公共文件
 use app\common\models\category as categoryModel;
+use app\common\agency\PermissionGroup as PermissionGroupAgency;
 use app\common\models\Files as FilesModel;
+
 /***
  * 返回错误信息
  * @param $status
@@ -31,29 +33,41 @@ function show($status, $message = '', $url = '')
     return json_encode($res);
 }
 
+/***
+ * @param $gid
+ */
+function getGroupName($gid)
+{
+    $result = new app\common\agency\permissionGroup();
+    return $result->getGroupNameByGid(['id' => $gid]);
+}
+
 function getCategoryName($id)
 {
     $category = (new categoryModel())->getCategoryName($id);
-    if($category){
-        if($category['parent_id'] == 0){
+    if ($category) {
+        if ($category['parent_id'] == 0) {
             return "一级分类";
-        }else{
-            $parent=(new categoryModel())->getDataById($category['parent_id']);
+        } else {
+            $parent = (new categoryModel())->getDataById($category['parent_id']);
             return $parent['name'];
         }
 
         return $category['parent_id'] == 0 ? "一级分类" : $category['name'];
-    }else{
+    } else {
         return "程序错误";
     }
 }
 
-function getProductName($id){
-    $product=(new FilesModel())->getDataById($id);
-    if($product){
+function getProductName($id)
+{
+    $product = (new FilesModel())->getDataById($id);
+    if ($product) {
         return $product['title'];
     }
 }
-function toJSON($data){
+
+function toJSON($data)
+{
     return json_encode($data);
 }

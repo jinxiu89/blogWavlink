@@ -9,10 +9,8 @@
 namespace app\common\models;
 
 use app\admin\validate\category as categoryValidate;
-use app\common\helper\Category as CategoryHelper;
 use app\common\models\Files as FilesModel;
 use think\Exception;
-use think\Route;
 
 /***
  * Class category
@@ -21,9 +19,6 @@ use think\Route;
 class Category extends Base
 {
     protected $table = "tb_category";
-    protected $success = "保存成功！";
-    protected $failed = "保存失败！";
-    protected $url = '/wavlink/category/list.html';
 
     public function files()
     {

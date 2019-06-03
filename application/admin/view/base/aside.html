@@ -7,21 +7,138 @@
         </a>
     </div>
     <div class="Hui-admin-menu-dropdown bk_2">
-        <dl id="menu-category" class="Hui-menu">
-            <dt class="Hui-menu-title"><i class="Hui-iconfont">&#xe616;</i> 分类管理<i
-                    class="Hui-iconfont Hui-admin-menu-dropdown-arrow">&#xe6d5;</i></dt>
-            <dd class="Hui-menu-item">
+        <dl id="menu-home" class="Hui-menu">
+            <dd class="Hui-menu-item-frist">
                 <ul>
-                    <li id="menus-category"><a href="/wavlink/category/list.html" title="文件列表" style="padding-left:8px">分类列表</a></li>
+                    <li><a href="_blank.html" title="首页"><i class="Hui-iconfont">&#xe625;</i>&nbsp; 首页</a></li>
                 </ul>
             </dd>
         </dl>
         <dl id="menu-files" class="Hui-menu">
-            <dt class="Hui-menu-title"><i class="Hui-iconfont">&#xe616;</i> 产品管理<i
+            <dt class="Hui-menu-title"><i class="Hui-iconfont">&#xe616;</i> 文章管理<i
                     class="Hui-iconfont Hui-admin-menu-dropdown-arrow">&#xe6d5;</i></dt>
             <dd class="Hui-menu-item">
                 <ul>
-                    <li id="menu-file"><a href="/wavlink/files/list.html" title="产品列表" style="padding-left:8px">产品列表</a></li>
+                    <li id="menu-file"><a href="/wavlink/files/list.html" title="产品列表">文章列表</a></li>
+                    <li id="menu-article"><a href="/wavlink/files/list.html" title="分类管理">分类管理</a></li>
+                    <li id="menu-tags"><a href="/wavlink/files/list.html" title="标签管理">标签管理</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-media" class="Hui-menu">
+            <dt class="Hui-menu-title">
+                <i class="Hui-iconfont">&#xe613;</i>静态资源
+                <i class="Hui-iconfont Hui-admin-menu-dropdown-arrow">&#xe6d5;</i>
+            </dt>
+            <dd class="Hui-menu-item">
+                <ul>
+                    <li id="menu-pic"><a href="/wavlink/files/list.html" title="图片">图片</a></li>
+                    <li id="menu-video"><a href="/wavlink/files/list.html" title="视频">视频</a></li>
+                    <li id="menu-audio"><a href="/wavlink/files/list.html" title="音频">音频</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-page" class="Hui-menu">
+            <dt class="Hui-menu-title">
+                <i class="Hui-iconfont">&#xe626;</i>单页
+                <i class="Hui-iconfont Hui-admin-menu-dropdown-arrow">&#xe6d5;</i>
+            </dt>
+            <dd class="Hui-menu-item">
+                <ul>
+                    <li id="menu-page-item"><a href="/wavlink/files/list.html" title="单页">单页</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-interaction" class="Hui-menu">
+            <dt class="Hui-menu-title">
+                <i class="Hui-iconfont">&#xe622;</i>互动
+                <i class="Hui-iconfont Hui-admin-menu-dropdown-arrow">&#xe6d5;</i>
+            </dt>
+            <dd class="Hui-menu-item">
+                <ul>
+                    <li>
+                        <a href="#" title="">评论审核</a>
+                    </li>
+                    <li>
+                        <a href="#" title="">用户管理</a>
+                    </li>
+                    <li></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-system" class="Hui-menu">
+            <dt class="Hui-menu-title">
+                <i class="Hui-iconfont">&#xe62e;</i> 系统管理<i
+                    class="Hui-iconfont Hui-admin-menu-dropdown-arrow">&#xe6d5;</i>
+            </dt>
+            <dd class="Hui-menu-item" id="menu-level">
+                <ul>
+                    <li>
+                        <dl class="Hui-menu">
+                            <dt class="Hui-menu-title">语言管理<i class="Hui-iconfont Hui-admin-menu-dropdown-arrow">&#xe6d5;</i>
+                            </dt>
+                            <dd class="Hui-menu-item">
+                                <ul>
+                                    <li>
+                                        <a href="#" title="">语言列表</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="">禁用的语种</a>
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl class="Hui-menu">
+                            <dt class="Hui-menu-title">关于我们<i class="Hui-iconfont Hui-admin-menu-dropdown-arrow">&#xe6d5;</i>
+                            </dt>
+                            <dd class="Hui-menu-item">
+                                <ul>
+                                    <li>
+                                        <a href="#" title="">关于我们</a>
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl class="Hui-menu">
+                            <dt class="Hui-menu-title">系统设置<i class="Hui-iconfont Hui-admin-menu-dropdown-arrow">&#xe6d5;</i>
+                            </dt>
+                            <dd class="Hui-menu-item">
+                                <ul>
+                                    <li>
+                                        <a href="#" title="">站点配置</a>
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl  class="Hui-menu">
+                            <dt class="Hui-menu-title">
+                                <i class="Hui-iconfont">&#xe62b;</i>
+                                管理员
+                                <i class="Hui-iconfont Hui-admin-menu-dropdown-arrow">&#xe6d5;</i></dt>
+                            <dd class="Hui-menu-item" id="menu-manger">
+                                <ul>
+                                    <li id="permission_group">
+                                        <a href="/{$backendPrefix}/user/permission/group/list.html" title="">权限组</a>
+                                    </li>
+                                    <li id="permission">
+                                        <a href="/{$backendPrefix}/user/permission/list.html" title="">权限</a>
+                                    </li>
+                                    <li id="role">
+                                        <a href="/{$backendPrefix}/user/permission/role/list.html" title="">角色</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="">管理员</a>
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </li>
                 </ul>
             </dd>
         </dl>
