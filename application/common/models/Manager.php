@@ -18,9 +18,15 @@ use think\facade\Config;
  * Class manager
  * @package app\common\models
  */
-class manager extends Base
+class Manager extends Base
 {
     protected $table = "tb_manager";
+
+
+    public function roles()
+    {
+        return $this->belongsToMany('Role', 'manager_role', 'rid', 'mid');
+    }
 
     public function login($data, $url)
     {

@@ -4,24 +4,29 @@
  * User: admin
  * Date: 2019/5/31
  * Time: 8:59
+ * agency 的解释
+ * 我们每一次对逻辑的操作都非常复杂，如果在model层去操作逻辑的话会导致一个问题，就是代码冗长无比，不便于阅读
+ * 现在我的思想是 控制器调用agency 里的操作逻辑，由agency里的方法去和model层沟通 操作数据库
+ * 上述语义
+ * 1、控制器调用agency的方法
+ * 2、agency逻辑去调用model层的增删改查
+ * 3、返回成功还是失败
+ * 4、由控制器来抛出异常：这里理解为错误异常还是正确的异常
  */
 
 namespace app\admin\agency;
 
 
-use think\Model;
-use app\common\models\Permission as permissionModel;
-use think\Exception;
 use app\admin\validate\permission as permissionValidate;
+use app\common\models\Permission as permissionModel;
 use app\common\validate\number;
-use think\Validate;
-use app\common\models\Role as roleModel;
+use think\Exception;
 
 /**
  * Class permission
  * @package app\admin\agency
  */
-class permission extends Model
+class permission extends base
 {
     protected $success = "保存成功！";
     protected $failed = "保存失败！";

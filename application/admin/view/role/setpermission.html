@@ -18,7 +18,11 @@
                     {notempty name="vo.permissions"}
                     {volist name="vo.permissions" id="i"}
                     <label>
-                        <input type="checkbox" value="{$i.id}" {in name="$i.id" value="$plist"} checked="checked" {/in} name="id">
+                        {in name="$i.id" value="$plist"}
+                        <input type="checkbox" value="{$i.id}" checked="checked" name="id">
+                        {else /}
+                        <input type="checkbox" value="{$i.id}" name="id">
+                        {/in}
                         {$i.name}</label>
                     {/volist}
                     {else/}

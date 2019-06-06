@@ -15,13 +15,14 @@ use think\facade\Route;
 /***
  * 用户功能模块路由
  * 管理用户只能在后台由超级用户来添加
+ * 记住哈  prefix('admin/')是指模块名，如application 下的 admin  index 这些模块
  */
 Route::group(Config::get('app.backend_prefix'), function () {
-    Route::get('/user/permission/list', 'permission/index');
-    Route::get('/user/permission/add/:gid', 'permission/add')->parent(['gid' => '\d+']);
-    Route::post('/user/permission/add/:gid', 'permission/add')->parent(['gid' => '\d+']);
-    Route::get('/user/permission/edit/:id', 'permission/edit')->parent(['id' => '\d+']);
-    Route::post('/user/permission/edit/:id', 'permission/edit')->parent(['id' => '\d+']);
+    Route::get('/user/permission/list', 'Permission/index');
+    Route::get('/user/permission/add/:gid', 'Permission/add')->parent(['gid' => '\d+']);
+    Route::post('/user/permission/add/:gid', 'Permission/add')->parent(['gid' => '\d+']);
+    Route::get('/user/permission/edit/:id', 'Permission/edit')->parent(['id' => '\d+']);
+    Route::post('/user/permission/edit/:id', 'Permission/edit')->parent(['id' => '\d+']);
     Route::get('/user/permission/group/list', 'PermissionGroup/index');
     Route::get('/user/permission/group/add', 'PermissionGroup/add');
     Route::post('/user/permission/group/add', 'PermissionGroup/add');
@@ -34,13 +35,28 @@ Route::group(Config::get('app.backend_prefix'), function () {
     Route::post('/user/permission/role/edit/:id', 'Role/edit')->parent(['id' => '\d+']);
     Route::get('/usr/permission/set/:id', 'Role/setpermission')->parent(['id' => '\d+']);
     Route::post('/usr/permission/set/:id', 'Role/setpermission')->parent(['id' => '\d+']);
-    Route::get('/user/create', '');
-    Route::post('/user/create', '');
+    Route::get('/user/manager/list', 'Manager/index');
+    Route::get('/user/manager/create', 'Manager/add');
+    Route::post('/user/manager/create', 'Manager/add');
+    Route::get('/user/manager/edit/:id', 'Manager/edit')->parent(['id' => '\d+']);
+    Route::post('/user/manager/edit/:id', 'Manager/edit')->parent(['id' => '\d+']);
+    //TODO::
     Route::get('/user/edit/:id', '')->parent(['id' => '\d+']);
     Route::post('/user/edit/:id', '')->parent(['id' => '\d+']);
-    Route::get('/login', 'auth/login');
-    Route::post('/login', 'auth/login');
-    Route::get('/logout', 'auth/logout');
+
+    Route::get('/login', 'Auth/login');
+    Route::post('/login', 'Auth/login');
+    Route::get('/logout', 'Auth/logout');
+})->prefix('admin/')->ext('html');
+
+/***
+ * 语言管理相关的路由
+ *
+ */
+Route::group(Config::get('app.backend_prefix'), function () {
+    Route::get('language/list', 'Language/index');
+    Route::get('language/add', 'Language/add');
+    Route::get('language/edit/:id', 'Language/edit')->parent(['id' => '\d+']);
 })->prefix('admin/')->ext('html');
 /***
  * 20190506

@@ -80,7 +80,11 @@
                             <dd class="Hui-menu-item">
                                 <ul>
                                     <li>
-                                        <a href="#" title="">语言列表</a>
+                                        {if condition="in_array('Language/index',$access)"}
+                                        <a href="/{$backendPrefix}/language/list.html" title="">语言列表</a>
+                                        {else /}
+                                        <span title="您没有权限访问该功能">语言列表</span>
+                                        {/if}
                                     </li>
                                     <li>
                                         <a href="#" title="">禁用的语种</a>
@@ -116,7 +120,7 @@
                         </dl>
                     </li>
                     <li>
-                        <dl  class="Hui-menu">
+                        <dl class="Hui-menu">
                             <dt class="Hui-menu-title">
                                 <i class="Hui-iconfont">&#xe62b;</i>
                                 管理员
@@ -124,16 +128,32 @@
                             <dd class="Hui-menu-item" id="menu-manger">
                                 <ul>
                                     <li id="permission_group">
+                                        {if condition="in_array('PermissionGroup/index',$access)"}
                                         <a href="/{$backendPrefix}/user/permission/group/list.html" title="">权限组</a>
+                                        {else /}
+                                        <span title="您没有权限访问该功能">权限组</span>
+                                        {/if}
                                     </li>
                                     <li id="permission">
+                                        {if condition="in_array('Permission/index',$access)"}
                                         <a href="/{$backendPrefix}/user/permission/list.html" title="">权限</a>
+                                        {else /}
+                                        <span title="您没有权限访问该功能">权限</span>
+                                        {/if}
                                     </li>
                                     <li id="role">
+                                        {if condition="in_array('Role/index',$access)"}
                                         <a href="/{$backendPrefix}/user/permission/role/list.html" title="">角色</a>
+                                        {else /}
+                                        <span title="您没有权限访问该功能">角色</span>
+                                        {/if}
                                     </li>
-                                    <li>
-                                        <a href="#" title="">管理员</a>
+                                    <li id="manger">
+                                        {if condition="in_array('Manager/index',$access)"}
+                                        <a href="/{$backendPrefix}/user/manager/list.html" title="">管理员</a>
+                                        {else /}
+                                        <span title="您没有权限访问该功能">管理员</span>
+                                        {/if}
                                     </li>
                                 </ul>
                             </dd>

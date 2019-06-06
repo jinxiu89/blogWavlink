@@ -25,7 +25,19 @@ class Role extends Base
      * 3、外键：中间表的当前模型外键，默认的外键名规则是关联模型名+_id 即 中间表里的 被关联的那个模型的的键 这里是pid
      * 4、关联键：中间表的当前模型关联键名，默认规则是当前模型名+_id  当前模型 只role模型
      */
-    public function permissions(){
-        return $this->belongsToMany('Permission','permission_role','pid','rid');
+    public function permissions()
+    {
+        return $this->belongsToMany('Permission', 'permission_role', 'pid', 'rid');
+    }
+
+    /***
+     * @return \think\model\relation\BelongsToMany
+     * 管理员和角色的关系是多对多的关系
+     * 新增日期：20190604
+     * 关系表定义 和上面的一模一样
+     */
+    public function managers()
+    {
+        return $this->belongsToMany('Manager', 'manager_role','mid', 'rid');
     }
 }

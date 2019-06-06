@@ -20,15 +20,12 @@ use app\admin\validate\permissionGroup as permissionGroupValidate;
 use app\common\models\PermissionGroup as groupModel;
 use app\common\validate\number;
 use think\Exception;
-use think\Model;
-use think\Model\Collection;
-use app\common\models\Permission as PermissionModel;
 
 /**
  * Class permissionGroup
  * @package app\common\agency
  */
-class permissionGroup extends Model
+class permissionGroup extends base
 {
     protected $success = "保存成功！";
     protected $failed = "保存失败！";
