@@ -11,6 +11,7 @@ namespace app\common\models;
 use app\admin\validate\category as categoryValidate;
 use app\common\models\Files as FilesModel;
 use think\Exception;
+use think\facade\Cache;
 
 /***
  * Class category
@@ -25,17 +26,9 @@ class Category extends Base
         return $this->hasMany('Files', 'c_id');
     }
 
-    public function getCategory()
+
+    public function getDateByDefault($page, $listRow)
     {
-        try {
-            return self::order("parent_id")->all();
-        } catch (Exception $e) {
-            return [];
-        }
-
-    }
-
-    public function getDateByDefault($page,$listRow){
         $data = (new FilesModel())->getAllData($page, $listRow);
         $count = (new FilesModel())->getCount();
         $pageCount = NULL;
@@ -60,7 +53,7 @@ class Category extends Base
     {
         //如果这个分类有下一级的话要把他下一级的数据弄出来
         //这个分类ID自己
-        $cat = self::where(['parent_id' => $c_id])->whereOr(['id'=>$c_id])->select()->toArray();
+        $cat = self::where(['parent_id' => $c_id])->whereOr(['id' => $c_id])->select()->toArray();
         $id = [];
         foreach ($cat as $item) {
             $id[] = $item['id'];
@@ -68,7 +61,7 @@ class Category extends Base
         //计算总页数的方法
         $offset = ($page - 1) == 0 ? 0 : ($page - 1) * $listRow;
         $query = new FilesModel();
-        $data = $query->with('Downloads')->where('c_id','in',$id)->limit($offset,$listRow)->select()->toArray();//
+        $data = $query->with('Downloads')->where('c_id', 'in', $id)->limit($offset, $listRow)->select()->toArray();//
         $count = count($data);
         //总共多少页？
         $pageCount = NULL;
@@ -147,5 +140,36 @@ class Category extends Base
     {
         $data = $this->getCategory();
 
+    }
+
+    /***
+     * @param $language_id
+     * @return array|false|\think\db\Query[]
+     */
+    public function getCategory($language_id)
+    {
+        try {
+            return self::where(['language_id' => $language_id])->order("parent_id")->all();
+        } catch (Exception $exception) {
+            return [];
+        }
+    }
+
+    public function getCategoryByLanguage($language_id)
+    {
+        try {
+            return self::where(['language_id' => $language_id])->order("parent_id")->all()->toArray();
+            //todo:后期开缓存
+//            if (!$this->debug) {
+//                if (Cache::get('Category')) {
+//                    return Cache::get('Category');
+//                } else {
+//                    Cache::set('Category', self::where(['language_id' => $language_id])->order("parent_id")->all()->toArray());
+//                }
+//            }
+//            return Cache::get('Category') ? Cache::get('Category') : self::where(['language_id' => $language_id])->order("parent_id")->all()->toArray();
+        } catch (Exception $exception) {
+            return '';
+        }
     }
 }

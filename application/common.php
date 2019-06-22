@@ -13,6 +13,7 @@
 use app\common\models\category as categoryModel;
 use app\common\agency\PermissionGroup as PermissionGroupAgency;
 use app\common\models\Files as FilesModel;
+use think\facade\Config;
 
 /***
  * 返回错误信息
@@ -40,6 +41,10 @@ function getGroupName($gid)
 {
     $result = new app\common\agency\permissionGroup();
     return $result->getGroupNameByGid(['id' => $gid]);
+}
+function getCategoryNameByID($id){
+    $category = (new categoryModel())->getCategoryName($id);
+    return $category['name'];
 }
 
 function getCategoryName($id)
@@ -70,4 +75,21 @@ function getProductName($id)
 function toJSON($data)
 {
     return json_encode($data);
+}
+
+function autoGetLang($header)
+{
+    //拿到浏览器的语言，初始化语言项
+    if (empty($header['accept-language'])) {
+        return 'en-us';
+    }else{
+        $lang_code = $header['accept-language'];
+        $code = explode(',', $lang_code);
+        //在extra 里配置各国语言代码对应相应的模块
+        return $code[0];
+    }
+}
+
+function getTypeName($type){
+    return Config::get('type.'.$type);
 }

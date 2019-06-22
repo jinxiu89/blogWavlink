@@ -27,6 +27,10 @@ use app\common\validate\number;
  */
 class base extends Model
 {
+    protected $model;
+    protected $validate;
+    protected $success;
+    protected $failed;
     /***
      * @param $data
      * @return array

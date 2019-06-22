@@ -1,0 +1,53 @@
+{extend name="default/base:index" /}
+{block name="title"}{:lang('home')}{/block}
+{block name="style"}
+<link rel="stylesheet" href="__HOME__/css/pages/list.css">
+{/block}
+{block name="seo"}
+<meta name="keywords" content="{$setting.keywords}">
+<meta name="description" content="{$setting.description}">
+{/block}
+{block name="g-path"}
+<div class="g-path">
+    <a class="path-item" href="/">{:lang('home-nav')}</a>
+</div>
+{/block}
+{block name="g-main"}
+<div class="g-main">
+    <div class="content">
+        <ul class="blog-list">
+            <li class="blog-item">
+                <a class="pic-link" href="detail.html">
+                    <img src="../img/placeholder.jpg" alt="">
+                </a>
+                <h2 class="title"><a href="#">【新品发布】 睿因QUANTUM T8-3000M三频千兆路由器重磅来袭</a></h2>
+                <div class="des">
+                    睿因QUANTUM T8是一款上网快，功能强大的千兆三频智能路由器，有效解决家中的WiFi信号难题，
+                    同时使用不干扰，高速畅玩。对家中网络要求高的小伙伴们不妨试下这款出彩的三频智能路由器吧。
+                </div>
+                <div class="info">
+                    <span><a href="#">产品测评</a></span>
+                    <span><i class="iconfont icon-ios-shijian"></i>2019/05/31</span>
+                    <span><i class="iconfont icon-icon_comment"></i>5</span>
+                    <span><i class="iconfont icon-yueduliang"></i>2000</span>
+                    <span><a href="#">{:lang('Details')} ></a></span>
+                </div>
+            </li>
+        </ul>
+        <div class="g-nav_page text-center">
+            <ul class="pagination">
+                <li class="disabled"><span>«</span></li>
+                <li class="active"><span>1</span></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">»</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="javascript"}
+<script>
+    $("#home").addClass('active');
+</script>
+{/block}

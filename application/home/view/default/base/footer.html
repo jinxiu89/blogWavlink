@@ -1,0 +1,30 @@
+<div class="g-foot">
+    <div class="container">
+        <div class="row">
+            <div class="company-info">
+                <dl>
+                    <dt>{:lang('about')}</dt>
+                    {notempty name="about"}
+                    {volist name="about" id="vo"}
+                    <dd><a href="{$vo.url_title}">{$vo.title}</a></dd>
+                    {/volist}
+                    {/notempty}
+                </dl>
+                <dl>
+                    <dt>{:lang('Subscribe')}</dt>
+                    <dd>
+                        <form action="">
+                            <input type="text" placeholder="{:lang('input your Email')}">
+                            <input type="submit" value="{:lang('submit')}">
+                        </form>
+                    </dd>
+                    <dd>
+                        <span><a href="#"><i class="iconfont icon-icon-test2"></i></a></span>
+                        <span><a href="#"><i class="iconfont icon-icon-test1"></i></a></span>
+                        <span><a href="#"><i class="iconfont icon-icon-test"></i></a></span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>

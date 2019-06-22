@@ -17,15 +17,18 @@ use think\Validate;
 class category extends Validate
 {
     protected $rule = [
-        "name" => "require|max:25"
+        "name" => "require|max:25",
+        "title"=>'require|unique:tb_category'
     ];
     protected $message = [
         "name.require" => "分类名必须填",
-        "name.max" => "分类名最长不超过25个字符"
+        "name.max" => "分类名最长不超过25个字符",
+        "title.unique"=>'标题不能重复',
+        "title.require"=>'分类标题必须填'
     ];
     protected $scene = [
-        'edit' => ['name'],
-        'add' => [],
+        'edit' => ['id','name','title'],
+        'add' => ['name','title'],
     ];
 
 }

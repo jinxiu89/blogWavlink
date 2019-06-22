@@ -20,6 +20,9 @@
     <script>DD_belatedPNG.fix('*');</script><![endif]-->
     <title>后台登录</title>
 </head>
+<style>
+
+</style>
 <body>
 <input type="hidden" id="TenantId" name="TenantId" value=""/>
 <!--<div class="header"></div>-->
@@ -44,6 +47,18 @@
                            placeholder="验证码" value="" style="width:100px;">
                     <img src="{:captcha_src()}" alt="captcha" width="160px" onclick="this.src='{:captcha_src()}'"/><span
                         style="color: #fff"> 点图刷新</span>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
+                <div class="form-controls col-xs-3">
+                    <span class="select-box" style="background: #fff;">
+                        <select name="language_id" id="language_id" class="select" size="1">
+                            {volist name="language" id="vo"}
+                            <option value="{$vo.id}">{$vo.name}</option>
+                            {/volist}
+                        </select>
+                    </span>
                 </div>
             </div>
             <div class="row clearfix">

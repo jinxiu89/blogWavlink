@@ -27,15 +27,12 @@ use think\Exception;
  */
 class permissionGroup extends base
 {
-    protected $success = "保存成功！";
-    protected $failed = "保存失败！";
-    private $validate;
-    private $model;
-
     public function initialize()
     {
         $this->validate = new permissionGroupValidate();
         $this->model = new groupModel();
+        $this->success="保存成功！";
+        $this->failed="保存失败!";
     }
 
     /**

@@ -28,15 +28,13 @@ use think\Exception;
  */
 class permission extends base
 {
-    protected $success = "保存成功！";
-    protected $failed = "保存失败！";
-    private $validate;
-    private $model;
 
     public function initialize()
     {
         $this->validate = new permissionValidate();
         $this->model = new permissionModel();
+        $this->success="保存成功！";
+        $this->failed="保存失败!";
     }
 
     public function getDataById($data)

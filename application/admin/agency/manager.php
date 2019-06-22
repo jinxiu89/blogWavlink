@@ -21,10 +21,6 @@ use think\facade\Config;
  */
 class manager extends base
 {
-    protected $success = "保存成功！";
-    protected $failed = "保存失败！";
-    protected $validate;
-    protected $model;
     protected $roleModel;
     protected $number;
 
@@ -39,6 +35,8 @@ class manager extends base
         $this->model = new managerModel();
         $this->roleModel = new roleModel();
         $this->number = new numberValidate();
+        $this->success="保存成功！";
+        $this->failed="保存失败!";
     }
 
     public function getAll()

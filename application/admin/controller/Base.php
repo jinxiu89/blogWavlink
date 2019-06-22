@@ -11,7 +11,9 @@ namespace app\admin\controller;
 
 use app\common\helper\Category as CategoryHelper;
 use app\common\models\Category as CategoryModel;
+use app\common\models\Language;
 use app\common\agency\auth as authAgency;
+use app\admin\agency\category as CategoryAgency;
 use think\Controller;
 use think\facade\Config;
 use think\facade\Request;
@@ -25,22 +27,48 @@ class Base extends Controller
 {
     protected $toLevel;
     protected $backendPrefix;
+    protected $user;
     protected $websiteName; //所有的页面的后缀；
     protected $auth;//认证类
     protected $agenc;
+    protected $language;
+    protected $agency;
+    protected $url;
+    /***
+     * @var array
+     * beforActionList 是用于在运行该控制器时 第一个先运行的几个方法名，很有必要，不然initialize方法会臃肿不堪，home模块也一样这里不赘述
+     *
+     */
+    protected $beforeActionList = [
+        'languageList', 'init', 'Auth', 'setLanguage'
+    ];
 
     public function initialize()
     {
         parent::initialize();
-        $category = (new CategoryModel())->getCategory()->toArray();
-        $this->toLevel = CategoryHelper::toLevel($category, '-', 0, 0);
-        $this->backendPrefix = Config::get('app.backend_prefix');
-        $this->websiteName = Config::get('app.website_name');
         $this->agenc = new authAgency();
-        $this->assign('backendPrefix', $this->backendPrefix);
-        $this->assign('app_name', $this->websiteName);
+        $category = (new CategoryAgency())->getCategory($this->language['id'])->toArray();
+        $this->toLevel = CategoryHelper::toLevel($category, '-', 0, 0);
+    }
+
+    /***
+     * 设置语言
+     * 便于后台操作内容
+     */
+    protected function setLanguage()
+    {
+        $this->language = Session::get('language', 'admin');//在用户登录时选择的语言会被存储在language中，后台所有的操作都将携带该属性
+        $this->assign('language', $this->language);
+    }
+
+    /***
+     * 登录和权限验证在Auth方法里处理
+     */
+    protected function Auth()
+    {
         if (Session::has('adminUser', 'admin')) {
             $session = Session::get('adminUser', 'admin');
+            $this->user = $session;
             $this->assign('session', $session);
         } else {
             $this->redirect('/' . $this->backendPrefix . '/login.html');
@@ -65,5 +93,36 @@ class Base extends Controller
         } else {//有权限
             $this->assign('access', $check['data']);
         }
+    }
+
+    /***
+     * 初始化配置信息
+     */
+    protected function init()
+    {
+        $this->backendPrefix = Config::get('app.backend_prefix');
+        $this->websiteName = Config::get('app.website_name');
+        $this->assign('backendPrefix', $this->backendPrefix);
+        $this->assign('app_name', $this->websiteName);
+    }
+
+    protected function languageList()
+    {
+        $languageList = (new Language())->getAll();
+        $this->assign('languageList', $languageList);
+    }
+
+    /***
+     * @param $code
+     * @return \think\response\Redirect
+     * 后台前台可以设置自己管理的内容个的语言
+     *
+     */
+    public function ChangeLanguage($code)
+    {
+        $language = (new Language())->getLanguageByCode($code);
+        $next = Request::header('referer');
+        session('language', $language, 'admin');
+        return redirect($next);
     }
 }

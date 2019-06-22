@@ -10,8 +10,7 @@ namespace app\admin\controller;
 
 
 use think\Request;
-use app\common\models\Category as CategoryModel;
-use app\common\helper\Category as CategoryHelper;
+use app\admin\agency\category as agency;
 
 
 /**
@@ -20,11 +19,19 @@ use app\common\helper\Category as CategoryHelper;
  */
 class Category extends Base
 {
-    protected $toLevel;
+    protected $url;
+    protected $agency;
+
+    public function initialize()
+    {
+        parent::initialize();
+        $this->url = '/' . $this->backendPrefix . '/article/category/list.html';
+        $this->agency = new agency();
+    }
 
     public function index()
     {
-        $data = (new CategoryModel())->getCategory();
+        $data = $this->agency->getCategory($this->language['id']);
         $count = $data->count();
         return $this->fetch('', [
             'data' => $data,
@@ -35,21 +42,26 @@ class Category extends Base
     public function add()
     {
         if (Request()->isGet()) {
-
             return $this->fetch('', [
                 'to_level' => $this->toLevel,
             ]);
         }
         if (Request()->isPost()) {
             $data = input('post.');
-            return (new CategoryModel())->saveData($data);
+            $data['language_id'] = $this->language['id'];
+            $result = $this->agency->saveData($data);
+            if ($result['status'] == true) {
+                return show($result['status'], $result['message'], $this->url);
+            } else {
+                return show($result['status'], $result['message']);
+            }
         }
     }
 
     public function edit($id)
     {
         if (Request()->isGet()) {
-            $data = (new CategoryModel())->getDataById($id);
+            $data = $this->agency->getDataById($id);
             if ($data) {
                 return $this->fetch('', [
                     'data' => $data,
@@ -61,7 +73,13 @@ class Category extends Base
         }
         if (Request()->isPost()) {
             $data = input('post.');
-            return (new CategoryModel())->saveData($data);
+//            $data['language_id'] = $this->language['id'];
+            $result = $this->agency->saveData($data);
+            if ($result['status'] == true) {
+                return show($result['status'], $result['message'], $this->url);
+            } else {
+                return show($result['status'], $result['message']);
+            }
         }
     }
 }

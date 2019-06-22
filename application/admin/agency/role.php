@@ -27,11 +27,6 @@ use think\Exception;
  */
 class role extends base
 {
-    protected $success = "保存成功！";
-    protected $failed = "保存失败！";
-    private $validate;
-    private $model;
-
     /***
      * 初始运行 给成员变量赋值
      */
@@ -39,6 +34,8 @@ class role extends base
     {
         $this->validate = new roleValidate();
         $this->model = new roleModel();
+        $this->success="保存成功！";
+        $this->failed="保存失败!";
     }
 
     /***

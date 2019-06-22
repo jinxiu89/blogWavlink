@@ -10,6 +10,7 @@ namespace app\common\models;
 
 
 use think\Model;
+use think\facade\Config;
 
 /**
  * Class Base
@@ -17,6 +18,11 @@ use think\Model;
  */
 class Base extends Model
 {
+    protected $debug = false;
 
-
+    public function initialize()
+    {
+        parent::initialize();
+        $this->debug = Config::get('app.app_debug');
+    }
 }

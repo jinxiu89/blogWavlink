@@ -1,0 +1,45 @@
+<div class="g-nav">
+    <div class="container">
+        <div class="row">
+            <div class="logo">
+                <a href="#">
+                    <img src="__HOME__/img/logo.png" alt="">
+                </a>
+            </div>
+            <span class="visible-xs menu-bar iconfont icon-menu" id="open-menu"></span>
+            <span class="search-bar iconfont icon-search"></span>
+            <ul class="menu" id="menu">
+                <li class="menu-item" id="home">
+                    <a href="index.html">{:lang('home')}</a>
+                </li>
+                {notempty name="CatalogTree"}
+                {volist name="CatalogTree" id="vo"}
+                <li class="menu-item dropdown" id="news">
+                    <a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{$vo.name}
+                    </a>
+                    <ul class="dropdown-menu">
+                        {notempty name="$vo.child"}
+                        {volist name="vo.child" id="co"}
+                        <li><a href="#">{$co.name}</a></li>
+                        {/volist}
+                        {/notempty}
+                    </ul>
+                </li>
+                {/volist}
+                {/notempty}
+                <li class="menu-item dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{:lang('language')}
+                        <span class="iconfont icon-caret-down"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        {notempty name="languageList"}
+                        {volist name="languageList" id="vo"}
+                        <li><a href="/language/{$vo.code}.html">{$vo.name}</a></li>
+                        {/volist}
+                        {/notempty}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
