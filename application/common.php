@@ -14,6 +14,7 @@ use app\common\models\category as categoryModel;
 use app\common\agency\PermissionGroup as PermissionGroupAgency;
 use app\common\models\Files as FilesModel;
 use think\facade\Config;
+use app\common\models\Media;
 
 /***
  * 返回错误信息
@@ -42,7 +43,9 @@ function getGroupName($gid)
     $result = new app\common\agency\permissionGroup();
     return $result->getGroupNameByGid(['id' => $gid]);
 }
-function getCategoryNameByID($id){
+
+function getCategoryNameByID($id)
+{
     $category = (new categoryModel())->getCategoryName($id);
     return $category['name'];
 }
@@ -82,7 +85,7 @@ function autoGetLang($header)
     //拿到浏览器的语言，初始化语言项
     if (empty($header['accept-language'])) {
         return 'en-us';
-    }else{
+    } else {
         $lang_code = $header['accept-language'];
         $code = explode(',', $lang_code);
         //在extra 里配置各国语言代码对应相应的模块
@@ -90,6 +93,31 @@ function autoGetLang($header)
     }
 }
 
-function getTypeName($type){
-    return Config::get('type.'.$type);
+/***
+ * @param $type
+ * @return mixed
+ * 20190622
+ * 使用在后台的 图片列表中，通过数据库中的字段来返回他的图片类型
+ * 使用范围是  静态资源管理功能
+ */
+function getTypeName($type)
+{
+    return Config::get('type.' . $type);
 }
+
+/***
+ * @param $id
+ * 20190622
+ * 使用的地方是在后台，图片管理
+ */
+function UsedIn($id)
+{
+    $data = (new Media())->getDataById($id);
+    $article = $data['article'];
+    $title = '';
+    foreach ($article as $item) {
+        $title .= ' '.$item['title'];
+    }
+    return $title;
+}
+

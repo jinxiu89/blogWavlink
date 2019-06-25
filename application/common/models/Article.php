@@ -21,6 +21,12 @@ class Article extends Base
     protected $table = 'tb_article';
     protected $resultSetType = 'collection';
 
+
+    public function media()
+    {
+        return $this->belongsToMany('Media', 'article_media', 'media_id', 'article_id');
+    }
+
     /***
      * @param $id
      * @return bool|mixed
@@ -90,13 +96,13 @@ class Article extends Base
                 if (Cache::store('default')->get('ArticleData_' . $language_id)) {//如果拿到缓存的话就直接返回缓存
                     return Cache::store('default')->get('ArticleData_' . $language_id);
                 } else {//没有就设置缓存
-                    Cache::store('default')->set('ArticleData_' . $language_id, self::where(['language_id' => $language_id])->field('id,language_id,title,ftitle,url_title,description')->paginate());
+                    Cache::store('default')->set('ArticleData_' . $language_id, self::where(['language_id' => $language_id])->field('id,category_id,language_id,title,ftitle,url_title,description')->paginate());
                 }
             }
             // 如果能拿到缓存的话就返回缓存 没有就 查库 返回
-            return Cache::store('default')->get('ArticleData_' . $language_id) ? Cache::store('file')->get('ArticleData_' . $language_id) : self::where(['language_id' => $language_id])->field('id,language_id,title,ftitle,url_title,description')->paginate();
+            return Cache::store('default')->get('ArticleData_' . $language_id) ? Cache::store('file')->get('ArticleData_' . $language_id) : self::where(['language_id' => $language_id])->with('')->field('id,category_id,language_id,title,ftitle,url_title,description')->paginate();
         } catch (Exception $exception) {
-            return '';
+            return $exception->getMessage();
         }
     }
 }

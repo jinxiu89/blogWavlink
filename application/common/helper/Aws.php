@@ -14,6 +14,8 @@ use Aws\S3\S3Client;
 use Aws\S3\MultipartUploader;
 use think\facade\Config;
 
+header('Access-Control-Allow-Origin:*');
+
 /**
  * Class Aws
  * @package app\common\helper
@@ -42,8 +44,7 @@ class Aws
             ],
             'debug' => $aws_options['debug']
         ];
-        $s3 = new S3Client($options);
-        return $s3;
+        return new S3Client($options);
     }
 
     /**
@@ -60,8 +61,7 @@ class Aws
      */
     public static function uploader($source, $key)
     {
-        $client = self::createClient();
-        $uploader = new MultipartUploader($client, $source, [
+        $uploader = new MultipartUploader(self::createClient(), $source, [
             "bucket" => Config::get('app.aws_bucket'),
             "key" => $key,
         ]);
@@ -70,12 +70,26 @@ class Aws
                 $result = $uploader->upload()->get('Key');
             } catch (MultipartUploadException $exception) {
                 rewind($source);
-                $uploader = new MultipartUploader($client, $source, [
+                $uploader = new MultipartUploader(self::createClient(), $source, [
                     'state' => $exception->getState(),
                 ]);
             }
         } while (!isset($result));
         return $result;
+    }
+
+    /***
+     * @return array
+     */
+    public static function listObj()
+    {
+        $s3 = self::createClient();
+        $iterator = $s3->listObjects(['Bucket' => Config::get('app.aws_bucket')]);
+        $items=[];
+        foreach ($iterator as $item) {
+            $items[] = $item;
+        }
+        return $items[2];
     }
 
     /***
@@ -94,10 +108,10 @@ class Aws
         $client = self::createClient();
         try {
             $client->getObjectUrl($Bucket, $key); //有url
-            try{
+            try {
                 $client->deleteObject(['Bucket' => $Bucket, 'Key' => $key,]);
                 return true; //删除成功
-            }catch (AwsException $exception){
+            } catch (AwsException $exception) {
                 return false; //删除失败！
             }
         } catch (AwsException $exception) {

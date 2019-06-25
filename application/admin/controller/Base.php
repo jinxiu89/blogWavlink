@@ -40,25 +40,22 @@ class Base extends Controller
      *
      */
     protected $beforeActionList = [
-        'languageList', 'init', 'Auth', 'setLanguage'
+        'languageList', 'CategoryTree', 'init', 'Auth'
     ];
 
     public function initialize()
     {
         parent::initialize();
+        $this->language = Session::get('language', 'admin');//在用户登录时选择的语言会被存储在language中，后台所有的操作都将携带该属性
+        $this->backendPrefix = Config::get('app.backend_prefix');
+        $this->assign('language', $this->language);
         $this->agenc = new authAgency();
-        $category = (new CategoryAgency())->getCategory($this->language['id'])->toArray();
-        $this->toLevel = CategoryHelper::toLevel($category, '-', 0, 0);
     }
 
-    /***
-     * 设置语言
-     * 便于后台操作内容
-     */
-    protected function setLanguage()
+    protected function CategoryTree()
     {
-        $this->language = Session::get('language', 'admin');//在用户登录时选择的语言会被存储在language中，后台所有的操作都将携带该属性
-        $this->assign('language', $this->language);
+        $category = (new CategoryAgency())->getCategory($this->language['id']);
+        $this->toLevel = CategoryHelper::toLevel($category, '-', 0, 0);
     }
 
     /***

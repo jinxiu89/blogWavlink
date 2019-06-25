@@ -51,9 +51,11 @@ class Article extends Base
             $data['create_at'] = date('Y-m-d', time());//创建时间
             $data['language_id'] = $this->language['id'];//语言
             $data['url_title'] = md5(uniqid());//随机生成url_title
-            $result = $this->agency->saveData($data);
-            if ($result['status'] == true) {
+            $result = (new articleAgency())->saveData($data);
+            if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
+            }else{
+                return show($result['status'], $result['message']);
             }
         }
     }
@@ -73,8 +75,10 @@ class Article extends Base
         if(request()->isPost()){
             $data=input('post.');
             $result = $this->agency->saveData($data);
-            if ($result['status'] == true) {
+            if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
+            }else{
+                return show($result['status'], $result['message']);
             }
         }
     }

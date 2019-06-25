@@ -16,23 +16,30 @@
 <div class="g-main">
     <div class="content">
         <ul class="blog-list">
+            {notempty name="data"}
+            {volist name="data" id="vo"}
             <li class="blog-item">
                 <a class="pic-link" href="detail.html">
                     <img src="../img/placeholder.jpg" alt="">
                 </a>
-                <h2 class="title"><a href="#">【新品发布】 睿因QUANTUM T8-3000M三频千兆路由器重磅来袭</a></h2>
+                <h2 class="title"><a href="#">{$vo.title}</a></h2>
                 <div class="des">
-                    睿因QUANTUM T8是一款上网快，功能强大的千兆三频智能路由器，有效解决家中的WiFi信号难题，
-                    同时使用不干扰，高速畅玩。对家中网络要求高的小伙伴们不妨试下这款出彩的三频智能路由器吧。
+                    {$vo.description}
                 </div>
                 <div class="info">
-                    <span><a href="#">产品测评</a></span>
+                    <span><a href="#">{$vo.category_id}</a></span>
                     <span><i class="iconfont icon-ios-shijian"></i>2019/05/31</span>
                     <span><i class="iconfont icon-icon_comment"></i>5</span>
                     <span><i class="iconfont icon-yueduliang"></i>2000</span>
                     <span><a href="#">{:lang('Details')} ></a></span>
                 </div>
             </li>
+            {/volist}
+            {else /}
+            <li class="blog-item">
+                没有数据
+            </li>
+            {/notempty}
         </ul>
         <div class="g-nav_page text-center">
             <ul class="pagination">

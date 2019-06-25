@@ -40,10 +40,10 @@ class article extends base
                     return $this->model->allowField(true)->save($data, ['id' => $data['id']]) ?
                         ['status' => true, 'message' => $this->success] : ['status' => false, 'message' => $this->failed];
                 } catch (Exception $exception) {
-                    return show(false, $exception->getMessage(), '');
+                    return ['status' => false, 'message' => $exception->getMessage()];
                 }
             } else {
-                return show(false, $this->validate->getError(), '');
+                return ['status' => false, 'message' => $this->validate->getError()];
             }
         }
         if ($this->validate->scene('add')->check($data)) {

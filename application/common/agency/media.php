@@ -19,10 +19,11 @@ use app\common\models\Media as MediaModel;
 class media extends Model
 {
     protected $MediaModel;
+
     public function initialize()
     {
         parent::initialize();
-        $this->MediaModel=new MediaModel();
+        $this->MediaModel = new MediaModel();
     }
 
     /***
@@ -53,10 +54,17 @@ class media extends Model
                 return ['status' => false, 'message' => '保存失败！'];
             }
         } catch (Exception $exception) {
-            return ['status' => false, 'message' => '保存失败！'];
+            return ['status' => false, 'message' => $exception->getMessage()];
         }
     }
-    public function getALL(){
+
+    public function getALL()
+    {
         return $this->MediaModel->getAll();
+    }
+
+    public function getDataById($id)
+    {
+        return $this->MediaModel->getDataById($id);
     }
 }

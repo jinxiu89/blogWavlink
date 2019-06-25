@@ -7,7 +7,7 @@
 <title>添加文章</title>
 {/block}
 {block name="form"}
-<form class="form form-horizontal" id="form-article-add">
+<form class="form form-horizontal" id="form-article-add" enctype="multipart/form-data">
     <div class="row clearfix">
         <label class="form-label col-xs-4 col-sm-1"><span class="c-red">*</span>所属分类：</label>
         <div class="form-controls col-xs-8 col-sm-1">
@@ -77,6 +77,19 @@
         </div>
     </div>
     <div class="row clearfix">
+        <label for="thumbnail" class="form-label col-xs-4 col-sm-1">缩略图：</label>
+        <div class="form-controls col-xs-8 col-sm-4">
+            <span class="btn-upload">
+                <a href="javascript:void(0);" onclick="add('插入图片','/{$backendPrefix}/static/image/list.html')"
+                   class="btn btn-primary radius btn-upload"><i class="Hui-iconfont">&#xe642;</i> 浏览文件</a>
+            </span>
+            <div style="height: 310px;margin: 10px 0;" class="add-img">
+                <img src="//files.iqs.link/{$data.thumbnail}" class="img-responsive center-block"/>
+                <input type="hidden" id="thumbnail" name="thumbnail" value="">
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
         <label class="form-label col-xs-4 col-sm-1">文章内容：</label>
         <div class="form-controls col-xs-11 col-sm-11">
             <div id="markdown">
@@ -106,6 +119,16 @@
 {block name="script"}
 <script type="text/javascript" src="__LIB__/markdown/editormd.js"></script>
 <script>
+    /*资讯-添加*/
+    function add(title, url) {
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url,
+            area: ['940px', '840px']
+        });
+    }
+
     var Editor;
     var markdown;
     var refer;
@@ -123,7 +146,7 @@
             saveHTMLToTextarea: true,
             imageUpload: true,
             imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            imageUploadURL: "{:url('api/image/markdownUpload')}"
+            imageUploadURL: "/{$backendPrefix}/aws/image/markdownUpload.html"
         });
         refer = Editor = editormd("refer", {
             width: "100%",

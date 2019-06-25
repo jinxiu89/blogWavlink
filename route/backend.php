@@ -116,9 +116,11 @@ Route::group(Config::get('app.backend_prefix'), function () {
  */
 Route::group(Config::get('app.backend_prefix'), function () {
     Route::get('/static/images/list', 'Images/index');
-    Route::get('/static/images/upload','Images/upload');
-    Route::post('/static/images/upload','Images/upload');
-    Route::post('/aws/uploader', 'aws/uploader');
+    Route::get('/static/images/upload', 'Images/upload');
+    Route::post('/static/images/upload', 'Images/upload');
+    Route::post('/aws/uploader', 'Aws/uploader');
+    Route::get('static/image/list', 'Images/listimg');
+    Route::post('/aws/image/markdownUpload', 'Aws/markdownUpload');
 })->prefix('admin/')->ext('html');
 
 /***

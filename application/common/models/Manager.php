@@ -23,7 +23,14 @@ class Manager extends Base
 {
     protected $table = "tb_manager";
 
-
+    /***
+     * @return \think\model\relation\BelongsToMany
+     * 管理员和角色之间的关系是多对多的关系 belongsToMany
+     * 第一个参数：被关联的那个模型的类名（即Role）
+     * 第二个参数：关系表的表明（数据库中的那个关系表）
+     * 第三个参数：外键，相对于本模型，被关联的那个模型在关系表体现的那个ID，这里是指 Role模型的ID 在关系表中的那个体现，这里命名为 rid
+     * 第四个参数：关联键，是相对于本模型，在关系表中体现的那个ID，这里为mid
+     */
     public function roles()
     {
         return $this->belongsToMany('Role', 'manager_role', 'rid', 'mid');

@@ -63,7 +63,7 @@ class Permission extends Base
     public function edit($id){
         if(request()->isGet()){
             $data=$this->agency->getDataById(['id'=>$id]);
-            if($data['status'] == true){
+            if($data['status']){
                 $this->assign('data',$data['data']);
             }
             return $this->fetch();
@@ -72,7 +72,7 @@ class Permission extends Base
             $data=input('post.');
             $result= $this->agency->saveData($data);
         }
-        if ($result['status'] == true) {
+        if ($result['status']) {
             return show($result['status'], $result['message'], $this->url);
         } else {
             return show(false, $result['message']);

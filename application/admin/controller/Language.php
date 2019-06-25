@@ -49,7 +49,7 @@ class Language extends Base
         if (request()->isPost()) {
             $data = input('post.');
             $result = $this->agency->saveData($data);
-            if ($result['status'] == true) {
+            if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
             } else {
                 return show($result['status'], $result['message']);
@@ -64,7 +64,7 @@ class Language extends Base
     {
         if (request()->isGet()) {
             $result = $this->agency->getDataById(['id' => $id]);
-            if ($result['status'] == true) {
+            if ($result['status']) {
                 $this->assign('data', $result['data']);
             } else {
                 return show($result['status'], $result['message']);
@@ -74,7 +74,7 @@ class Language extends Base
         if (request()->isPost()) {
             $data = input('post.');
             $result = $this->agency->saveData($data);
-            if ($result['status'] == true) {
+            if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
             } else {
                 return show($result['status'], $result['message']);

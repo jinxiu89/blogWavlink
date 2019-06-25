@@ -18,7 +18,7 @@ use think\Validate;
 class article extends Validate
 {
     protected $rule = [
-        "title" => 'require|max:32',
+        "title" => 'require|max:64',
         "ftitle" => 'require|max:16',
         "keywords" => 'require|max:64',
         "description" => 'require|max:120',

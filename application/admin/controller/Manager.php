@@ -41,7 +41,7 @@ class Manager extends Base
         if (request()->isGet()) {
             $data = $this->agency->getAll();
             $count = count($data['data']);
-            if ($data['status'] == true) {
+            if ($data['status']) {
                 $this->assign('data', $data['data']);
                 $this->assign('count', $count);
             }
@@ -55,7 +55,7 @@ class Manager extends Base
     public function add()
     {
         if (request()->isGet()) {
-            if ($this->roleList['status'] == true) {
+            if ($this->roleList['status']) {
                 $this->assign('data', $this->roleList['data']);
             }
             return $this->fetch();
@@ -63,7 +63,7 @@ class Manager extends Base
         if (request()->isPOST()) {
             $data = input('post.');
             $result = $this->agency->saveData($data);
-            if ($result['status'] == false) {
+            if (!$result['status']) {
                 return show($result['status'], $result['message']);
             }
             return show($result['status'], $result['message'], $this->url);
@@ -84,7 +84,7 @@ class Manager extends Base
             if ($this->roleList['status'] == true) {
                 $this->assign('roles', $this->roleList['data']);//所有的角色数据
             }
-            if ($result['status'] == true) {
+            if ($result['status']) {
                 $roles = $result['data']['roles'];//这个地方是调用的是result里的data数据中的roles；这个是个硬功夫啦，看不懂去看手册
                 unset($result['roles']);
                 $manager_roles = $this->agency->getRoleslist($roles);//用户已经拥有的权限，把他弄成一个角色ID的数组
@@ -101,7 +101,6 @@ class Manager extends Base
             if ($result['status'] == false) {
                 return show($result['status'], $result['message']);
             }
-            print_r($result['message']);
             return show($result['status'], $result['message'], $this->url);
         }
     }

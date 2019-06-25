@@ -21,12 +21,6 @@ class Category extends Base
 {
     protected $table = "tb_category";
 
-    public function files()
-    {
-        return $this->hasMany('Files', 'c_id');
-    }
-
-
     public function getDateByDefault($page, $listRow)
     {
         $data = (new FilesModel())->getAllData($page, $listRow);
@@ -135,13 +129,6 @@ class Category extends Base
             return false;
         }
     }
-
-    public function getAllData()
-    {
-        $data = $this->getCategory();
-
-    }
-
     /***
      * @param $language_id
      * @return array|false|\think\db\Query[]
@@ -151,7 +138,7 @@ class Category extends Base
         try {
             return self::where(['language_id' => $language_id])->order("parent_id")->all();
         } catch (Exception $exception) {
-            return [];
+            return $exception->getMessage();
         }
     }
 

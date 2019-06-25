@@ -2,6 +2,7 @@
 
 namespace app\home\controller;
 
+use app\common\agency\article;
 
 
 /**
@@ -14,9 +15,15 @@ class Index extends Base
 
     /***
      * @return mixed
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function index()
     {
-        return $this->fetch($this->theme . '/index/index.html');
+        $data = (new article())->getDataByLanguage($this->language['id']);
+        return $this->fetch($this->theme . '/index/index.html', [
+            'data' => $data,
+        ]);
     }
 }

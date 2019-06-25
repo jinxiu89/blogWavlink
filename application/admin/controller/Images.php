@@ -9,7 +9,8 @@
 namespace app\admin\controller;
 
 use app\common\agency\media;
-
+use app\common\helper\Aws;
+header('Access-Control-Allow-Origin:*');
 /***
  * Class Images
  * @package app\admin\controller
@@ -35,6 +36,14 @@ class Images extends Base
             $this->assign('data', $result['data']);
         }
         return $this->fetch();
+    }
+
+    public function listimg()
+    {
+        $result = $this->agency->getAll();
+        return $this->fetch('', [
+            'data' => $result['data']
+        ]);
     }
 
     /***
