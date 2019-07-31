@@ -1,0 +1,58 @@
+{extend name="default/base:index" /}
+{block name="title"}{$seo.title}{/block}
+{block name="style"}
+<link rel="stylesheet" href="__HOME__/css/pages/list.css">
+{/block}
+{block name="seo"}
+<meta name="keywords" content="{$seo.keywords}">
+<meta name="description" content="{$seo.description}">
+{/block}
+{block name="g-path"}
+<div class="g-path">
+    <a class="path-item" href="/">{:lang('home-nav')}</a>/
+    <a class="path-item" href="/{$lang_var}/article/{$seo.id|getCategoryUrlById}/index.html">{$seo.title}</a>
+</div>
+{/block}
+{block name="g-main"}
+<div class="g-main">
+    <div class="content">
+        <ul class="blog-list">
+            {notempty name="data"}
+            {volist name="data" id="vo"}
+            <li class="blog-item">
+                <a class="pic-link"
+                   href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/{$vo.url_title}.html">
+                    <img src="{$fileHost}/{$vo.thumbnail}" alt="">
+                </a>
+                <h2 class="title"><a
+                        href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/{$vo.url_title}.html">{$vo.title}</a>
+                </h2>
+                <div class="des">
+                    {$vo.description}
+                </div>
+                <div class="info">
+                    <span><a href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/index.html">{$vo.category_id|getCategoryNameByID}</a></span>
+                    <span><i class="iconfont icon-ios-shijian"></i>{$vo.create_time|date='m/d/Y'}</span>
+                    <!--<span><i class="iconfont icon-icon_comment"></i>5</span>-->
+                    <span><i class="iconfont icon-yueduliang"></i>2000</span>
+                    <span><a href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/{$vo.url_title}.html">{:lang('Details')} ></a></span>
+                </div>
+            </li>
+            {/volist}
+            {else /}
+            <li class="blog-item">
+                {:lang('No Result')}
+            </li>
+            {/notempty}
+        </ul>
+        <div class="g-nav_page text-center">
+            {notempty name="data"}{$data|raw}{/notempty}
+        </div>
+    </div>
+</div>
+{/block}
+{block name="javascript"}
+<script>
+    $("#" + "{$seo.id|getActive}").addClass('active');
+</script>
+{/block}

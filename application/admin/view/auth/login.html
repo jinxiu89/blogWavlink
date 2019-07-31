@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="__LIB__/html5.js"></script>
+    <script type="text/javascript" src="__LIB__/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="__ADMIN__/h-ui/css/H-ui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="__ADMIN__/h-ui.admin.pro/css/H-ui.login.min.css"/>
+    <link rel="stylesheet" type="text/css" href="__LIB__/Hui-iconfont/1.0.9/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="__ADMIN__/business/css/style.css"/>
+    <!--[if IE 6]>
+    <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script>DD_belatedPNG.fix('*');</script><![endif]-->
+    <title>后台登录</title>
+</head>
+<style>
+
+</style>
+<body>
+<input type="hidden" id="TenantId" name="TenantId" value=""/>
+<!--<div class="header"></div>-->
+<div class="loginWraper">
+    <div class="loginBox">
+        <form id="form-admin-login" class="form form-horizontal" action="index.html" method="post">
+            <div class="row clearfix">
+                <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
+                <div class="form-controls col-xs-7">
+                    <input id="name" name="name" type="text" placeholder="账户" class="input-text size-L">
+                </div>
+            </div>
+            <div class="row clearfix">
+                <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
+                <div class="form-controls col-xs-7">
+                    <input id="password" name="password" type="password" placeholder="密码" class="input-text size-L">
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="form-controls col-xs-7 col-xs-offset-3">
+                    <input id="captcha" name="captcha" class="input-text size-L" type="text"
+                           placeholder="验证码" value="" style="width:100px;">
+                    <img src="{:captcha_src()}" alt="captcha" width="160px" onclick="this.src='{:captcha_src()}'"/><span
+                        style="color: #fff"> 点图刷新</span>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
+                <div class="form-controls col-xs-3">
+                    <span class="select-box" style="background: #fff;">
+                        <select name="language_id" id="language_id" class="select" size="1">
+                            {volist name="language" id="vo"}
+                            <option value="{$vo.id}">{$vo.name}</option>
+                            {/volist}
+                        </select>
+                    </span>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="form-controls col-xs-8 col-xs-offset-3">
+                    <input id="button" name="" type="button" class="btn btn-success radius size-L"
+                           value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+                    <input name="" type="reset" class="btn btn-default radius size-L"
+                           value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="footer">Copyright WINSTARS by WAVLINK WEBSITE team</div>
+
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__LIB__/layer/3.1.1/layer.js"></script>
+<script type="text/javascript" src="__ADMIN__/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="__LIB__/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__LIB__/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__LIB__/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    $("#button").click(function () {
+        var postData = {};
+        data = $("form").serializeArray();
+        $.each(data, function () {
+            postData[this.name] = this.value
+        });
+        $.ajax({
+            url: "login.html",
+            type: "post",
+            data: postData,
+            "success": function (result) {
+                var msgData = JSON.parse(result);
+                if (msgData.status === true) {
+                    layer.msg(msgData.message, {icon: 1, time: 1000}, function () {
+                        window.location.href = msgData.url
+                    })
+                } else {
+                    layer.msg(msgData.message, {icon: 5, time: 2000})
+                }
+            }
+        }, JSON);
+    });
+</script>
+</body>
+</html>

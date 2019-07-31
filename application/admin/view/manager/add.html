@@ -1,0 +1,99 @@
+{extend name="base:base-add" /}
+{block name="title"}
+<title>添加权限组</title>
+{/block}
+{block name="form"}
+<form action="" method="post" class="form form-horizontal" id="form-add">
+    <div class="row clearfix">
+        <label class="form-label col-xs-4 col-sm-2">用户名：</label>
+        <div class="form-controls col-xs-8 col-sm-4">
+            <input type="text" class="input-text" id="name" name="name" value="">
+        </div>
+    </div>
+    <div class="row clearfix">
+        <label class="form-label col-xs-4 col-sm-2">密码：</label>
+        <div class="form-controls col-xs-8 col-sm-4">
+            <input type="text" class="input-text" id="password" name="password" value="">
+        </div>
+    </div>
+    <div class="row clearfix">
+        <label class="form-label col-xs-4 col-sm-2">状态：</label>
+        <div class="form-controls col-xs-8 col-sm-2">
+            <span class="select-box">
+                <select name="status" id="status" class="select" size="1">
+                    <option value="1">正常</option>
+                    <option value="2">禁用</option>
+                </select>
+            </span>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <label class="form-label col-xs-4 col-sm-2">角色：</label>
+        <div class="form-controls col-xs-8 col-sm-10">
+            {notempty name="data"}
+            <dl class="Hui-admin-permission-list">
+                <dt>
+                    <span>
+                        可选角色
+                    </span>
+                </dt>
+                <dd>
+                    <ul>
+                        {volist name="data" id="vo"}
+                        <li>
+                            <input type="checkbox" value="{$vo.id}" name="role_id" id="role_id">
+                            <label>{$vo.name}</label>
+                        </li>
+                        {/volist}
+                    </ul>
+                </dd>
+            </dl>
+            {else /}
+            {/notempty}
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+            <button type="button" class="btn btn-success radius add">
+                <i class="icon-ok"></i> 确定
+            </button>
+        </div>
+    </div>
+</form>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+    $(".add").click(function () {
+        var postData = {};
+        var roles = {};
+        var manager = {};
+        var managerData = $("#form-add").serializeArray();
+        var data = $("input[name='role_id']:checked").serializeArray();
+        $.each(managerData, function () {
+            manager[this.name] = this.value
+        });
+        delete manager['role_id'];
+        $.each(data, function () {
+            roles[this.value] = this.name;
+        });
+        postData['roles'] = roles;
+        postData['manager'] = manager;
+        console.log(postData);
+        $.ajax({
+            url: "/{$backendPrefix}/user/manager/create.html",
+            type: "post",
+            data: postData,
+            "success": function (result) {
+                var msgData = JSON.parse(result);
+                if (msgData.status === true) {
+                    layer.msg(msgData.message, {icon: 1, time: 1000}, function () {
+                        window.parent.location.href = msgData.url
+                    })
+                } else {
+                    layer.msg(msgData.message, {icon: 5, time: 2000})
+                }
+            }
+        }, JSON);
+    });
+</script>
+{/block}
