@@ -84,7 +84,7 @@
                    class="btn btn-primary radius btn-upload"><i class="Hui-iconfont">&#xe642;</i> 浏览文件</a>
             </span>
             <div style="width: 310px;margin: 10px 0;" class="add-img">
-                <img src="{$fileHost}/{$data.thumbnail}" class="img-responsive center-block" />
+                <img src="{$fileHost}{$data.thumbnail}" class="img-responsive center-block" />
                 <input type="hidden" id="thumbnail" name="thumbnail" value="{$data.thumbnail}">
             </div>
         </div>
@@ -125,7 +125,7 @@
             type: 2,
             title: title,
             content: url,
-            area: ['940px', '840px']
+            area: ['800px', '200px']
         });
     }
 

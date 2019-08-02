@@ -24,7 +24,6 @@ class Setting extends Base
     {
         parent::initialize();
         $this->url = '/' . $this->backendPrefix . '/system/setting.html';
-        $this->agency=new agency();
     }
 
     /***
@@ -35,7 +34,7 @@ class Setting extends Base
     {
         $language_id = $this->language['id'];
         if (request()->isGet()) {
-            $data = $this->agency->getDataById($language_id);
+            $data = (new agency())->getDataById($language_id);
             if ($data) {
                 $this->assign('data', $data);
             }
@@ -44,7 +43,7 @@ class Setting extends Base
         if (request()->isPost()) {
             $data = input('post.');
             $data['language_id']=$this->language['id'];
-            $result = $this->agency->saveData($data);
+            $result = (new agency())->saveData($data);
             if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
             } else {

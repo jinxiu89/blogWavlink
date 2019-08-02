@@ -31,6 +31,7 @@ class article extends base
     /***
      * @param $data
      * @return array|false|string
+     * @throws \think\exception\PDOException
      */
     public function saveData($data)
     {

@@ -9,7 +9,7 @@
 namespace app\home\controller;
 
 
-use app\common\agency\category;
+use app\common\agency\category as agency;
 use app\common\agency\article as ArticleAgency;
 
 /***
@@ -29,9 +29,9 @@ class Article extends Base
             if(!isset($category)){
                 return "hello";
             }
-            $categorys = (new category())->getChild($category, $this->language['id']); // 获取SEO信息 以及 他的子分类ID
+            $categorys = (new agency())->getChild($category, $this->language['id']); // 获取SEO信息 以及 他的子分类ID
             $ids = $categorys['ids'];
-            $data = (new category())->getDataByIds($category, $ids, $this->language['id']);//根据分类ID（ID为Int的一个数组）
+            $data = (new agency())->getDataByIds($category, $ids, $this->language['id']);//根据分类ID（ID为Int的一个数组）
             $this->assign('seo', $categorys['category']);
             $this->assign('data', $data);
             return $this->fetch($this->theme . '/article/lists.html');

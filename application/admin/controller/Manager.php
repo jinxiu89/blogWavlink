@@ -9,7 +9,6 @@
 namespace app\admin\controller;
 
 use app\admin\agency\manager as agency;
-use think\Config;
 
 /***
  * Class Manager
@@ -17,8 +16,6 @@ use think\Config;
  */
 class Manager extends Base
 {
-    protected $agency;
-    protected $url;
     protected $roleList;
 
     /***
@@ -27,9 +24,8 @@ class Manager extends Base
     public function initialize()
     {
         parent::initialize();
-        $this->agency = new agency();
         $this->url = '/' . $this->backendPrefix . '/user/manager/list.html';
-        $this->roleList = $this->agency->getRoleList();
+        $this->roleList = (new agency())->getRoleList();
     }
 
 
@@ -39,7 +35,7 @@ class Manager extends Base
     public function index()
     {
         if (request()->isGet()) {
-            $data = $this->agency->getAll();
+            $data = (new agency())->getAll();
             $count = count($data['data']);
             if ($data['status']) {
                 $this->assign('data', $data['data']);
@@ -62,7 +58,7 @@ class Manager extends Base
         }
         if (request()->isPOST()) {
             $data = input('post.');
-            $result = $this->agency->saveData($data);
+            $result = (new agency())->saveData($data);
             if (!$result['status']) {
                 return show($result['status'], $result['message']);
             }
@@ -76,18 +72,19 @@ class Manager extends Base
      * 编辑是整个逻辑里比较复杂的
      * 他首先是解决一个多对多的查询
      * 然后就是该管理员原来拥有哪些权限，你要默认给他勾选上，这个勾选上的逻辑比较复杂
+     * @return false|mixed|string
      */
     public function edit($id)
     {
         if (request()->isGet()) {
-            $result = $manager = $this->agency->getDataById(['id' => $id]);
+            $result = $manager = (new agency())->getDataById(['id' => $id]);
             if ($this->roleList['status'] == true) {
                 $this->assign('roles', $this->roleList['data']);//所有的角色数据
             }
             if ($result['status']) {
                 $roles = $result['data']['roles'];//这个地方是调用的是result里的data数据中的roles；这个是个硬功夫啦，看不懂去看手册
                 unset($result['roles']);
-                $manager_roles = $this->agency->getRoleslist($roles);//用户已经拥有的权限，把他弄成一个角色ID的数组
+                $manager_roles = (new agency())->getRoleslist($roles);//用户已经拥有的权限，把他弄成一个角色ID的数组
                 $this->assign('data', $result['data']);
                 $this->assign('manager_roles', $manager_roles['data']);
             } else {
@@ -97,12 +94,11 @@ class Manager extends Base
         }
         if (request()->isPost()) {
             $data = input('post.');
-            $result = $this->agency->saveData($data);
+            $result = (new agency())->saveData($data);
             if ($result['status'] == false) {
                 return show($result['status'], $result['message']);
             }
             return show($result['status'], $result['message'], $this->url);
         }
     }
-
 }

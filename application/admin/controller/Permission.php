@@ -17,14 +17,10 @@ use think\facade\Config;
  */
 class Permission extends Base
 {
-    protected $url;
-    protected $agency;
-
     public function initialize()
     {
         parent::initialize();
         $this->url = '/' . $this->backendPrefix . "/user/permission/list.html";
-        $this->agency = new agency();
     }
 
     /***
@@ -32,10 +28,10 @@ class Permission extends Base
      */
     public function index()
     {
-        $data=$this->agency->getAll();
+        $data = (new agency())->getAll();
         if ($data['status'] == true) {
             $this->assign('data', $data['data']);
-            $this->assign('count',count($data['data']));
+            $this->assign('count', count($data['data']));
         }
         if ($data['status'] == false) {
             //todo:: 异常处理
@@ -52,7 +48,7 @@ class Permission extends Base
         if (Request()->isPost()) {
             //保存操作
             $data = input('post.');
-            $result = $this->agency->saveData($data);
+            $result = (new agency())->saveData($data);
             if ($result['status'] == true) {
                 return show($result['status'], $result['message'], $this->url);
             } else {
@@ -60,17 +56,19 @@ class Permission extends Base
             }
         }
     }
-    public function edit($id){
-        if(request()->isGet()){
-            $data=$this->agency->getDataById(['id'=>$id]);
-            if($data['status']){
-                $this->assign('data',$data['data']);
+
+    public function edit($id)
+    {
+        if (request()->isGet()) {
+            $data = (new agency())->getDataById(['id' => $id]);
+            if ($data['status']) {
+                $this->assign('data', $data['data']);
             }
             return $this->fetch();
         }
-        if(request()->isPost()){
-            $data=input('post.');
-            $result= $this->agency->saveData($data);
+        if (request()->isPost()) {
+            $data = input('post.');
+            $result = (new agency())->saveData($data);
         }
         if ($result['status']) {
             return show($result['status'], $result['message'], $this->url);

@@ -25,13 +25,12 @@ class About extends Base
     public function initialize()
     {
         parent::initialize();
-        $this->agency = new agency();
         $this->url = '/' . $this->backendPrefix . '/system/about/list.html';
     }
 
     public function index()
     {
-        $result = $this->agency->getAllData($this->language['id']);
+        $result = (new agency())->getAllData($this->language['id']);
         if ($result['status'] == true) {
             $this->assign('data', $result['data']);
         }
@@ -46,7 +45,7 @@ class About extends Base
         if (request()->isPost()) {
             $data = input('post.');
             $data['language_id'] = $this->language['id'];
-            $result = $this->agency->saveData($data);
+            $result = (new agency())->saveData($data);
             if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
             } else {
@@ -58,7 +57,7 @@ class About extends Base
     public function edit($id)
     {
         if (request()->isGet()) {
-            $result = $this->agency->getDataById($id);
+            $result = (new agency())->getDataById($id);
             if($result['status']){
                 if(!empty($result['data'])){
                     $this->assign('data',$result['data']);
@@ -71,7 +70,7 @@ class About extends Base
         if (request()->isPost()) {
             $data = input('post.');
             $data['language_id'] = $this->language['id'];
-            $result = $this->agency->saveData($data);
+            $result = (new agency())->saveData($data);
             if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
             } else {

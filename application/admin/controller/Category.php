@@ -9,7 +9,6 @@
 namespace app\admin\controller;
 
 
-use think\Request;
 use app\admin\agency\category as agency;
 
 
@@ -19,9 +18,6 @@ use app\admin\agency\category as agency;
  */
 class Category extends Base
 {
-    protected $url;
-    protected $agency;
-
     public function initialize()
     {
         parent::initialize();
@@ -31,7 +27,7 @@ class Category extends Base
 
     public function index()
     {
-        $data = $this->agency->getCategory($this->language['id']);
+        $data = (new agency())->getCategory($this->language['id']);
         $count = $data->count();
         return $this->fetch('', [
             'data' => $data,
@@ -49,7 +45,7 @@ class Category extends Base
         if (Request()->isPost()) {
             $data = input('post.');
             $data['language_id'] = $this->language['id'];
-            $result = $this->agency->saveData($data);
+            $result = (new agency())->saveData($data);
             if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
             } else {
@@ -61,7 +57,7 @@ class Category extends Base
     public function edit($id)
     {
         if (Request()->isGet()) {
-            $data = $this->agency->getDataById($id);
+            $data = (new agency())->getDataById($id);
             if ($data) {
                 return $this->fetch('', [
                     'data' => $data,
@@ -73,7 +69,7 @@ class Category extends Base
         }
         if (Request()->isPost()) {
             $data = input('post.');
-            $result = $this->agency->saveData($data);
+            $result = (new agency())->saveData($data);
             if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
             } else {

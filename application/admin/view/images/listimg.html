@@ -12,7 +12,7 @@
         <ul>
             {volist name="data" id="vo"}
             <li style="float: left;margin: 2px;width: 80px;height:80px;" class="thumbnail">
-                <a href="javascript:void(0); " onclick="insert_to('{$vo.aws_key}')" title="插入到"> <img
+                <a href="javascript:void(0); " onclick="insert_to('/{$vo.aws_key}')" title="插入到"> <img
                         src="{$fileHost}/{$vo.aws_key}"
                         class="img-responsive center-block"></a>
             </li>
