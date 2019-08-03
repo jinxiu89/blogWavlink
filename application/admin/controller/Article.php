@@ -45,8 +45,10 @@ class Article extends Base
         }
         if (request()->isPost()) {
             $data = input('post.');
-            $data['markdown_html_code']=$data['markdown-html-code'];
-            $data['refer_html_code']=$data['refer-html-code'];
+            $markdown_html = strip_html_tags(['style', 'script', 'iframe'], $data['markdown-html-code'], true);
+            $refer_html = strip_html_tags(['style', 'script', 'iframe'], $data['refer-html-code'], true);
+            $data['markdown_html_code'] = $markdown_html;
+            $data['refer_html_code'] = $refer_html;
             unset($data['markdown-html-code']);
             unset($data['refer-html-code']);
             $data['user_id'] = $this->user['id'];
@@ -55,7 +57,7 @@ class Article extends Base
             $result = (new articleAgency())->saveData($data);
             if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
-            }else{
+            } else {
                 return show($result['status'], $result['message']);
             }
         }
@@ -73,16 +75,18 @@ class Article extends Base
             $this->assign('data', $result);
             return $this->fetch();
         }
-        if(request()->isPost()){
-            $data=input('post.');
-            $data['markdown_html_code']=$data['markdown-html-code'];
-            $data['refer_html_code']=$data['refer-html-code'];
+        if (request()->isPost()) {
+            $data = input('post.');
+            $markdown_html = strip_html_tags(['style', 'script', 'iframe'], $data['markdown-html-code'], true);
+            $refer_html = strip_html_tags(['style', 'script', 'iframe'], $data['refer-html-code'], true);
+            $data['markdown_html_code'] = $markdown_html;
+            $data['refer_html_code'] = $refer_html;
             unset($data['markdown-html-code']);
             unset($data['refer-html-code']);
             $result = (new articleAgency())->saveData($data);
             if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
-            }else{
+            } else {
                 return show($result['status'], $result['message']);
             }
         }

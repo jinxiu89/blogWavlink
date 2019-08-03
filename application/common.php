@@ -74,7 +74,6 @@ function getCategoryName($id)
 }
 
 
-
 function toJSON($data)
 {
     return json_encode($data);
@@ -105,8 +104,30 @@ function getTypeName($type)
     return Config::get('type.' . $type);
 }
 
-function getActive($id){
-    $cat=(new categoryModel())->getActive($id);
+function getActive($id)
+{
+    $cat = (new categoryModel())->getActive($id);
     return $cat[0]['url_title'];
+}
+
+
+/**
+ * @param $tags
+ * @param $str
+ * @param bool $content
+ * @return string|string[]|null
+ * 20190803 过滤调不安全的标签
+ */
+function strip_html_tags($tags, $str, $content = true)
+{
+    $html = [];
+    foreach ($tags as $tag) {
+        if ($content) {
+            $html[] = '/(<' . $tag . '.*?>(.|\n)*?<\/' . $tag . '>)/is';
+        } else {
+            $html[] = "/(<(?:\/" . $tag . "|" . $tag . ")[^>]*>)/is";
+        }
+    }
+    return preg_replace($html, '', $str);
 }
 
