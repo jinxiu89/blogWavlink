@@ -131,3 +131,12 @@ function strip_html_tags($tags, $str, $content = true)
     return preg_replace($html, '', $str);
 }
 
+function getThumb($content){
+    $pattern="/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/";
+    preg_match_all($pattern,$content,$matches);
+    if($matches[1][0]){
+        return $matches[1][0];
+    }else {
+        return "";//默认的图片
+    }
+}

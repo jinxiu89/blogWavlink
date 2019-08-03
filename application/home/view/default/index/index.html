@@ -18,24 +18,26 @@
         <ul class="blog-list">
             {notempty name="data"}
             {volist name="data" id="vo"}
-            <li class="blog-item">
-                <a class="pic-link"
-                   href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/{$vo.url_title}.html">
-                    <img src="{$fileHost}/{$vo.thumbnail}" alt="">
-                </a>
-                <h2 class="title"><a
-                        href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/{$vo.url_title}.html">{$vo.title}</a>
-                </h2>
-                <div class="des">
-                    {$vo.description}
-                </div>
-                <div class="info">
-                    <span><a href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/index.html">{$vo.category_id|getCategoryNameByID}</a></span>
-                    <span><i class="iconfont icon-ios-shijian"></i>{$vo.create_time|date='m/d/Y'}</span>
-                    <!--<span><i class="iconfont icon-icon_comment"></i>5</span>-->
-                    <span><i class="iconfont icon-yueduliang"></i>2000</span>
-                    <span><a href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/{$vo.url_title}.html">{:lang('Details')} ></a></span>
-                </div>
+            <li class="blog-item" {empty name="vo.thumbnail" }style="padding-left:15px;min-height:auto;" {/empty} >
+            {notempty name="vo.thumbnail"}
+            <a class="pic-link"
+               href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/{$vo.url_title}.html">
+                <img src="{$vo.thumbnail}" alt="{$vo.thumbnail}">
+            </a>
+            {/notempty}
+            <h2 class="title"><a
+                    href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/{$vo.url_title}.html">{$vo.title}</a>
+            </h2>
+            <div class="des">
+                {$vo.description}
+            </div>
+            <div class="info">
+                <span><a href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/index.html">{$vo.category_id|getCategoryNameByID}</a></span>
+                <span><i class="iconfont icon-ios-shijian"></i>{$vo.create_time|date='m/d/Y'}</span>
+                <!--<span><i class="iconfont icon-icon_comment"></i>5</span>-->
+                <span><i class="iconfont icon-yueduliang"></i>2000</span>
+                <span><a href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/{$vo.url_title}.html">{:lang('Details')} ></a></span>
+            </div>
             </li>
             {/volist}
             {else /}

@@ -48,6 +48,7 @@ class Article extends Base
             $markdown_html = strip_html_tags(['style', 'script', 'iframe'], $data['markdown-html-code'], true);
             $refer_html = strip_html_tags(['style', 'script', 'iframe'], $data['refer-html-code'], true);
             $data['markdown_html_code'] = $markdown_html;
+            $data['thumbnail']=getThumb($data['markdown_html_code']);
             $data['refer_html_code'] = $refer_html;
             unset($data['markdown-html-code']);
             unset($data['refer-html-code']);
@@ -80,6 +81,7 @@ class Article extends Base
             $markdown_html = strip_html_tags(['style', 'script', 'iframe'], $data['markdown-html-code'], true);
             $refer_html = strip_html_tags(['style', 'script', 'iframe'], $data['refer-html-code'], true);
             $data['markdown_html_code'] = $markdown_html;
+            $data['thumbnail']=getThumb($data['markdown_html_code']);
             $data['refer_html_code'] = $refer_html;
             unset($data['markdown-html-code']);
             unset($data['refer-html-code']);
