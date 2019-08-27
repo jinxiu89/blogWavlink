@@ -9,6 +9,7 @@
 namespace app\admin\controller;
 
 use app\admin\agency\article as articleAgency;
+use think\App;
 
 /***
  * Class Article
@@ -17,6 +18,12 @@ use app\admin\agency\article as articleAgency;
 class Article extends Base
 {
     protected $url;
+
+    public function __construct(App $app = null)
+    {
+        parent::__construct($app);
+        $this->agency=new articleAgency();
+    }
 
     /***
      * @return false|string|void
@@ -32,7 +39,7 @@ class Article extends Base
      */
     public function index()
     {
-        $result = (new articleAgency())->getAll($this->language['id']);
+        $result = $this->agency->getAll($this->language['id']);
         $this->assign('data', $result);
         return $this->fetch();
     }
@@ -55,7 +62,7 @@ class Article extends Base
             $data['user_id'] = $this->user['id'];
             $data['language_id'] = $this->language['id'];//语言
             $data['url_title'] = md5(uniqid());//随机生成url_title
-            $result = (new articleAgency())->saveData($data);
+            $result = $this->agency->saveData($data);
             if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
             } else {
@@ -71,7 +78,7 @@ class Article extends Base
     public function edit($id)
     {
         if (request()->isGet()) {
-            $result = (new articleAgency())->getDataById($id);
+            $result = $this->agency->getDataById($id);
             $this->assign('to_level', $this->toLevel);
             $this->assign('data', $result);
             return $this->fetch();
@@ -85,7 +92,7 @@ class Article extends Base
             $data['refer_html_code'] = $refer_html;
             unset($data['markdown-html-code']);
             unset($data['refer-html-code']);
-            $result = (new articleAgency())->saveData($data);
+            $result = $this->agency->saveData($data);
             if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
             } else {
