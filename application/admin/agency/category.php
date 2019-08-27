@@ -9,8 +9,6 @@
 namespace app\admin\agency;
 
 
-use think\Config;
-use think\Model;
 use app\common\models\Category as CategoryModel;
 use app\admin\validate\category as CategoryValidate;
 use think\Exception;
@@ -42,7 +40,7 @@ class category extends base
 
     /***
      * @param $data
-     * @return false|string
+     * @return array
      */
     public function saveData($data)
     {
@@ -59,6 +57,7 @@ class category extends base
                 }
             } else {
                 return ['status' => false, 'message' => $this->validate->getError()];
+//                return ['status' => false, 'message' => "hello world! save dai id"];
             }
         }
         if ($this->validate->scene('add')->check($data)) {

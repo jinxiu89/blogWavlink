@@ -10,6 +10,7 @@ namespace app\admin\controller;
 
 
 use app\admin\agency\category as agency;
+use think\App;
 
 
 /**
@@ -18,16 +19,29 @@ use app\admin\agency\category as agency;
  */
 class Category extends Base
 {
+
+    /**
+     * Category constructor.
+     * @param App|null $app
+     *
+     */
+    public function __construct(App $app = null)
+    {
+        parent::__construct($app);
+        $this->agency = new agency();
+    }
+
     public function initialize()
     {
         parent::initialize();
         $this->url = '/' . $this->backendPrefix . '/article/category/list.html';
-        $this->agency = new agency();
+
     }
 
     public function index()
     {
-        $data = (new agency())->getCategory($this->language['id']);
+//        $data = (new agency())->getCategory($this->language['id']);
+        $data = $this->agency->getCategory($this->language['id']);
         $count = $data->count();
         return $this->fetch('', [
             'data' => $data,
@@ -35,6 +49,9 @@ class Category extends Base
         ]);
     }
 
+    /***
+     * @return false|mixed|string
+     */
     public function add()
     {
         if (Request()->isGet()) {
@@ -45,7 +62,7 @@ class Category extends Base
         if (Request()->isPost()) {
             $data = input('post.');
             $data['language_id'] = $this->language['id'];
-            $result = (new agency())->saveData($data);
+            $result = $this->agency->saveData($data);
             if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
             } else {
@@ -57,7 +74,7 @@ class Category extends Base
     public function edit($id)
     {
         if (Request()->isGet()) {
-            $data = (new agency())->getDataById($id);
+            $data = $this->agency->getDataById($id);
             if ($data) {
                 return $this->fetch('', [
                     'data' => $data,
@@ -69,7 +86,7 @@ class Category extends Base
         }
         if (Request()->isPost()) {
             $data = input('post.');
-            $result = (new agency())->saveData($data);
+            $result = $this->agency->saveData($data);
             if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
             } else {

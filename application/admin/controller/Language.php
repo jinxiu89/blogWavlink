@@ -9,6 +9,7 @@
 namespace app\admin\controller;
 
 use app\admin\agency\language as agency;
+use think\App;
 
 /***
  * Class Language
@@ -16,6 +17,12 @@ use app\admin\agency\language as agency;
  */
 class Language extends Base
 {
+    public function __construct(App $app = null)
+    {
+        parent::__construct($app);
+        $this->agency=new agency();
+    }
+
     public function initialize()
     {
         parent::initialize();
@@ -27,7 +34,7 @@ class Language extends Base
      */
     public function index()
     {
-        $result = (new agency())->getAll();
+        $result = $this->agency->getAll();
         if ($result['status'] == true) {
             $this->assign('data', $result['data']);
         }
@@ -44,7 +51,7 @@ class Language extends Base
         }
         if (request()->isPost()) {
             $data = input('post.');
-            $result = (new agency())->saveData($data);
+            $result = $this->agency->saveData($data);
             if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
             } else {
@@ -55,11 +62,12 @@ class Language extends Base
 
     /***
      * @param $id
+     * @return false|mixed|string
      */
     public function edit($id)
     {
         if (request()->isGet()) {
-            $result = (new agency())->getDataById(['id' => $id]);
+            $result = $this->agency->getDataById(['id' => $id]);
             if ($result['status']) {
                 $this->assign('data', $result['data']);
             } else {
@@ -69,7 +77,7 @@ class Language extends Base
         }
         if (request()->isPost()) {
             $data = input('post.');
-            $result = (new agency())->saveData($data);
+            $result = $this->agency->saveData($data);
             if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
             } else {

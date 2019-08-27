@@ -9,7 +9,7 @@
 namespace app\admin\controller;
 
 use app\admin\agency\permission as agency;
-use think\facade\Config;
+use think\App;
 
 /***
  * Class Permission
@@ -17,6 +17,12 @@ use think\facade\Config;
  */
 class Permission extends Base
 {
+    public function __construct(App $app = null)
+    {
+        parent::__construct($app);
+        $this->agency = new agency();
+    }
+
     public function initialize()
     {
         parent::initialize();
@@ -28,7 +34,7 @@ class Permission extends Base
      */
     public function index()
     {
-        $data = (new agency())->getAll();
+        $data = $this->agency->getAll();
         if ($data['status'] == true) {
             $this->assign('data', $data['data']);
             $this->assign('count', count($data['data']));
@@ -48,7 +54,7 @@ class Permission extends Base
         if (Request()->isPost()) {
             //保存操作
             $data = input('post.');
-            $result = (new agency())->saveData($data);
+            $result = $this->agency->saveData($data);
             if ($result['status'] == true) {
                 return show($result['status'], $result['message'], $this->url);
             } else {
@@ -60,7 +66,7 @@ class Permission extends Base
     public function edit($id)
     {
         if (request()->isGet()) {
-            $data = (new agency())->getDataById(['id' => $id]);
+            $data = $this->agency->getDataById(['id' => $id]);
             if ($data['status']) {
                 $this->assign('data', $data['data']);
             }
@@ -68,12 +74,12 @@ class Permission extends Base
         }
         if (request()->isPost()) {
             $data = input('post.');
-            $result = (new agency())->saveData($data);
-        }
-        if ($result['status']) {
-            return show($result['status'], $result['message'], $this->url);
-        } else {
-            return show(false, $result['message']);
+            $result = $this->agency->saveData($data);
+            if ($result['status']) {
+                return show($result['status'], $result['message'], $this->url);
+            } else {
+                return show(false, $result['message']);
+            }
         }
     }
 }

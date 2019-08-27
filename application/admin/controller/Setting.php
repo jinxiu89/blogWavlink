@@ -9,6 +9,7 @@
 namespace app\admin\controller;
 
 use app\admin\agency\setting as agency;
+use think\App;
 
 /***
  * Class setting
@@ -16,6 +17,12 @@ use app\admin\agency\setting as agency;
  */
 class Setting extends Base
 {
+    public function __construct(App $app = null)
+    {
+        parent::__construct($app);
+        $this->agency=new agency();
+    }
+
     /***
      * @return false|string|void
      *
@@ -34,7 +41,7 @@ class Setting extends Base
     {
         $language_id = $this->language['id'];
         if (request()->isGet()) {
-            $data = (new agency())->getDataById($language_id);
+            $data = $this->agency->getDataById($language_id);
             if ($data) {
                 $this->assign('data', $data);
             }
@@ -43,7 +50,7 @@ class Setting extends Base
         if (request()->isPost()) {
             $data = input('post.');
             $data['language_id']=$this->language['id'];
-            $result = (new agency())->saveData($data);
+            $result = $this->agency->saveData($data);
             if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
             } else {

@@ -10,6 +10,7 @@ namespace app\admin\controller;
 
 use app\admin\agency\permissionGroup as permissionGroupAgency;
 use app\admin\agency\role as agency;
+use think\App;
 
 /**
  * Class Role
@@ -18,6 +19,12 @@ use app\admin\agency\role as agency;
 class Role extends Base
 {
     protected $url;
+
+    public function __construct(App $app = null)
+    {
+        parent::__construct($app);
+        $this->agency=new agency();
+    }
 
     /***
      * @return Base|void
@@ -35,7 +42,7 @@ class Role extends Base
      */
     public function index()
     {
-        $data = (new agency())->getAll();
+        $data = $this->agency->getAll();
         if ($data['status'] == true) {
             $this->assign('data', $data['data']);
             $this->assign('count', count($data['data']));
@@ -59,7 +66,7 @@ class Role extends Base
 
         if (request()->isPost()) {
             $data = input('post.');
-            $result = (new agency())->saveData($data);
+            $result = $this->agency->saveData($data);
             if ($result['status'] == false) {
                 return show($result['status'], $result['message']);
             }
@@ -77,7 +84,7 @@ class Role extends Base
     public function edit($id)
     {
         if (request()->isGet()) {
-            $data = (new agency())->getDataById(['id' => $id]);
+            $data = $this->agency->getDataById(['id' => $id]);
             if ($data['status'] == true) {
                 $this->assign('data', $data['data']);
             }
@@ -85,7 +92,7 @@ class Role extends Base
         }
         if (request()->isPost()) {
             $data = input('post.');
-            $result = (new agency())->saveData($data);
+            $result = $this->agency->saveData($data);
             if ($result['status'] == false) {
                 return show($result['status'], $result['message']);
             }
@@ -109,8 +116,8 @@ class Role extends Base
     public function setpermission($id)
     {
         if (request()->isGet()) {
-            $plist = (new agency())->getDataWithPermission($id);//获得角色 并且取出角色所拥有的权限
-            $check = (new agency())->checkID(['id' => $id]);
+            $plist = $this->agency->getDataWithPermission($id);//获得角色 并且取出角色所拥有的权限
+            $check = $this->agency->checkID(['id' => $id]);
             if ($check['status'] = true) {
                 $data = (new permissionGroupAgency())->getDatawithPermission(); // 这个里是获得权限列表数据
                 if ($data['status'] == true) {
@@ -127,10 +134,10 @@ class Role extends Base
             $data = input('post.');
             $id = $data['id'];
             unset($data['id']);
-            $check = (new agency())->checkID(['id' => $id]);
+            $check = $this->agency->checkID(['id' => $id]);
             if ($check['status'] == true) {
-                $plist = (new agency())->getDataWithPermission($id);
-                $result = (new agency())->savePermission($data, $plist['data'], $id);
+                $plist = $this->agency->getDataWithPermission($id);
+                $result = $this->agency->savePermission($data, $plist['data'], $id);
                 if ($result['status'] == false) {
                     return show($result['status'], $result['message']);
                 }

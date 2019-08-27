@@ -9,6 +9,7 @@
 namespace app\admin\controller;
 
 use app\admin\agency\manager as agency;
+use think\App;
 
 /***
  * Class Manager
@@ -18,6 +19,13 @@ class Manager extends Base
 {
     protected $roleList;
 
+    public function __construct(App $app = null)
+    {
+        parent::__construct($app);
+        $this->agency=new agency();
+        $this->roleList = $this->agency->getRoleList();
+    }
+
     /***
      * @return Base|void
      */
@@ -25,7 +33,6 @@ class Manager extends Base
     {
         parent::initialize();
         $this->url = '/' . $this->backendPrefix . '/user/manager/list.html';
-        $this->roleList = (new agency())->getRoleList();
     }
 
 
@@ -35,7 +42,7 @@ class Manager extends Base
     public function index()
     {
         if (request()->isGet()) {
-            $data = (new agency())->getAll();
+            $data = $this->agency->getAll();
             $count = count($data['data']);
             if ($data['status']) {
                 $this->assign('data', $data['data']);
@@ -58,7 +65,7 @@ class Manager extends Base
         }
         if (request()->isPOST()) {
             $data = input('post.');
-            $result = (new agency())->saveData($data);
+            $result = $this->agency->saveData($data);
             if (!$result['status']) {
                 return show($result['status'], $result['message']);
             }
@@ -77,14 +84,14 @@ class Manager extends Base
     public function edit($id)
     {
         if (request()->isGet()) {
-            $result = $manager = (new agency())->getDataById(['id' => $id]);
+            $result = $manager = $this->agency->getDataById(['id' => $id]);
             if ($this->roleList['status'] == true) {
                 $this->assign('roles', $this->roleList['data']);//所有的角色数据
             }
             if ($result['status']) {
                 $roles = $result['data']['roles'];//这个地方是调用的是result里的data数据中的roles；这个是个硬功夫啦，看不懂去看手册
                 unset($result['roles']);
-                $manager_roles = (new agency())->getRoleslist($roles);//用户已经拥有的权限，把他弄成一个角色ID的数组
+                $manager_roles = $this->agency->getRoleslist($roles);//用户已经拥有的权限，把他弄成一个角色ID的数组
                 $this->assign('data', $result['data']);
                 $this->assign('manager_roles', $manager_roles['data']);
             } else {
@@ -94,7 +101,7 @@ class Manager extends Base
         }
         if (request()->isPost()) {
             $data = input('post.');
-            $result = (new agency())->saveData($data);
+            $result = $this->agency->saveData($data);
             if ($result['status'] == false) {
                 return show($result['status'], $result['message']);
             }

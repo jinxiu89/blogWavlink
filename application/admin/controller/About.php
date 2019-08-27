@@ -9,6 +9,7 @@
 namespace app\admin\controller;
 
 use app\admin\agency\about as agency;
+use think\App;
 
 /***
  * 创建日期：20190618
@@ -18,6 +19,12 @@ use app\admin\agency\about as agency;
  */
 class About extends Base
 {
+    public function __construct(App $app = null)
+    {
+        parent::__construct($app);
+        $this->agency=new agency();
+    }
+
     /**
      *
      * @return false|string|void
@@ -30,7 +37,7 @@ class About extends Base
 
     public function index()
     {
-        $result = (new agency())->getAllData($this->language['id']);
+        $result = $this->agency->getAllData($this->language['id']);
         if ($result['status'] == true) {
             $this->assign('data', $result['data']);
         }
@@ -45,7 +52,7 @@ class About extends Base
         if (request()->isPost()) {
             $data = input('post.');
             $data['language_id'] = $this->language['id'];
-            $result = (new agency())->saveData($data);
+            $result = $this->agency->saveData($data);
             if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
             } else {
@@ -57,7 +64,7 @@ class About extends Base
     public function edit($id)
     {
         if (request()->isGet()) {
-            $result = (new agency())->getDataById($id);
+            $result = $this->agency->getDataById($id);
             if($result['status']){
                 if(!empty($result['data'])){
                     $this->assign('data',$result['data']);
@@ -70,7 +77,7 @@ class About extends Base
         if (request()->isPost()) {
             $data = input('post.');
             $data['language_id'] = $this->language['id'];
-            $result = (new agency())->saveData($data);
+            $result = $this->agency->saveData($data);
             if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
             } else {

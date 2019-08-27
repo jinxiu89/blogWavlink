@@ -30,8 +30,7 @@ class category extends Validate
         "url_title.alpha" => 'url标识必须为字母，可以是标准单词组成！'
     ];
     protected $scene = [
-        'edit' => ['id', 'name', 'title', 'url_title'],
+        'edit' => ['id'],
         'add' => ['name', 'title', 'url_title'],
     ];
-
 }

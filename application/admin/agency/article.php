@@ -9,9 +9,10 @@
 namespace app\admin\agency;
 
 
-use think\Model;
+use Exception;
 use app\common\models\Article as articleModel;
 use app\admin\validate\article as articleValidate;
+use think\Db;
 
 /***
  * Class post
@@ -22,6 +23,10 @@ class article extends base
     public function initialize()
     {
         parent::initialize();
+    }
+    public function __construct($data = [])
+    {
+        parent::__construct($data);
         $this->model = new articleModel();
         $this->validate = new articleValidate();
         $this->success = "保存成功！";

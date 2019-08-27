@@ -32,6 +32,7 @@ class Base extends Controller
     protected $language;
     protected $url;
     protected $fileHost;
+    protected $agency;
     /***
      * @var array
      * beforActionList 是用于在运行该控制器时 第一个先运行的几个方法名，很有必要，不然initialize方法会臃肿不堪，home模块也一样这里不赘述
