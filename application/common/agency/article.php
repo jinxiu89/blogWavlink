@@ -23,6 +23,14 @@ use think\facade\Config;
  */
 class article extends Model
 {
+    protected $model;
+
+    public function __construct($data = [])
+    {
+        parent::__construct($data);
+        $this->model = new ArticleModel();
+    }
+
     /***
      * @param $language_id
      * @return array|\PDOStatement|string|\think\Collection
@@ -32,7 +40,7 @@ class article extends Model
      */
     public function getDataByLanguage($language_id)
     {
-        return (new ArticleModel())->getDataByLanguage($language_id);
+        return $this->model->getDataByLanguage($language_id);
     }
 
     /***
@@ -43,13 +51,21 @@ class article extends Model
     {
         if (!Config::get('app.app_debug')) {
             if (!Cache::store('default')->get($url_title)) {
-                Cache::store('default')->set($url_title, (new ArticleModel())->getDataByUrl_title($url_title)->toArray());
+                Cache::store('default')->set($url_title, $this->model->getDataByUrl_title($url_title)->toArray());
             } else {
                 return ['status' => true, 'message' => 'ok', 'data' => Cache::store('default')->get($url_title)];
             }
         }
         return ['status' => true, 'message' => 'ok', 'data' => Cache::store('default')
             ->get($url_title) ? Cache::store('default')
-            ->get($url_title) : (new ArticleModel())->getDataByUrl_title($url_title)->toArray()];
+            ->get($url_title) : $this->model->getDataByUrl_title($url_title)->toArray()];
+    }
+
+    /***
+     * @param $data
+     */
+    public function updateClicks($data)
+    {
+        $this->model->save($data,['id'=>$data['id']]);
     }
 }

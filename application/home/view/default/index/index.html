@@ -35,7 +35,7 @@
                 <span><a href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/index.html">{$vo.category_id|getCategoryNameByID}</a></span>
                 <span><i class="iconfont icon-ios-shijian"></i>{$vo.create_time|date='m/d/Y'}</span>
                 <!--<span><i class="iconfont icon-icon_comment"></i>5</span>-->
-                <span><i class="iconfont icon-yueduliang"></i>2000</span>
+                <span><i class="iconfont icon-yueduliang"></i>{$vo.clicks}</span>
                 <span><a href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/{$vo.url_title}.html">{:lang('Details')} ></a></span>
             </div>
             </li>

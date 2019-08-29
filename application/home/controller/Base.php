@@ -37,6 +37,7 @@ class Base extends Controller
     protected $about;
     protected $lastUpdate;
     protected $fileHost;
+    protected $agency;
     protected $beforeActionList = [
         'setLanguage', 'setting', 'category', 'about', 'lastUpdate', 'PanelData', 'languageList', 'getAllArticle'
     ];
