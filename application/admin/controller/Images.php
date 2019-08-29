@@ -9,7 +9,7 @@
 namespace app\admin\controller;
 
 use app\common\agency\media;
-use app\common\helper\Aws;
+
 header('Access-Control-Allow-Origin:*');
 /***
  * Class Images
@@ -23,7 +23,6 @@ class Images extends Base
     public function initialize()
     {
         parent::initialize();
-        $this->agency = new media();
     }
 
     /***
@@ -31,7 +30,7 @@ class Images extends Base
      */
     public function index()
     {
-        $result = $this->agency->getALL();
+        $result = (new media())->getALL();
         if ($result['status'] == true) {
             $this->assign('data', $result['data']);
         }
@@ -40,7 +39,7 @@ class Images extends Base
 
     public function listimg()
     {
-        $result = $this->agency->getAll();
+        $result = (new media())->getAll();
         return $this->fetch('', [
             'data' => $result['data']
         ]);
@@ -55,8 +54,8 @@ class Images extends Base
             return $this->fetch();
         }
         if (request()->isPost()) {
-            $data = $this->agency->Flipper(input('post.'));
-            $result = $this->agency->saveData($data);
+            $data = (new media())->Flipper(input('post.'));
+            $result = (new media())->saveData($data);
             return show($result['status'], $result['message'], '/wavlink/static/images/list.html');
         }
     }

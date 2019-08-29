@@ -9,6 +9,7 @@
 namespace app\admin\controller;
 
 use app\admin\agency\setting as agency;
+use think\App;
 
 /***
  * Class setting
@@ -16,6 +17,12 @@ use app\admin\agency\setting as agency;
  */
 class Setting extends Base
 {
+    public function __construct(App $app = null)
+    {
+        parent::__construct($app);
+        $this->agency=new agency();
+    }
+
     /***
      * @return false|string|void
      *
@@ -24,7 +31,6 @@ class Setting extends Base
     {
         parent::initialize();
         $this->url = '/' . $this->backendPrefix . '/system/setting.html';
-        $this->agency=new agency();
     }
 
     /***

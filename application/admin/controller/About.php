@@ -9,6 +9,7 @@
 namespace app\admin\controller;
 
 use app\admin\agency\about as agency;
+use think\App;
 
 /***
  * 创建日期：20190618
@@ -18,6 +19,12 @@ use app\admin\agency\about as agency;
  */
 class About extends Base
 {
+    public function __construct(App $app = null)
+    {
+        parent::__construct($app);
+        $this->agency=new agency();
+    }
+
     /**
      *
      * @return false|string|void
@@ -25,7 +32,6 @@ class About extends Base
     public function initialize()
     {
         parent::initialize();
-        $this->agency = new agency();
         $this->url = '/' . $this->backendPrefix . '/system/about/list.html';
     }
 

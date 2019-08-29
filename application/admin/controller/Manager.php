@@ -9,7 +9,7 @@
 namespace app\admin\controller;
 
 use app\admin\agency\manager as agency;
-use think\Config;
+use think\App;
 
 /***
  * Class Manager
@@ -17,9 +17,14 @@ use think\Config;
  */
 class Manager extends Base
 {
-    protected $agency;
-    protected $url;
     protected $roleList;
+
+    public function __construct(App $app = null)
+    {
+        parent::__construct($app);
+        $this->agency=new agency();
+        $this->roleList = $this->agency->getRoleList();
+    }
 
     /***
      * @return Base|void
@@ -27,9 +32,7 @@ class Manager extends Base
     public function initialize()
     {
         parent::initialize();
-        $this->agency = new agency();
         $this->url = '/' . $this->backendPrefix . '/user/manager/list.html';
-        $this->roleList = $this->agency->getRoleList();
     }
 
 
@@ -76,6 +79,7 @@ class Manager extends Base
      * 编辑是整个逻辑里比较复杂的
      * 他首先是解决一个多对多的查询
      * 然后就是该管理员原来拥有哪些权限，你要默认给他勾选上，这个勾选上的逻辑比较复杂
+     * @return false|mixed|string
      */
     public function edit($id)
     {
@@ -104,5 +108,4 @@ class Manager extends Base
             return show($result['status'], $result['message'], $this->url);
         }
     }
-
 }

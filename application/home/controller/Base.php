@@ -10,7 +10,6 @@ namespace app\home\controller;
 
 
 use think\Controller;
-use think\facade\Cache;
 use think\facade\Config;
 use think\facade\Cookie;
 use think\facade\Lang;

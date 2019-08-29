@@ -16,7 +16,6 @@ use app\admin\agency\article as articleAgency;
  */
 class Article extends Base
 {
-    protected $agency;
     protected $url;
 
     /***
@@ -25,7 +24,6 @@ class Article extends Base
     public function initialize()
     {
         parent::initialize();
-        $this->agency = new articleAgency();
         $this->url = '/' . $this->backendPrefix . '/article/list.html';
     }
 
@@ -34,7 +32,7 @@ class Article extends Base
      */
     public function index()
     {
-        $result = $this->agency->getAll($this->language['id']);
+        $result = (new articleAgency())->getAll($this->language['id']);
         $this->assign('data', $result);
         return $this->fetch();
     }
@@ -47,14 +45,20 @@ class Article extends Base
         }
         if (request()->isPost()) {
             $data = input('post.');
+            $markdown_html = strip_html_tags(['style', 'script', 'iframe'], $data['markdown-html-code'], true);
+            $refer_html = strip_html_tags(['style', 'script', 'iframe'], $data['refer-html-code'], true);
+            $data['markdown_html_code'] = $markdown_html;
+            $data['thumbnail']=getThumb($data['markdown_html_code']);
+            $data['refer_html_code'] = $refer_html;
+            unset($data['markdown-html-code']);
+            unset($data['refer-html-code']);
             $data['user_id'] = $this->user['id'];
-//            $data['create_at'] = date('Y-m-d', time());//创建时间
             $data['language_id'] = $this->language['id'];//语言
             $data['url_title'] = md5(uniqid());//随机生成url_title
             $result = (new articleAgency())->saveData($data);
             if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
-            }else{
+            } else {
                 return show($result['status'], $result['message']);
             }
         }
@@ -67,17 +71,24 @@ class Article extends Base
     public function edit($id)
     {
         if (request()->isGet()) {
-            $result = $this->agency->getDataById($id);
+            $result = (new articleAgency())->getDataById($id);
             $this->assign('to_level', $this->toLevel);
             $this->assign('data', $result);
             return $this->fetch();
         }
-        if(request()->isPost()){
-            $data=input('post.');
-            $result = $this->agency->saveData($data);
+        if (request()->isPost()) {
+            $data = input('post.');
+            $markdown_html = strip_html_tags(['style', 'script', 'iframe'], $data['markdown-html-code'], true);
+            $refer_html = strip_html_tags(['style', 'script', 'iframe'], $data['refer-html-code'], true);
+            $data['markdown_html_code'] = $markdown_html;
+            $data['thumbnail']=getThumb($data['markdown_html_code']);
+            $data['refer_html_code'] = $refer_html;
+            unset($data['markdown-html-code']);
+            unset($data['refer-html-code']);
+            $result = (new articleAgency())->saveData($data);
             if ($result['status']) {
                 return show($result['status'], $result['message'], $this->url);
-            }else{
+            } else {
                 return show($result['status'], $result['message']);
             }
         }

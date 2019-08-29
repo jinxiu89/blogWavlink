@@ -10,6 +10,7 @@ namespace app\admin\controller;
 
 use app\admin\agency\permissionGroup as permissionGroupAgency;
 use app\admin\agency\role as agency;
+use think\App;
 
 /**
  * Class Role
@@ -17,11 +18,13 @@ use app\admin\agency\role as agency;
  */
 class Role extends Base
 {
-    protected $agency;
-    protected $permissionAgency;
-    protected $permissionGroupAgency;
     protected $url;
-    protected $plist;
+
+    public function __construct(App $app = null)
+    {
+        parent::__construct($app);
+        $this->agency=new agency();
+    }
 
     /***
      * @return Base|void
@@ -29,8 +32,6 @@ class Role extends Base
     public function initialize()
     {
         parent::initialize();
-        $this->agency = new agency();
-        $this->permissionGroupAgency = new permissionGroupAgency();
         $this->url = '/' . $this->backendPrefix . '/user/permission/role/list.html';
     }
 
@@ -118,7 +119,7 @@ class Role extends Base
             $plist = $this->agency->getDataWithPermission($id);//获得角色 并且取出角色所拥有的权限
             $check = $this->agency->checkID(['id' => $id]);
             if ($check['status'] = true) {
-                $data = $this->permissionGroupAgency->getDatawithPermission(); // 这个里是获得权限列表数据
+                $data = (new permissionGroupAgency())->getDatawithPermission(); // 这个里是获得权限列表数据
                 if ($data['status'] == true) {
                     $this->assign('data', $data['data']);
                     $this->assign('id', $id);

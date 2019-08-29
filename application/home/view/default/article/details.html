@@ -30,20 +30,20 @@
                     <!--<span class="zan"><i class="iconfont icon-zan"></i>200</span>-->
                 </div>
             </div>
-            <div class="des" id="markdown" style="min-height: 1000px">
-                <textarea style="display:none;" name="content">{$data.markdown}</textarea>
+            <div id="markdown" class="des markdown-body editormd-html-preview" style="min-height: 1000px">
+                {$data.markdown_html_code|raw}
             </div>
-            <div class="community">
-                <div class="zan">赞一个 <span class="iconfont icon-zan"></span></div>
-                <div class="share">分享
-                    <span class="iconfont icon-share"></span>
-                    <div class="social">
-                        <a href="#"><span class="iconfont icon-icon-test2"></span></a>
-                        <a href="#"><span class="iconfont icon-icon-test1"></span></a>
-                        <a href="#"><span class="iconfont icon-icon-test"></span></a>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="community">-->
+<!--                <div class="zan">赞一个 <span class="iconfont icon-zan"></span></div>-->
+<!--                <div class="share">分享-->
+<!--                    <span class="iconfont icon-share"></span>-->
+<!--                    <div class="social">-->
+<!--                        <a href="#"><span class="iconfont icon-icon-test2"></span></a>-->
+<!--                        <a href="#"><span class="iconfont icon-icon-test1"></span></a>-->
+<!--                        <a href="#"><span class="iconfont icon-icon-test"></span></a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <!--<div class="label-box">-->
             <!--<span><a href="#">新品发布</a></span>-->
             <!--<span><a href="#">公司动态</a></span>-->
@@ -56,8 +56,8 @@
         <div class="link-box">
             <div class="references">
                 <h4>{:lang('Reference material')}</h4>
-                <div class="des" id="refer">
-                    <textarea style="display:none;" name="refer">{$data.refer}</textarea>
+                <div class="des markdown-body editormd-html-preview" id="refer">
+                    {$data.refer_html_code|raw}
                 </div>
             </div>
         </div>
@@ -87,23 +87,4 @@
 <script src="__LIB__/markdown/lib/flowchart.min.js"></script>
 <script src="__LIB__/markdown/lib/jquery.flowchart.min.js"></script>
 <script src="__LIB__/markdown/editormd.js"></script>
-<script>
-    $(function () {
-        $("#" + "{$data.category_id|getActive}").addClass('active');
-        editormd.markdownToHTML("markdown", {
-            htmlDecode: "style,script,iframe",
-            taskList: true,
-            tex: true,  // 默认不解析
-            flowChart: true,  // 默认不解析
-            sequenceDiagram: true,  // 默认不解析
-        });
-        editormd.markdownToHTML("refer", {
-            htmlDecode: "style,script,iframe",
-            taskList: true,
-            tex: true,  // 默认不解析
-            flowChart: true,  // 默认不解析
-            sequenceDiagram: true,  // 默认不解析
-        });
-    });
-</script>
 {/block}

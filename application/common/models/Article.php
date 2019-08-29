@@ -123,7 +123,6 @@ class Article extends Base
      * @return array|\PDOStatement|string|\think\Collection
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
      */
     public function getDataByLanguage($language_id)
     {
@@ -132,11 +131,11 @@ class Article extends Base
                 if (Cache::store('default')->get('ArticleData_' . $language_id)) {//如果拿到缓存的话就直接返回缓存
                     return Cache::store('default')->get('ArticleData_' . $language_id);
                 } else {//没有就设置缓存
-                    Cache::store('default')->set('ArticleData_' . $language_id, self::where(['language_id' => $language_id])->field('id,category_id,language_id,create_time,thumbnail,title,ftitle,url_title,description')->paginate());
+                    Cache::store('default')->set('ArticleData_' . $language_id, self::where(['language_id' => $language_id])->field('id,category_id,language_id,create_time,thumbnail,title,ftitle,url_title,description')->order('create_time desc,id asc')->paginate());
                 }
             }
             // 如果能拿到缓存的话就返回缓存 没有就 查库 返回
-            return Cache::store('default')->get('ArticleData_' . $language_id) ? Cache::store('file')->get('ArticleData_' . $language_id) : self::where(['language_id' => $language_id])->field('id,category_id,language_id,title,create_time,thumbnail,ftitle,url_title,description')->paginate();
+            return Cache::store('default')->get('ArticleData_' . $language_id) ? Cache::store('file')->get('ArticleData_' . $language_id) : self::where(['language_id' => $language_id])->field('id,category_id,language_id,title,create_time,thumbnail,ftitle,url_title,description')->order('create_time desc,id asc')->paginate();
         } catch (Exception $exception) {
             return $exception->getMessage();
         }

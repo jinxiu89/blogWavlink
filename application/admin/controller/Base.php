@@ -9,11 +9,10 @@
 namespace app\admin\controller;
 
 
-use app\common\helper\Category as CategoryHelper;
-use app\common\models\Category as CategoryModel;
-use app\common\models\Language;
-use app\common\agency\auth as authAgency;
 use app\admin\agency\category as CategoryAgency;
+use app\common\agency\auth as authAgency;
+use app\common\helper\Category as CategoryHelper;
+use app\common\models\Language;
 use think\Controller;
 use think\facade\Config;
 use think\facade\Request;
@@ -30,11 +29,10 @@ class Base extends Controller
     protected $user;
     protected $websiteName; //所有的页面的后缀；
     protected $auth;//认证类
-    protected $agenc;
     protected $language;
-    protected $agency;
     protected $url;
     protected $fileHost;
+    protected $agency;
     /***
      * @var array
      * beforActionList 是用于在运行该控制器时 第一个先运行的几个方法名，很有必要，不然initialize方法会臃肿不堪，home模块也一样这里不赘述
@@ -50,7 +48,6 @@ class Base extends Controller
         $this->language = Session::get('language', 'admin');//在用户登录时选择的语言会被存储在language中，后台所有的操作都将携带该属性
         $this->backendPrefix = Config::get('app.backend_prefix');
         $this->assign('language', $this->language);
-        $this->agenc = new authAgency();
     }
 
     protected function CategoryTree()
@@ -84,7 +81,7 @@ class Base extends Controller
         $notCheck = Config::get('app.not_check');
         //todo:: 免校验的Handler还没处理
         $uid = $session['id'];
-        $check = $this->agenc->checkPermission($handler, $notCheck, $uid);
+        $check = (new authAgency())->checkPermission($handler, $notCheck, $uid);
         if ($check['status'] == false) {//假，没权限
             $this->assign('access', $check['data']);
             return show(0, $check['message']);

@@ -9,6 +9,7 @@
 namespace app\admin\controller;
 
 use app\admin\agency\language as agency;
+use think\App;
 
 /***
  * Class Language
@@ -16,13 +17,15 @@ use app\admin\agency\language as agency;
  */
 class Language extends Base
 {
-    protected $agency;
-    protected $url;
+    public function __construct(App $app = null)
+    {
+        parent::__construct($app);
+        $this->agency=new agency();
+    }
 
     public function initialize()
     {
         parent::initialize();
-        $this->agency = new agency();
         $this->url = '/' . $this->backendPrefix . '/system/language/list.html';
     }
 
@@ -59,6 +62,7 @@ class Language extends Base
 
     /***
      * @param $id
+     * @return false|mixed|string
      */
     public function edit($id)
     {

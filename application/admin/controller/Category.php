@@ -9,8 +9,8 @@
 namespace app\admin\controller;
 
 
-use think\Request;
 use app\admin\agency\category as agency;
+use think\App;
 
 
 /**
@@ -19,18 +19,28 @@ use app\admin\agency\category as agency;
  */
 class Category extends Base
 {
-    protected $url;
-    protected $agency;
+
+    /**
+     * Category constructor.
+     * @param App|null $app
+     *
+     */
+    public function __construct(App $app = null)
+    {
+        parent::__construct($app);
+        $this->agency = new agency();
+    }
 
     public function initialize()
     {
         parent::initialize();
         $this->url = '/' . $this->backendPrefix . '/article/category/list.html';
-        $this->agency = new agency();
+
     }
 
     public function index()
     {
+//        $data = (new agency())->getCategory($this->language['id']);
         $data = $this->agency->getCategory($this->language['id']);
         $count = $data->count();
         return $this->fetch('', [
@@ -39,6 +49,9 @@ class Category extends Base
         ]);
     }
 
+    /***
+     * @return false|mixed|string
+     */
     public function add()
     {
         if (Request()->isGet()) {
