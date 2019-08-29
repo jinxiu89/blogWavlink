@@ -45,7 +45,6 @@ Route::group(Config::get('app.backend_prefix'), function () {
     //TODO::
     Route::get('/user/edit/:id', '')->pattern(['id' => '\d+']);
     Route::post('/user/edit/:id', '')->pattern(['id' => '\d+']);
-
     Route::get('/login', 'Auth/login');
     Route::post('/login', 'Auth/login');
     Route::get('/logout', 'Auth/logout');
@@ -126,6 +125,6 @@ Route::group(Config::get('app.backend_prefix'), function () {
 /***
  * 公共部分的路由设置
  */
-//Route::get('/wavlink', 'admin/Index/index');
 Route::get('/wavlink/', 'admin/Index/index');
 Route::get('/wavlink/language/:code', 'admin/Base/ChangeLanguage')->pattern(['code' => '[\w-]+']);
+//Route::get('/wavlink', 'admin/Index/index');

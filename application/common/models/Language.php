@@ -48,11 +48,11 @@ class Language extends Base
                 if(Cache::get('languageList')){
                     return Cache::get('languageList');
                 }else {
-                    $data = self::order('id asc')->all()->toArray();
+                    $data = self::order('id asc')->where(['status' => 1])->all()->toArray();
                     Cache::set('languageList', $data);
                 }
             }
-            return Cache::get('languageList') ? Cache::get('languageList') : self::order('id asc')->all()->toArray();
+            return Cache::get('languageList') ? Cache::get('languageList') : self::order('id asc')->where(['status' => 1])->all()->toArray();
         } catch (Exception $exception) {
             return '';
         }

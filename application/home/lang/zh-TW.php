@@ -8,4 +8,5 @@
 return [
     'home'=>'家目錄',
     'language'=>'語言',
+    'All'=>'顯示所有',
 ];

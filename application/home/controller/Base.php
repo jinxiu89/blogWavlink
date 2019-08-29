@@ -37,6 +37,7 @@ class Base extends Controller
     protected $CatalogTree;
     protected $about;
     protected $lastUpdate;
+    protected $fileHost;
     protected $beforeActionList = [
         'setLanguage', 'setting', 'category', 'about', 'lastUpdate', 'PanelData', 'languageList', 'getAllArticle'
     ];
@@ -44,7 +45,7 @@ class Base extends Controller
     public function initialize()
     {
         /***
-         * 20190619
+         * 20190619 'setLanguage',
          * 定义成员变量 theme  language  module  三个 容器
          * module 只当前的模块,即home模块
          * 他用来定义主题的初始目录 以及 语言加载的目录
@@ -67,15 +68,14 @@ class Base extends Controller
      */
     protected function setLanguage()
     {
-        /***
-         * 拿到系统支持的语言，如果不支持，将会默认en-us
-         * 缓存已设置为假时设置，为ture时  不缓存
-         */
-        $this->language = Cookie::get('lang_var') ? (new Language())->getLanguageByCode(Cookie::get('lang_var')) : (new Language())->getLanguageByCode(autoGetLang(Request::header()));
-        /***
-         * 记住用户选择的语言
-         */
+
+        $lang_var = Cookie::get('lang_var') ? Cookie::get('lang_var') : autoGetLang(Request::header());
+        if (empty($this->language)) {
+            $this->language = (new Language())->getLanguageByCode($lang_var);
+        }
         Lang::load(APP_PATH . $this->module . '/lang/' . $this->language['code'] . ".php");
+        $this->assign('lang_var', $lang_var);
+
     }
 
     /***
@@ -89,8 +89,10 @@ class Base extends Controller
          * 拿到系统的设置项目，所有的项目都附带language_id参数
          *
          */
+        $this->fileHost = Config::get('app.fileHost');
         $this->setting = (new Setting())->getDataById($this->language['id']);
         $this->assign('setting', $this->setting);
+        $this->assign('fileHost', $this->fileHost);
     }
 
     /***

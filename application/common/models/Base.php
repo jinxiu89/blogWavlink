@@ -19,6 +19,7 @@ use think\facade\Config;
 class Base extends Model
 {
     protected $debug = false;
+    protected $autoWriteTimestamp = true; //把时间设置成当前时间
 
     public function initialize()
     {

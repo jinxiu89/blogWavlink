@@ -29,4 +29,8 @@ return [
     'Subscribe'=>'订阅',
     'input your Email'=>'输入你的邮箱',
     'submit'=>'提交',
+    'All'=>'显示所有',
+    'Reference material'=>'参考资料',
+    'Related articles'=>'相关文章',
+    'No Result'=>'Sorry,此分类下还没有数据'
 ];

@@ -9,7 +9,6 @@
 namespace app\home\controller;
 
 
-use app\common\models\Language;
 use think\Controller;
 use think\facade\Cookie;
 use think\facade\Request;
@@ -20,36 +19,26 @@ use think\facade\Request;
  */
 class AutoLoad extends Controller
 {
-    protected $language;
-
-    /***
-     *
-     */
-    public function initialize()
-    {
-        parent::initialize();
-    }
-
     /***
      *
      * @return \think\response\Redirect
+     * 自动跳转 只获取到code 取值有两个地方  1、cookie 里的lang_var 2、 通过header 获取到 到浏览器的首要语言
+     * 不对this->language 赋值
      */
     public function autoload()
     {
-        $this->language = Cookie::get('lang_var') ?
-            (new Language())->getLanguageByCode(Cookie::get('lang_var')) :
-            (new Language())->getLanguageByCode(autoGetLang(Request::header()));
-        return redirect('/' . $this->language['code'] . '/index.html', [], 200);
+        $code = Cookie::get('lang_var') ? Cookie::get('lang_var') : autoGetLang(Request::header());
+        return redirect('/' . $code . '/main.html', [], 200);
     }
 
     /***
      * @param $code
      * @return \think\response\Redirect
+     * 这里跳转只设置lang_var值 然后跳转到 main函数
      */
     public function setLanguage($code)
     {
-        $this->language = (new Language())->getLanguageByCode($code);
-        Cookie::set('lang_var', $this->language['code']);
-        return redirect('/' . $this->language['code'] . '/index.html', [], 200);
+        Cookie::set('lang_var', $code);
+        return redirect('/' . $code . '/main.html', [], 200);
     }
 }

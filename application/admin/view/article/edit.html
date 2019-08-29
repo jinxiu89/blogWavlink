@@ -83,9 +83,9 @@
                 <a href="javascript:void(0);" onclick="add('插入图片','/{$backendPrefix}/static/image/list.html')"
                    class="btn btn-primary radius btn-upload"><i class="Hui-iconfont">&#xe642;</i> 浏览文件</a>
             </span>
-            <div style="height: 310px;margin: 10px 0;" class="add-img">
-                <img src="//files.iqs.link/{$data.thumbnail}" class="img-responsive center-block"/>
-                <input type="hidden" id="thumbnail" name="thumbnail" value="">
+            <div style="width: 310px;margin: 10px 0;" class="add-img">
+                <img src="{$fileHost}/{$data.thumbnail}" class="img-responsive center-block" />
+                <input type="hidden" id="thumbnail" name="thumbnail" value="{$data.thumbnail}">
             </div>
         </div>
     </div>

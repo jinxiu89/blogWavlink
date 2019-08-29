@@ -11,6 +11,7 @@ namespace app\admin\controller;
 use app\common\helper\Aws as AwsHelper;
 use think\Controller;
 use app\common\models\Media;
+use think\facade\Config;
 
 header('Access-Control-Allow-Origin:*');
 header('multipart/form-data');
@@ -55,7 +56,7 @@ class Aws extends Controller
                 $data = array(
                     "success" => 1,
                     'message' => 'success',
-                    "url" => "//files.iqs.link/" . $result
+                    "url" => Config::get('app.fileHost') . '/' . $result
                 );
                 echo json_encode($data);
             } else {

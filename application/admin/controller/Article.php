@@ -48,7 +48,7 @@ class Article extends Base
         if (request()->isPost()) {
             $data = input('post.');
             $data['user_id'] = $this->user['id'];
-            $data['create_at'] = date('Y-m-d', time());//创建时间
+//            $data['create_at'] = date('Y-m-d', time());//创建时间
             $data['language_id'] = $this->language['id'];//语言
             $data['url_title'] = md5(uniqid());//随机生成url_title
             $result = (new articleAgency())->saveData($data);

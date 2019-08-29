@@ -31,5 +31,9 @@ return [
     'input your Email'=>'input your Email',
     'submit'=>'SUBMIT',
 
+    'All'=>'All',
+    'Reference material'=>'Reference material',
+    'Related articles'=>'Related articles',
+    'No Result'=>'Sorry, data is not available yet under this category.'
 
 ];

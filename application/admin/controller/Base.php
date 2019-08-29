@@ -34,6 +34,7 @@ class Base extends Controller
     protected $language;
     protected $agency;
     protected $url;
+    protected $fileHost;
     /***
      * @var array
      * beforActionList 是用于在运行该控制器时 第一个先运行的几个方法名，很有必要，不然initialize方法会臃肿不堪，home模块也一样这里不赘述
@@ -99,8 +100,10 @@ class Base extends Controller
     {
         $this->backendPrefix = Config::get('app.backend_prefix');
         $this->websiteName = Config::get('app.website_name');
+        $this->fileHost = Config::get('app.fileHost');
         $this->assign('backendPrefix', $this->backendPrefix);
         $this->assign('app_name', $this->websiteName);
+        $this->assign('fileHost', $this->fileHost);
     }
 
     protected function languageList()

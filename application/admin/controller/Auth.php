@@ -13,21 +13,26 @@ use app\common\models\Manager;
 use think\Request;
 use think\facade\Session;
 use app\admin\agency\language;
+
 class Auth extends Controller
 {
     protected $next;
 
-        public function login()
+    public function login()
     {
+        if (Session::has('adminUser', 'admin')) {
+            $this->redirect('/wavlink/index.html');
+        }
+
         if (input('next')) {
             $this->next = input('next');
         } else {
             $this->next = '/wavlink/index.html';
         }
         if (Request()->isGet()) {
-            $result=(new language())->getAll();//获取语言的数据列表
-            if($result['status']== true){
-                $this->assign('language',$result['data']);
+            $result = (new language())->getAll();//获取语言的数据列表
+            if ($result['status'] == true) {
+                $this->assign('language', $result['data']);
             }
             return $this->fetch();
         }
@@ -45,8 +50,8 @@ class Auth extends Controller
     public function logout()
     {
         if (Request()->isGet()) {
-            Session::delete('adminUser','admin');
-            Session::delete('language','admin');
+            Session::delete('adminUser', 'admin');
+            Session::delete('language', 'admin');
             $this->redirect('/wavlink/login.html');
         }
     }

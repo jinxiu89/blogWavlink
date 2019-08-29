@@ -1,6 +1,8 @@
 <?php
+
 namespace app\common\helper;
-class Category {
+class Category
+{
 
     /**
      * 建立一个空数组
@@ -14,7 +16,8 @@ class Category {
      * @param int $level 第四个参数默认等级
      * @return array
      */
-    static public function toLevel($cate, $delimiter = "━", $parent_id = 0, $level = 0) {
+    static public function toLevel($cate, $delimiter = "━", $parent_id = 0, $level = 0)
+    {
         $arr = array();
         foreach ($cate as $v) {
             if ($v['parent_id'] == $parent_id) {
@@ -26,7 +29,7 @@ class Category {
         }
         return $arr;
     }
-    
+
     /**
      * 组成多维数组
      * @param $cate
@@ -34,7 +37,8 @@ class Category {
      * @param int $parent_id
      * @return array
      */
-    static public function toLayer($cate, $name = 'title', $parent_id = 0){
+    static public function toLayer($cate, $name = 'title', $parent_id = 0)
+    {
         $arr = array();
         foreach ($cate as $v) {
             if ($v['parent_id'] == $parent_id) {
@@ -47,7 +51,8 @@ class Category {
 
 
     //一维数组(同模型)(model = tablename相同)，删除其他模型的分类
-    static public function getLevelOfModel($cate, $tablename = 'article') {
+    static public function getLevelOfModel($cate, $tablename = 'article')
+    {
 
         $arr = array();
         foreach ($cate as $v) {
@@ -67,7 +72,8 @@ class Category {
      * @param int $modelid
      * @return array
      */
-    static public function getLevelOfModelId($cate, $modelid = 0) {
+    static public function getLevelOfModelId($cate, $modelid = 0)
+    {
 
         $arr = array();
         foreach ($cate as $v) {
@@ -87,7 +93,8 @@ class Category {
      * @param $id
      * @return array
      */
-    static public function getParents($cate, $id) {
+    static public function getParents($cate, $id)
+    {
         $arr = array();
         foreach ($cate as $v) {
             if ($v['id'] == $id) {
@@ -98,8 +105,30 @@ class Category {
         return $arr;
     }
 
+    /***
+     * 传递一个子分类，把他的一级分类返回去
+     *
+     * @param $cate
+     * @param $id
+     */
+    static public function getParent($cate, $id)
+    {
+        $arr = [];
+        foreach ($cate as $v) {
+            if ($v['id'] == $id) {
+                if ($v['parent_id'] == 0) {
+                    $arr[] = $v;
+                }
+                $arr = array_merge(self::getParent($cate, $v['parent_id']), $arr);
+            }
+
+        }
+        return $arr;
+    }
+
     //传递一个子分类ID返回他的同级分类
-    static public function getSameCate($cate, $id) {
+    static public function getSameCate($cate, $id)
+    {
         $arr = array();
         $self = self::getSelf($cate, $id);
         if (empty($self)) {
@@ -115,9 +144,9 @@ class Category {
     }
 
 
-
     //判断分类是否有子分类,返回false,true
-    static public function hasChild($cate, $id) {
+    static public function hasChild($cate, $id)
+    {
         $arr = false;
         foreach ($cate as $v) {
             if ($v['parent_id'] == $id) {
@@ -128,13 +157,15 @@ class Category {
         return $arr;
     }
     //传递一个父级分类ID返回所有子分类ID
+
     /**
      * @param $cate 全部分类数组
      * @param $pid 父级ID
      * @param 是否包括父级自己的ID|int $flag 是否包括父级自己的ID，默认不包括
      * @return array
      */
-    static public function getChildsId($cate, $pid, $flag = 0) {
+    static public function getChildsId($cate, $pid, $flag = 0)
+    {
         $arr = array();
         if ($flag) {
             $arr[] = $pid;
@@ -142,23 +173,26 @@ class Category {
         foreach ($cate as $v) {
             if ($v['parent_id'] == $pid) {
                 $arr[] = $v['id'];
-                $arr = array_merge($arr , self::getChildsId($cate, $v['id']));
+                $arr = array_merge($arr, self::getChildsId($cate, $v['id']));
             }
         }
         return $arr;
     }
-    static public function getChildsByPid($cate,$pid){
-        $arr=[];
+
+    static public function getChildsByPid($cate, $pid)
+    {
+        $arr = [];
         foreach ($cate as $item) {
-            if($item['parent_id'] == $pid){
-                $arr[]=$item;
+            if ($item['parent_id'] == $pid) {
+                $arr[] = $item;
             }
         }
         return $arr;
     }
 
     //传递一个父级分类ID返回所有子级分类
-    static public function getChilds($cate, $pid) {
+    static public function getChilds($cate, $pid)
+    {
         $arr = array();
         foreach ($cate as $v) {
             if ($v['parent_id'] == $pid) {
@@ -170,7 +204,8 @@ class Category {
     }
 
     //传递一个分类ID返回该分类相当信息
-    static public function getSelf($cate, $id) {
+    static public function getSelf($cate, $id)
+    {
         $arr = array();
         foreach ($cate as $v) {
             if ($v['id'] == $id) {
@@ -182,7 +217,8 @@ class Category {
     }
 
     //传递一个分类ID返回该分类相当信息
-    static public function getSelfByEName($cate, $ename) {
+    static public function getSelfByEName($cate, $ename)
+    {
         $arr = array();
         foreach ($cate as $v) {
             if ($v['ename'] == $ename) {

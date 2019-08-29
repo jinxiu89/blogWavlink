@@ -32,7 +32,7 @@
             <ul>
                 {notempty name="lastUpdate"}
                 {volist name="lastUpdate" id="vo"}
-                <li><a href="{$vo.url_title}" title="{$vo.title}">{$vo.title}</a></li>
+                <li><a href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/{$vo.url_title}.html" title="{$vo.title}">{$vo.title}</a></li>
                 {/volist}
                 {/notempty}
             </ul>

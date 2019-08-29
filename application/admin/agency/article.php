@@ -40,6 +40,7 @@ class article extends base
                     return $this->model->allowField(true)->save($data, ['id' => $data['id']]) ?
                         ['status' => true, 'message' => $this->success] : ['status' => false, 'message' => $this->failed];
                 } catch (Exception $exception) {
+                    $this->rollback();
                     return ['status' => false, 'message' => $exception->getMessage()];
                 }
             } else {
@@ -51,6 +52,7 @@ class article extends base
                 return $this->model->allowField(true)->save($data) ?
                     ['status' => true, 'message' => $this->success] : ['status' => false, 'message' => $this->failed];
             } catch (Exception $exception) {
+                $this->rollback();
                 return ['status' => false, 'message' => $exception->getMessage()];
             }
 

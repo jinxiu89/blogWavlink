@@ -50,6 +50,12 @@ function getCategoryNameByID($id)
     return $category['name'];
 }
 
+function getCategoryUrlById($id)
+{
+    $category = (new categoryModel())->getCategoryName($id);
+    return $category['url_title'];
+}
+
 function getCategoryName($id)
 {
     $category = (new categoryModel())->getCategoryName($id);
@@ -67,13 +73,7 @@ function getCategoryName($id)
     }
 }
 
-function getProductName($id)
-{
-    $product = (new FilesModel())->getDataById($id);
-    if ($product) {
-        return $product['title'];
-    }
-}
+
 
 function toJSON($data)
 {
@@ -105,19 +105,8 @@ function getTypeName($type)
     return Config::get('type.' . $type);
 }
 
-/***
- * @param $id
- * 20190622
- * 使用的地方是在后台，图片管理
- */
-function UsedIn($id)
-{
-    $data = (new Media())->getDataById($id);
-    $article = $data['article'];
-    $title = '';
-    foreach ($article as $item) {
-        $title .= ' '.$item['title'];
-    }
-    return $title;
+function getActive($id){
+    $cat=(new categoryModel())->getActive($id);
+    return $cat[0]['url_title'];
 }
 

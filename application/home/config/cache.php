@@ -18,7 +18,7 @@ return [
     'default' => [
         'type' => 'Redis',
         'prefix' => 'home_',
-        'expire'=>60,
+        'expire'=>3600,
         'host' => '127.0.0.1',
         'port' => 6379,
         'password' => 'Wavlink@163',
@@ -27,6 +27,6 @@ return [
         'type'=>'file',
         'path'=>'../runtime/cache/',
         'prefix'=>'home_',
-        'expire'=>60,
+        'expire'=>3600,
     ],
 ];

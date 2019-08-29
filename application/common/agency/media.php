@@ -48,10 +48,11 @@ class media extends Model
     public function saveData($data)
     {
         try {
-            if ((new MediaModel())->saveData($data)) {
-                return ['status' => true, 'message' => "保存成功！"];
+            $result=(new MediaModel())->saveData($data);
+            if ($result['status']) {
+                return ['status' => $result['status'], 'message' => $result['message']];
             } else {
-                return ['status' => false, 'message' => '保存失败！'];
+                return ['status' => $result['status'], 'message' => $result['message']];
             }
         } catch (Exception $exception) {
             return ['status' => false, 'message' => $exception->getMessage()];
