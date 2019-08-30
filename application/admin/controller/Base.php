@@ -17,7 +17,6 @@ use think\Controller;
 use think\facade\Config;
 use think\facade\Request;
 use think\facade\Session;
-use think\response\Redirect;
 
 /**
  * Class Base
@@ -112,7 +111,7 @@ class Base extends Controller
 
     /***
      * @param $code
-     * @return Redirect
+     * @return \think\response\Redirect
      * 后台前台可以设置自己管理的内容个的语言
      *
      */

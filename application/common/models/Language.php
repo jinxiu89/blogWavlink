@@ -23,7 +23,10 @@ class Language extends Base
 
     /***
      * @param $code
-     * @return array|string
+     * @return bool
+     * 20190618
+     * 我创建了神奇的语言判断功能
+     * 当然是后面更新的语句，如果debug为false时 设置缓存
      */
     public function getLanguageByCode($code)
     {

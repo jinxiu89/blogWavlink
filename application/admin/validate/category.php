@@ -33,4 +33,5 @@ class category extends Validate
         'edit' => ['id'],
         'add' => ['name', 'title', 'url_title'],
     ];
+
 }

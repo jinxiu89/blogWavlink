@@ -15,6 +15,7 @@ use app\common\agency\PermissionGroup as PermissionGroupAgency;
 use app\common\models\Files as FilesModel;
 use think\facade\Config;
 use app\common\models\Media;
+use think\facade\Cookie;
 
 /***
  * 返回错误信息
@@ -131,12 +132,26 @@ function strip_html_tags($tags, $str, $content = true)
     return preg_replace($html, '', $str);
 }
 
-function getThumb($content){
-    $pattern="/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/";
-    preg_match_all($pattern,$content,$matches);
-    if($matches[1][0]){
+function getThumb($content)
+{
+    $pattern = "/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/";
+    preg_match_all($pattern, $content, $matches);
+    if ($matches[1][0]) {
         return $matches[1][0];
-    }else {
+    } else {
         return "";//默认的图片
     }
+}
+
+/***
+ * 防止刷新扰乱数据库的计数器
+ */
+function counter($prefix, $ip, $expire)
+{
+    $ip = md5($ip);
+    if (Cookie::has('ip', $prefix)) {//没有 就设置一个
+        Cookie::set('ip', $ip, ['prefix' => $prefix, 'expire' => $expire]);
+        return Cookie::get('ip',$prefix);
+    }
+    return false;
 }

@@ -22,9 +22,8 @@
         <div class="blog-detail">
             <div class="title">
                 <h2>{$data.title}</h2>
-                <h3>{$data.ftitle}</h3>
+                {notempty name="$data.ftitle"}<h3>{$data.ftitle}</h3>{/notempty}
                 <div class="icon-box">
-                    <!--<span><i class="iconfont icon-user"></i>wavlink</span>-->
                     <span><i class="iconfont icon-ios-shijian"></i>{$data.create_time|date='m/d/Y'}</span>
                     <span><i class="iconfont icon-yueduliang"></i>{$data.clicks}</span>
                     <!--<span class="zan"><i class="iconfont icon-zan"></i>200</span>-->
@@ -33,17 +32,17 @@
             <div id="markdown" class="des markdown-body editormd-html-preview" style="min-height: 1000px">
                 {$data.markdown_html_code|raw}
             </div>
-<!--            <div class="community">-->
-<!--                <div class="zan">赞一个 <span class="iconfont icon-zan"></span></div>-->
-<!--                <div class="share">分享-->
-<!--                    <span class="iconfont icon-share"></span>-->
-<!--                    <div class="social">-->
-<!--                        <a href="#"><span class="iconfont icon-icon-test2"></span></a>-->
-<!--                        <a href="#"><span class="iconfont icon-icon-test1"></span></a>-->
-<!--                        <a href="#"><span class="iconfont icon-icon-test"></span></a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+            <!--            <div class="community">-->
+            <!--                <div class="zan">赞一个 <span class="iconfont icon-zan"></span></div>-->
+            <!--                <div class="share">分享-->
+            <!--                    <span class="iconfont icon-share"></span>-->
+            <!--                    <div class="social">-->
+            <!--                        <a href="#"><span class="iconfont icon-icon-test2"></span></a>-->
+            <!--                        <a href="#"><span class="iconfont icon-icon-test1"></span></a>-->
+            <!--                        <a href="#"><span class="iconfont icon-icon-test"></span></a>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
             <!--<div class="label-box">-->
             <!--<span><a href="#">新品发布</a></span>-->
             <!--<span><a href="#">公司动态</a></span>-->

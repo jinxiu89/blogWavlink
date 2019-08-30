@@ -11,6 +11,9 @@ namespace app\home\controller;
 
 use app\common\agency\category as agency;
 use app\common\agency\article as ArticleAgency;
+use think\App;
+use think\facade\Cookie;
+use think\facade\Request;
 
 /***
  * Class Article
@@ -18,6 +21,12 @@ use app\common\agency\article as ArticleAgency;
  */
 class Article extends Base
 {
+    public function __construct(App $app = null)
+    {
+        parent::__construct($app);
+        $this->ArticleAgency = new ArticleAgency();
+    }
+
     /***
      * @param $category
      * @return mixed
@@ -26,7 +35,7 @@ class Article extends Base
     public function lists($category)
     {
         if (request()->isGet()) {
-            if(!isset($category)){
+            if (!isset($category)) {
                 return "hello";
             }
             $categorys = (new agency())->getChild($category, $this->language['id']); // 获取SEO信息 以及 他的子分类ID
@@ -43,6 +52,12 @@ class Article extends Base
         if (request()->isGet()) {
             $result = (new ArticleAgency())->getDataByUrl_title($url_title);
             if ($result['status']) {
+                $result['data']['clicks']++;
+                $ip = Request::ip();
+                if (empty(Cookie::has(md5($ip), 'home_'))) {
+                    Cookie::set( md5($ip),$url_title, ['prefix' => 'home_', 'expire' => 60]);
+                    (new ArticleAgency())->updateClicks($result['data']);
+                }
                 $this->assign('data', $result['data']);
             }
             return $this->fetch($this->theme . '/article/details.html');

@@ -9,6 +9,8 @@
 namespace app\admin\agency;
 
 
+use think\Config;
+use think\Model;
 use app\common\models\Category as CategoryModel;
 use app\admin\validate\category as CategoryValidate;
 use think\Exception;
