@@ -80,13 +80,13 @@ class Article extends Base
     {
         try {
             if (!$this->debug) {
-                if (Cache::get('lastUpdate')) {
-                    return Cache::get('lastUpdate');
+                if (Cache::store('default')->get('lastUpdate')) {
+                    return Cache::store('default')->get('lastUpdate');
                 } else {
-                    Cache::set('lastUpdate', self::where(['language_id' => $language_id])->field('title,category_id,url_title')->limit(5)->order('id', 'asc')->all()->toArray());
+                    Cache::store('default')->set('lastUpdate', self::where(['language_id' => $language_id])->field('title,category_id,url_title')->limit(5)->order('id', 'asc')->all()->toArray());
                 }
             }
-            return Cache::get('lastUpdate') ? Cache::get('lastUpdate') : self::where(['language_id' => $language_id])->field('title,category_id,url_title')->limit(5)->order('id', 'asc')->all()->toArray();
+            return Cache::store('default')->get('lastUpdate') ? Cache::store('default')->get('lastUpdate') : self::where(['language_id' => $language_id])->field('title,category_id,url_title')->limit(5)->order('id', 'asc')->all()->toArray();
         } catch (Exception $exception) {
             return false;
         }

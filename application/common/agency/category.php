@@ -43,16 +43,19 @@ class category extends Model
      */
     public function getDataByIds($category, $ids, $language_id)
     {
-        if (!Config::get('app.app_debug')) {
+        if (!Config::get('app.app_debug')) {//true
+            return (new CategoryModel())->getDataByIds($ids);
             if (!Cache::store('default')->get($category . '_' . $language_id)) {
                 Cache::store('default')->set($category . '_' . $language_id, (new CategoryModel())->getDataByIds($ids));
             } else {
-                return Cache::store('default')->get($category . '_' . $language_id);
+//                return (new CategoryModel())->getDataByIds($ids);
+//                return Cache::store('default')->get($category . '_' . $language_id);
             }
         }
-        return Cache::store('default')
-            ->get($category . '_' . $language_id) ? Cache::store('default')
-            ->get($category . '_' . $language_id) : (new CategoryModel())->getDataByIds($ids);
+        return (new CategoryModel())->getDataByIds($ids);
+//        return Cache::store('default')
+//            ->get($category . '_' . $language_id) ? Cache::store('default')
+//            ->get($category . '_' . $language_id) : (new CategoryModel())->getDataByIds($ids);
     }
 
     /***

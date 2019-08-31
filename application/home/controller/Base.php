@@ -37,6 +37,7 @@ class Base extends Controller
     protected $about;
     protected $lastUpdate;
     protected $fileHost;
+    protected $agency;
     protected $beforeActionList = [
         'setLanguage', 'setting', 'category', 'about', 'lastUpdate', 'PanelData', 'languageList', 'getAllArticle'
     ];
@@ -64,10 +65,26 @@ class Base extends Controller
      * 20190620
      * 前置操作：
      * 设置语言
+     * 修复问题，当用户输入完整的url地址到网站时，语言无法变动，例如 用户访问http://blog.wavlink.com/zh-CN/main.html的话，如果他的
+     * 浏览器是英文的话，他不会变为中文的界面，而是英文界面，即地址和网站语言不一致
+     * $url = Request::url();
+     * $userSelect = explode('/', $url);
+     * if ($userSelect) {
+     *     $lang_var = $userSelect[1];
+     * } else {
+     *     $lang_var = Cookie::get('lang_var') ? Cookie::get('lang_var') : autoGetLang(Request::header());
+     * }
+     * 20190830
      */
     protected function setLanguage()
     {
-
+//        $url = Request::url();
+//        $userSelect = explode('/', $url);
+//        if ($userSelect) {
+//            $lang_var = $userSelect[1];
+//        } else {
+//
+//        }
         $lang_var = Cookie::get('lang_var') ? Cookie::get('lang_var') : autoGetLang(Request::header());
         if (empty($this->language)) {
             $this->language = (new Language())->getLanguageByCode($lang_var);
