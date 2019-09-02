@@ -8,7 +8,6 @@
 
 namespace app\home\controller;
 
-
 use app\common\agency\category as agency;
 use app\common\agency\article as ArticleAgency;
 use think\App;
@@ -21,10 +20,13 @@ use think\facade\Request;
  */
 class Article extends Base
 {
+    protected $categoryAgency;
+
     public function __construct(App $app = null)
     {
         parent::__construct($app);
         $this->ArticleAgency = new ArticleAgency();
+        $this->categoryAgency = new agency();
     }
 
     /***
@@ -38,11 +40,13 @@ class Article extends Base
             if (!isset($category)) {
                 return "hello";
             }
-            $categorys = (new agency())->getChild($category, $this->language['id']); // 获取SEO信息 以及 他的子分类ID
+            $categorys = $this->categoryAgency->getChild($category, $this->language['id']); // 获取SEO信息 以及 他的子分类ID
             $ids = $categorys['ids'];
-            $data = (new agency())->getDataByIds($category, $ids, $this->language['id']);//根据分类ID（ID为Int的一个数组）
+            $result = $this->categoryAgency->getDataByIds($category, $ids, $this->language['id']);//根据分类ID（ID为Int的一个数组）
             $this->assign('seo', $categorys['category']);
-            $this->assign('data', $data);
+            if ($result['status'] == true) {
+                $this->assign('data', $result['data']);
+            }
             return $this->fetch($this->theme . '/article/lists.html');
         }
     }
@@ -55,7 +59,7 @@ class Article extends Base
                 $result['data']['clicks']++;
                 $ip = Request::ip();
                 if (empty(Cookie::has(md5($ip), 'home_'))) {
-                    Cookie::set( md5($ip),$url_title, ['prefix' => 'home_', 'expire' => 60]);
+                    Cookie::set(md5($ip), $url_title, ['prefix' => 'home_', 'expire' => 120]);
                     (new ArticleAgency())->updateClicks($result['data']);
                 }
                 $this->assign('data', $result['data']);

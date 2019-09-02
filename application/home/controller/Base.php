@@ -78,13 +78,6 @@ class Base extends Controller
      */
     protected function setLanguage()
     {
-//        $url = Request::url();
-//        $userSelect = explode('/', $url);
-//        if ($userSelect) {
-//            $lang_var = $userSelect[1];
-//        } else {
-//
-//        }
         $lang_var = Cookie::get('lang_var') ? Cookie::get('lang_var') : autoGetLang(Request::header());
         if (empty($this->language)) {
             $this->language = (new Language())->getLanguageByCode($lang_var);

@@ -18,12 +18,15 @@ class Index extends Base
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
+     * 20190902：为方便以后扩展，统一数据返回接口格式
+     *
      */
     public function index()
     {
-        $data = (new article())->getDataByLanguage($this->language['id']);
-        return $this->fetch($this->theme . '/index/index.html', [
-            'data' => $data,
-        ]);
+        $result = (new article())->getDataByLanguage($this->language['id']);
+        if ($result['status'] == true) {
+            $this->assign('data', $result['data']);
+        }
+        return $this->fetch($this->theme . '/index/index.html');
     }
 }

@@ -8,18 +8,15 @@
 
 namespace app\common\agency;
 
-
-use think\Model;
 use app\common\models\Category as CategoryModel;
 use app\common\helper\Category as Helper;
 use think\facade\Cache;
-use think\facade\Config;
 
 /***
  * Class category
  * @package app\common\agency
  */
-class category extends Model
+class category extends Base
 {
     /***
      * @param $category
@@ -37,25 +34,34 @@ class category extends Model
      * @param $category
      * @param $ids
      * @param $language_id
-     * @return \think\Paginator
+     *
      * 20190627 更新 缓存代码 减少数据库查询操作
      *
+     * @return array
      */
     public function getDataByIds($category, $ids, $language_id)
     {
-        if (!Config::get('app.app_debug')) {//true
-            return (new CategoryModel())->getDataByIds($ids);
-            if (!Cache::store('default')->get($category . '_' . $language_id)) {
-                Cache::store('default')->set($category . '_' . $language_id, (new CategoryModel())->getDataByIds($ids));
+        if ($this->debug) {//真
+            $result = (new CategoryModel())->getDataByIds($ids);
+            if ($result['status'] == true) {
+                return ['status' => $result['status'], 'message' => $result['message'], 'data' => $result['data']];
             } else {
-//                return (new CategoryModel())->getDataByIds($ids);
-//                return Cache::store('default')->get($category . '_' . $language_id);
+                return ['status' => $result['status'], 'message' => $result['message']];
+            }
+        } else {
+            //假
+            if (!Cache::store('file')->get('data_' . $category . $language_id)) {
+                $result = (new CategoryModel())->getDataByIds($ids);
+                if ($result['status'] == true) {
+                    Cache::store('file')->set('data_' . $category . $language_id, $result['data']);
+                    return ['status' => $result['status'], 'message' => $result['message'], 'data' => $result['data']];
+                } else {
+                    return ['status' => $result['status'], 'message' => $result['message']];//数据库错误或者其他原因没有数据
+                }
+            } else {
+                return ['status' => true, 'message' => 'ok', 'data' => Cache::store('file')->get('data_' . $category . $language_id)];
             }
         }
-        return (new CategoryModel())->getDataByIds($ids);
-//        return Cache::store('default')
-//            ->get($category . '_' . $language_id) ? Cache::store('default')
-//            ->get($category . '_' . $language_id) : (new CategoryModel())->getDataByIds($ids);
     }
 
     /***
@@ -67,24 +73,20 @@ class category extends Model
      */
     public function getChild($category, $language_id)
     {
-        if (!Config::get('app.app_debug')) {//如果关闭了DEBUG 就会走这里 ,本段if 语句 用于减少数据库查询次数
-            if (!Cache::store('default')->get('Category')) { //如果获取不到缓存 就设置缓存  KEY字为 Category 表示所有的分类数据全部缓存起来
-                Cache::store('default')->set('Category', CategoryModel::all());
-            } else { //获取到缓存就拿到缓存
-                $cat = Cache::store('default')->get('Category');
+        if ($this->debug) {
+            //真，不加缓存
+            $cat = CategoryModel::all();
+            $data = (new CategoryModel())->getCategoryWithNameLanguageId($category, $language_id);
+        } else {//假，加缓存提高访问性能
+            if (!Cache::store('file')->get('Category')) {
+                Cache::store('file')->set('Category', CategoryModel::all());
             }
-            if (!Cache::store('default')->get($category . '_' . $language_id)) { //key值为 当前分类_当前语言
-                Cache::store('default')->set($category . '_' . $language_id, (new CategoryModel())->getCategoryWithNameLanguageId($category, $language_id));
-            } else {
-                $data = Cache::store('default')->get($category . '_' . $language_id);
+            $cat = Cache::store('file')->get('Category');
+            if (!Cache::store('file')->get($category . '_' . $language_id)) { //key值为 当前分类_当前语言
+                Cache::store('file')->set($category . '_' . $language_id, (new CategoryModel())->getCategoryWithNameLanguageId($category, $language_id));
             }
+            $data = Cache::store('file')->get($category . '_' . $language_id);
         }
-        $cat = Cache::store('default')
-            ->get('Category') ? Cache::store('default')
-            ->get('Category') : CategoryModel::all(); // debug 开启了的话 就直接去数据库拿数据
-        $data = Cache::store('default')
-            ->get($category . '_' . $language_id) ? Cache::store('default')
-            ->get($category . '_' . $language_id) : (new CategoryModel())->getCategoryWithNameLanguageId($category, $language_id);
         $ids[] = $data['id'];
         $childs = Helper::getChilds($cat, $data['id']);
         foreach ($childs as $child) {
