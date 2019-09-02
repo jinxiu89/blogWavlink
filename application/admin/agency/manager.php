@@ -15,6 +15,7 @@ use app\common\validate\number as numberValidate;
 use think\Exception;
 use think\facade\Config;
 
+
 /***
  * Class manger
  * @package app\admin\agency

@@ -80,13 +80,18 @@ class Article extends Base
     {
         try {
             if (!$this->debug) {
-                if (Cache::get('lastUpdate')) {
-                    return Cache::get('lastUpdate');
+                if (Cache::store('file')->get('lastUpdate_' . $language_id)) {
+                    return Cache::store('file')->get('lastUpdate_' . $language_id);
                 } else {
-                    Cache::set('lastUpdate', self::where(['language_id' => $language_id])->field('title,category_id,url_title')->limit(5)->order('id', 'asc')->all()->toArray());
+                    Cache::store('file')->set('lastUpdate_' . $language_id, self::where(['language_id' => $language_id])
+                        ->field('title,category_id,url_title')
+                        ->limit(5)->order('id', 'asc')->all()->toArray());
                 }
             }
-            return Cache::get('lastUpdate') ? Cache::get('lastUpdate') : self::where(['language_id' => $language_id])->field('title,category_id,url_title')->limit(5)->order('id', 'asc')->all()->toArray();
+            return Cache::store('file')->get('lastUpdate_' . $language_id) ?
+                Cache::store('default')->get('lastUpdate_' . $language_id) : self::where(['language_id' => $language_id])
+                    ->field('title,category_id,url_title')->limit(5)->order('id', 'asc')
+                    ->all()->toArray();
         } catch (Exception $exception) {
             return false;
         }
@@ -116,7 +121,15 @@ class Article extends Base
     //todo:: Cache 没有处理
     public function getDataByIds($ids)
     {
-        return self::where('category_id', 'in', $ids)->order('id asc')->field('id,clicks,category_id,language_id,create_time,thumbnail,title,ftitle,url_title,description')->paginate();
+        try {
+            $data = self::where('category_id', 'in', $ids)
+                ->order('id asc')
+                ->field('id,clicks,category_id,language_id,create_time,thumbnail,title,ftitle,url_title,description')
+                ->paginate();
+            return ['status' => true, 'message' => 'ok', 'data' => $data];
+        } catch (Exception $exception) {
+            return ['status' => false, 'message' => $exception->getMessage()];
+        }
     }
 
     /***
@@ -128,17 +141,12 @@ class Article extends Base
     public function getDataByLanguage($language_id)
     {
         try {
-            if (!$this->debug) {//根据语言id来缓存数据
-                if (Cache::store('default')->get('ArticleData_' . $language_id)) {//如果拿到缓存的话就直接返回缓存
-                    return Cache::store('default')->get('ArticleData_' . $language_id);
-                } else {//没有就设置缓存
-                    Cache::store('default')->set('ArticleData_' . $language_id, self::where(['language_id' => $language_id])->field('id,clicks,category_id,language_id,create_time,thumbnail,title,ftitle,url_title,description')->order('create_time desc,id asc')->paginate());
-                }
-            }
-            // 如果能拿到缓存的话就返回缓存 没有就 查库 返回
-            return Cache::store('default')->get('ArticleData_' . $language_id) ? Cache::store('file')->get('ArticleData_' . $language_id) : self::where(['language_id' => $language_id])->field('id,clicks,category_id,language_id,title,create_time,thumbnail,ftitle,url_title,description')->order('create_time desc,id asc')->paginate();
+            $data = self::where(['language_id' => $language_id])
+                ->field('id,clicks,category_id,language_id,title,create_time,thumbnail,ftitle,url_title,description')
+                ->order('create_time desc,id asc')->paginate();
+            return ['status' => true, 'message' => 'ok', 'data' => $data];
         } catch (Exception $exception) {
-            return $exception->getMessage();
+            return ['status' => false, 'message' => $exception->getMessage()];
         }
     }
 

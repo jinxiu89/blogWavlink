@@ -8,8 +8,8 @@
 return [
     'home'=>'HOME',
     'language'=>'LANGUAGE',
-    'articles'=>'Articles',
-    'messages'=>'Messages',
+    'articles'=>'Articles  ',
+    'messages'=>'Messages  ',
     'placeholder'=>'Placeholder',
     'home-nav'=>'Home',
     'company-title'=>'Company',
@@ -28,12 +28,27 @@ return [
     'Details'=>'Details',
     'about'=>'ABOUT',
     'Subscribe'=>'SUBSCRIBE',
+    'Community'=>'Community',
     'input your Email'=>'input your Email',
     'submit'=>'SUBMIT',
 
     'All'=>'All',
     'Reference material'=>'Reference material',
     'Related articles'=>'Related articles',
-    'No Result'=>'Sorry, data is not available yet under this category.'
+    'No Result'=>'Sorry, data is not available yet under this category.',
+
+    /***
+     * footer部分文案
+     * 友情链接部分（footer）
+     */
+    'statistics'=>'statistics',
+    'Wavlink'=>'Our website',
+    'Wavlink(global)'=>'Wavlink(global)',
+    'Wavlink(china)'=>'Wavlink(china)',
+    'Uwmarket'=>'Uwmarket',
+    'community1'=>'<span><a href="https://www.facebook.com/WavlinkOffical/"><i class="iconfont icon-icon-test1"></i></a></span>',
+    'community2'=>'<span><a href="https://twitter.com/WavlinkOfficial"><i class="iconfont icon-icon-test2"></i></a></span>',
+    'community3'=>'<span><a href="https://www.linkedin.com/company/wavlink-technology-ltd"><i class="iconfont">&#xe661;</i></a></span>',
+
 
 ];
