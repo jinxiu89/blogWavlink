@@ -25,10 +25,25 @@ Route::group('en-US', function () {
     Route::get('/main', 'Index/index');
 })->prefix('home/')->ext('html');
 
+Route::group('en-us', function () {
+    Route::get('/article/:category/index', 'Article/lists')->pattern(['category' => '[\w-]+']);
+    Route::get('/article/:category/:url_title', 'Article/details')->pattern(['category' => '[\w-]+','url_title'=>'[\w-]+']);
+    Route::get('/article/:category', 'Article/lists')->pattern(['category' => '[\w-]+']);
+    Route::get('/product/index', 'Product/index');
+    Route::get('/main', 'Index/index');
+})->prefix('home/')->ext('html');
 /***
  *
  */
 Route::group('zh-CN', function () {
+    Route::get('/article/:category/index', 'Article/lists')->pattern(['category' => '[\w-]+']);
+    Route::get('/article/:category/:url_title', 'Article/details')->pattern(['category' => '[\w-]+','url_title'=>'[\w-]+']);
+    Route::get('/article/:category', 'Article/lists')->pattern(['category' => '[\w-]+']);
+    Route::get('/product/index', 'Product/index');
+    Route::get('/main', 'Index/index');
+})->prefix('home/')->ext('html');
+
+Route::group('zh-cn', function () {
     Route::get('/article/:category/index', 'Article/lists')->pattern(['category' => '[\w-]+']);
     Route::get('/article/:category/:url_title', 'Article/details')->pattern(['category' => '[\w-]+','url_title'=>'[\w-]+']);
     Route::get('/article/:category', 'Article/lists')->pattern(['category' => '[\w-]+']);

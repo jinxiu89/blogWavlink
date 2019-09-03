@@ -90,7 +90,7 @@
         postData['manager'] = manager;
         console.log(postData);
         $.ajax({
-            url: "/{$backendPrefix}/user/manager/create.html",
+            url: "/{$backendPrefix}/user/manager/edit/{$data.id}.html",
             type: "post",
             data: postData,
             "success": function (result) {

@@ -19,6 +19,7 @@ namespace app\admin\agency;
 
 use app\admin\validate\permission as permissionValidate;
 use app\common\models\Permission as permissionModel;
+use app\common\models\PermissionGroup;
 use app\common\validate\number;
 use think\Exception;
 
@@ -33,8 +34,8 @@ class permission extends base
     {
         $this->validate = new permissionValidate();
         $this->model = new permissionModel();
-        $this->success="保存成功！";
-        $this->failed="保存失败!";
+        $this->success = "保存成功！";
+        $this->failed = "保存失败!";
     }
 
     public function getDataById($data)
@@ -93,7 +94,6 @@ class permission extends base
     }
 
 
-
     public function savePermission($data, $id)
     {
         $permissions = [];
@@ -109,6 +109,25 @@ class permission extends base
                 'status' => false,
                 'message' => $exception->getMessage()
             ];
+        }
+    }
+
+    public function get_group()
+    {
+        try {
+            $data = (new PermissionGroup())->all()->toArray();
+            return $data;
+        } catch (Exception $exception) {
+            return "hello";
+        }
+    }
+
+    public function getDataByGroupId($gid)
+    {
+        try {
+            return ['status' => true, 'message' => 'ok', 'data' => $this->model->where(['gid' => $gid])->order(['gid' => 'asc', 'id' => 'desc'])->paginate()];
+        } catch (Exception $exception) {
+            return ['status' => false, 'message' => $exception->getMessage()];
         }
     }
 }

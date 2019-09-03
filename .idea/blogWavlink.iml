@@ -11,6 +11,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/mtdowling/jmespath.php" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-message" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ralouphie/getallheaders" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/topthink/think-captcha" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/topthink/think-image" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/topthink/think-installer" />
     </content>

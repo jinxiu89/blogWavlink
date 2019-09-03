@@ -22,7 +22,9 @@
         <dd>
             <ul id="ztree" class="ztree" style="padding-top: 10px">
                 {volist name="permissionGroup" id="item"}
-                <li style="line-height: 25px"><a href="/{$backendPrefix}/user/permission/group/{$item.id}.html" style="padding-left: 24px">{$item.name}</a></li>
+                <li class="gid_{$item.id}" style="line-height: 25px"><a
+                        href="/{$backendPrefix}/user/permission/group/{$item.id}.html" style="padding-left: 24px">{$item.name}</a>
+                </li>
                 {/volist}
             </ul>
         </dd>
@@ -33,7 +35,9 @@
         <div class="panel-body">
             <div class="clearfix">
 							<span class="f-l">
-
+                                <a class="btn btn-primary radius"
+                                   onclick="article_add('添加权限','/{$backendPrefix}/user/permission/add/{$gid}.html')"
+                                   href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加权限</a>
 							</span>
                 <span class="f-r">本次查询出：<strong>{$count}</strong> 条数据</span>
             </div>
@@ -87,6 +91,12 @@
     $(document).ready(function () {
         $("#menu-level").add('#menu-manger').css("display", "block");
         $("#permission").addClass("current");
+        var current_gid = ".gid_" + '{$gid}';
+        console.log(current_gid);
+        $(current_gid).find("a").css({
+            color: "#06C",
+            textDecoration: "underline"
+        });
     })
 </script>
 {/block}

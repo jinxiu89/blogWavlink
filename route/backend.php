@@ -21,6 +21,7 @@ use think\facade\Route;
  */
 Route::group(Config::get('app.backend_prefix'), function () {
     Route::get('/user/permission/list', 'Permission/index');
+    Route::get('/user/permission/group/:gid','Permission/group')->pattern(['gid'=>'\d+']);
     Route::get('/user/permission/add/:gid', 'Permission/add')->pattern(['gid' => '\d+']);
     Route::post('/user/permission/add/:gid', 'Permission/add')->pattern(['gid' => '\d+']);
     Route::get('/user/permission/edit/:id', 'Permission/edit')->pattern(['id' => '\d+']);

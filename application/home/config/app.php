@@ -19,9 +19,6 @@ return [
     // 应用地址
     'app_host' => '',
     // 应用调试模式
-//    'app_debug' => true,
-    // 应用Trace
-//    'app_trace' => false,
     // 是否支持多模块
     'app_multi_module' => true,
     // 入口自动绑定模块
@@ -129,22 +126,10 @@ return [
     // 路由缓存类型及参数
     'route_cache_option' => [],
 
-    // 默认跳转页面对应的模板文件
-    'dispatch_success_tmpl' => Env::get('think_path') . 'tpl/dispatch_jump.tpl',
-    'dispatch_error_tmpl' => Env::get('think_path') . 'tpl/dispatch_jump.tpl',
     
     // 错误显示信息,非调试模式有效
     'error_message' => 'Page not found～',
     // 显示错误信息
     'show_error_msg' => false,
-    // 异常处理handle类 留空使用 \think\exception\Handle
-    'exception_handle' => '',
-    'http_exception_template'    =>  [
-        // 定义404错误的重定向页面地址
-        404 =>  APP_PATH.'common/views/404.html',
-        // 还可以定义其它的HTTP status
-        401 =>  APP_PATH.'401.html',
-        500 => APP_PATH.'/common/views/500.html'
-    ],
     'theme'=>'/default',
 ];
