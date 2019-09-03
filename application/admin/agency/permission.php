@@ -125,7 +125,7 @@ class permission extends base
     public function getDataByGroupId($gid)
     {
         try {
-            return ['status' => true, 'message' => 'ok', 'data' => $this->model->where(['gid' => $gid])->order(['gid' => 'asc', 'id' => 'desc'])->paginate()];
+            return ['status' => true, 'message' => 'ok', 'data' => $this->model->where(['gid' => $gid])->order(['gid' => 'asc', 'id' => 'asc'])->paginate()];
         } catch (Exception $exception) {
             return ['status' => false, 'message' => $exception->getMessage()];
         }

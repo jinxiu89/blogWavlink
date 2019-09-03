@@ -11,6 +11,7 @@ namespace app\admin\agency;
 
 use Exception;
 use app\common\models\Article as articleModel;
+use app\common\models\Category;
 use app\admin\validate\article as articleValidate;
 use think\Db;
 
@@ -24,6 +25,7 @@ class article extends base
     {
         parent::initialize();
     }
+
     public function __construct($data = [])
     {
         parent::__construct($data);
@@ -79,5 +81,17 @@ class article extends base
     public function getDataById($id)
     {
         return $this->model->getDataById($id);
+    }
+
+    public function getCategory($language_id)
+    {
+        $data = (new Category())->getCategory($language_id)->toArray();
+        $category = [];
+        foreach ($data as $item) {
+            $item['url'] = "hello";
+            $item['target'] = "_self";
+            $category[] = $item;
+        }
+        return $category;
     }
 }
