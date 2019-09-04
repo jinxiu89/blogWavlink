@@ -106,13 +106,13 @@ class Article extends Base
     {
         try {
             if (!$this->debug) {
-                if (Cache::get('ArticleCounts')) {
-                    return Cache::get('ArticleCounts');
+                if (Cache::get('ArticleCounts_'.$language_id)) {
+                    return Cache::get('ArticleCounts_'.$language_id);
                 } else {
-                    Cache::set('ArticleCounts', self::where(['language_id' => $language_id])->count());
+                    Cache::set('ArticleCounts_'.$language_id, self::where(['language_id' => $language_id])->count());
                 }
             }
-            return Cache::get('ArticleCounts') ? Cache::get('ArticleCounts') : self::where(['language_id' => $language_id])->count();
+            return Cache::get('ArticleCounts_'.$language_id) ? Cache::get('ArticleCounts_'.$language_id) : self::where(['language_id' => $language_id])->count();
         } catch (Exception $exception) {
             return false;
         }

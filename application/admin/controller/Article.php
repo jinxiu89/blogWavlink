@@ -35,15 +35,18 @@ class Article extends Base
     public function index()
     {
         $result = (new articleAgency())->getAll($this->language['id']);
-        $this->assign('data', $result);
+        $this->assign('data', $result['data']);
+        $this->assign('count', $result['count']);
         return $this->fetch();
     }
 
     public function list($category_id)
     {
-        print_r("hello list");exit;
         $result = (new articleAgency())->getDataByCategoryId($category_id);
-        print_r($result);
+        $this->assign('data', $result['data']);
+        $this->assign('count', $result['count']);
+        return $this->fetch();
+
     }
 
     public function add()

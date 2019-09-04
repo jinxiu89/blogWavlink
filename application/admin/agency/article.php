@@ -72,7 +72,10 @@ class article extends base
     public function getAll($language_id)
     {
         try {
-            return $this->model->where(['language_id' => $language_id])->order("id")->all();
+            $query = $this->model->where(['language_id' => $language_id])->field('id,category_id,title,keywords,mark,clicks')->order("id");
+            $data = $query->paginate();
+            $count = $query->count();
+            return ['data' => $data, 'count' => $count];
         } catch (Exception $e) {
             return [];
         }
@@ -88,10 +91,24 @@ class article extends base
         $data = (new Category())->getCategory($language_id)->toArray();
         $category = [];
         foreach ($data as $item) {
-            $item['url'] = "hello";
+            $item['url'] = "/wavlink/article/category/" . $item['id'] . '.html';
             $item['target'] = "_self";
             $category[] = $item;
         }
         return $category;
+    }
+
+    public function getDataByCategoryId($category_id)
+    {
+        try {
+            $query = $this->model->where(['category_id' => $category_id])
+                ->order(['id' => 'asc'])
+                ->field('id,category_id,title,keywords,mark,clicks');
+            $data = $query->paginate();
+            $count = $query->count();
+            return ['data' => $data, 'count' => $count];
+        } catch (Exception $exception) {
+            return [];
+        }
     }
 }
