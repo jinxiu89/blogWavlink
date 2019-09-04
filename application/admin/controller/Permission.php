@@ -26,7 +26,9 @@ class Permission extends Base
     public function initialize()
     {
         parent::initialize();
-        $this->url = '/' . $this->backendPrefix . "/user/permission/list.html";
+        $permissionGroup = (new agency())->get_group();
+        $this->assign('permissionGroup', $permissionGroup);
+
     }
 
     /***
@@ -41,6 +43,17 @@ class Permission extends Base
         }
         if ($data['status'] == false) {
             //todo:: 异常处理
+        }
+        return $this->fetch();
+    }
+
+    public function group($gid)
+    {
+        $data = $this->agency->getDataByGroupId($gid);
+        if ($data['status'] == true) {
+            $this->assign('data', $data['data']);
+            $this->assign('count', count($data['data']));
+            $this->assign('gid',$gid);
         }
         return $this->fetch();
     }

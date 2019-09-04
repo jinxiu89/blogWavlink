@@ -93,7 +93,7 @@ class manager extends base
             }
             if ($this->validate->scene('edit')->check($manager)) {
                 $tempManager = self::getDataById(['id' => $manager['id']]);
-                if (!$tempManager['data']['password'] == $manager['password']) {
+                if ($tempManager['data']['password'] != $manager['password']) { //manager['password']如果没有更改的话就应该是相等的 不相等 就需要加密后修改
                     $manager['password'] = md5($manager['password']) . Config::get('app.user_secret');
                 }
                 $orlist = self::getRoleslist($tempManager['data']['roles']);

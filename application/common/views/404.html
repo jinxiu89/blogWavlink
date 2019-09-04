@@ -1,11 +1,121 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Oops! Page not found</title>
+    <title>Oops! the page not found - King of Connection, by wavlink</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="/static/home/css/template/public_components.css">
+    <link rel="stylesheet" href="/static/home/css/pages/list.css">
+    <meta name="keywords" content="wavlink">
+    <meta name="description" content="wavlink is connection">
+
 </head>
 <body>
-<h1>Oops!</h1>
-<p>404,The page not found!</p>
+<div class="g-nav">
+    <div class="container">
+        <div class="row">
+            <div class="logo">
+                <a href="/en-US/main.html">
+                    <img src="/static/home/img/logo.png" alt="">
+                </a>
+            </div>
+            <span class="visible-xs menu-bar iconfont icon-menu" id="open-menu"></span>
+            <!--<span class="search-bar iconfont icon-search"></span>-->
+            <ul class="menu nav navbar-nav" id="menu">
+                <li class="menu-item dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">LANGUAGE                        <span class="iconfont icon-caret-down"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/language/zh-CN.html">简体中文</a></li>
+                        <li><a href="/language/en-US.html">English(US)</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="sec">
+    <div class="container">
+        <div class="row">
+            <div class="page-404">
+                <div class="page-404-des">
+                    <div class="page-404-img">
+                        <img class="img-responsive center-block" src="//files.wavlink.com/WavlinkBlog/2019/09/01/404.gif" alt="">
+                    </div>
+                    <div class="page-404-reason">
+                        <h2>Error 404-Page Not Found</h2>
+                        <p>Reasons:</p>
+                        <p>1. Weak network connection > Please check your network connection and reload the page </p>
+                        <p>2. The URL has been written or typed into the browser incorrectly> Please check the URL address</p>
+                        <p>3. The URL is no longer available> The website content may have been removed or the event has been offline</p>
+                        <h3>You might try:</h3>
+                        <p>
+                            <span><a class="btn btn-info" href="/">Back to the Homepage</a></span>
+                            <span><a class="btn btn-primary" href="javascript:history.go(-1)"> Back to Previous Page</a></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="g-foot">
+    <div class="container">
+        <div class="row">
+            <div class="company-info">
+                <dl>
+                    <dt>statistics</dt>
+                    <dd>Articles  9</dd>
+                    <dd>Messages  9</dd>
+                </dl>
+                <dl>
+                    <dt>Our website</dt>
+                    <dd><a href="https://www.wavlink.com/en_us/">Wavlink(global)</a></dd>
+                    <dd><a href="https://www.wavlink.com/zh_cn/">Wavlink(china)</a></dd>
+                    <dd><a href="https://www.uwmarket.com/">Uwmarket</a></dd>
+                </dl>
+                <dl>
+                    <dt>Community</dt>
+                    <dd>
+                        <span><a href="https://www.facebook.com/WavlinkOffical/"><i class="iconfont icon-icon-test1"></i></a></span>                        <span><a href="https://twitter.com/WavlinkOfficial"><i class="iconfont icon-icon-test2"></i></a></span>                        <span><a href="https://www.linkedin.com/company/wavlink-technology-ltd"><i class="iconfont">&#xe661;</i></a></span>                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="g-copyright">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="copyright">Copyright ©
+                <script>var nowYear = new Date().getFullYear();
+                document.write(nowYear)
+                </script>
+                wavlink.com
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/static/home/lib/jquery/JQuery-3.4.0.js"></script>
+<script src="/static/home/js/bootstrap.min.js"></script>
+<script src="/static/home/js/public.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112762770-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-112762770-2');
+</script>
+<script>
+    $("#home").addClass('active');
+</script>
+
 </body>
 </html>

@@ -55,7 +55,7 @@
                 var msgData = JSON.parse(result);
                 if (msgData.status === true) {
                     layer.msg(msgData.message, {icon: 1, time: 1000}, function () {
-                        window.parent.location.href = msgData.url
+                        window.parent.location.reload();
                     })
                 } else {
                     layer.msg(msgData.message, {icon: 5, time: 2000})

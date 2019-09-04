@@ -25,6 +25,8 @@ class Article extends Base
     {
         parent::initialize();
         $this->url = '/' . $this->backendPrefix . '/article/list.html';
+        $category = (new articleAgency())->getCategory($this->language['id']);
+        $this->assign('category', json_encode($category));
     }
 
     /***
@@ -33,8 +35,18 @@ class Article extends Base
     public function index()
     {
         $result = (new articleAgency())->getAll($this->language['id']);
-        $this->assign('data', $result);
+        $this->assign('data', $result['data']);
+        $this->assign('count', $result['count']);
         return $this->fetch();
+    }
+
+    public function list($category_id)
+    {
+        $result = (new articleAgency())->getDataByCategoryId($category_id);
+        $this->assign('data', $result['data']);
+        $this->assign('count', $result['count']);
+        return $this->fetch();
+
     }
 
     public function add()
@@ -48,7 +60,7 @@ class Article extends Base
             $markdown_html = strip_html_tags(['style', 'script', 'iframe'], $data['markdown-html-code'], true);
             $refer_html = strip_html_tags(['style', 'script', 'iframe'], $data['refer-html-code'], true);
             $data['markdown_html_code'] = $markdown_html;
-            $data['thumbnail']=getThumb($data['markdown_html_code']);
+            $data['thumbnail'] = getThumb($data['markdown_html_code']);
             $data['refer_html_code'] = $refer_html;
             unset($data['markdown-html-code']);
             unset($data['refer-html-code']);
@@ -81,7 +93,7 @@ class Article extends Base
             $markdown_html = strip_html_tags(['style', 'script', 'iframe'], $data['markdown-html-code'], true);
             $refer_html = strip_html_tags(['style', 'script', 'iframe'], $data['refer-html-code'], true);
             $data['markdown_html_code'] = $markdown_html;
-            $data['thumbnail']=getThumb($data['markdown_html_code']);
+            $data['thumbnail'] = getThumb($data['markdown_html_code']);
             $data['refer_html_code'] = $refer_html;
             unset($data['markdown-html-code']);
             unset($data['refer-html-code']);
