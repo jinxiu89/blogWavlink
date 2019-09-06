@@ -26,7 +26,6 @@ class Permission extends Base
     public function initialize()
     {
         parent::initialize();
-        $this->url = '/' . $this->backendPrefix . "/user/permission/group/list.html";
         $permissionGroup = (new agency())->get_group();
         $this->assign('permissionGroup', $permissionGroup);
 

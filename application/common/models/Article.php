@@ -85,12 +85,12 @@ class Article extends Base
                 } else {
                     Cache::store('file')->set('lastUpdate_' . $language_id, self::where(['language_id' => $language_id])
                         ->field('title,category_id,url_title')
-                        ->limit(5)->order('id', 'asc')->all()->toArray());
+                        ->limit(5)->order('id', 'desc')->all()->toArray());
                 }
             }
             return Cache::store('file')->get('lastUpdate_' . $language_id) ?
                 Cache::store('default')->get('lastUpdate_' . $language_id) : self::where(['language_id' => $language_id])
-                    ->field('title,category_id,url_title')->limit(5)->order('id', 'asc')
+                    ->field('title,category_id,url_title')->limit(5)->order('id', 'desc')
                     ->all()->toArray();
         } catch (Exception $exception) {
             return false;
