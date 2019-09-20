@@ -85,12 +85,12 @@ class Article extends Base
                 } else {
                     Cache::store('file')->set('lastUpdate_' . $language_id, self::where(['language_id' => $language_id])
                         ->field('title,category_id,url_title')
-                        ->limit(5)->order('id', 'asc')->all()->toArray());
+                        ->limit(5)->order('id', 'desc')->all()->toArray());
                 }
             }
             return Cache::store('file')->get('lastUpdate_' . $language_id) ?
                 Cache::store('default')->get('lastUpdate_' . $language_id) : self::where(['language_id' => $language_id])
-                    ->field('title,category_id,url_title')->limit(5)->order('id', 'asc')
+                    ->field('title,category_id,url_title')->limit(5)->order('id', 'desc')
                     ->all()->toArray();
         } catch (Exception $exception) {
             return false;
@@ -122,7 +122,7 @@ class Article extends Base
     public function getDataByIds($ids)
     {
         try {
-            $data = self::where('category_id', 'in', $ids)
+            $data = self::where('category_id', 'in', $ids)->where(['status' => 1])
                 ->order('id asc')
                 ->field('id,clicks,category_id,language_id,create_time,thumbnail,title,ftitle,url_title,description')
                 ->paginate();
