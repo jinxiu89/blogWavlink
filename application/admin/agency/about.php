@@ -15,7 +15,7 @@ use app\common\validate\number;
 /***
  * Class about
  * @package app\admin\agency
- *
+ * hello 添加 新开发者
  */
 class about extends base
 {
