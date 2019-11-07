@@ -130,3 +130,4 @@ Route::group(Config::get('app.backend_prefix'), function () {
 Route::get('/wavlink/', 'admin/Index/index');
 Route::get('/wavlink/language/:code', 'admin/Base/ChangeLanguage')->pattern(['code' => '[\w-]+']);
 //Route::get('/wavlink', 'admin/Index/index');
+//Route::get('/wavlink', 'admin/Index/index');
