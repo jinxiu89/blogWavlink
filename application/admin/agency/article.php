@@ -4,16 +4,16 @@
  * User: admin
  * Date: 2019/6/13
  * Time: 10:44
+ *
  */
 
 namespace app\admin\agency;
 
 
-use Exception;
+use app\admin\validate\article as articleValidate;
 use app\common\models\Article as articleModel;
 use app\common\models\Category;
-use app\admin\validate\article as articleValidate;
-use think\Db;
+use Exception;
 
 /***
  * Class post

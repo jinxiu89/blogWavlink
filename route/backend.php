@@ -78,7 +78,7 @@ Route::group(Config::get('app.backend_prefix'), function () {
     Route::get('/article/category/edit/:id', 'Category/edit')->pattern(['id' => '\d+']);
     Route::post('/article/category/edit/:id', 'Category/edit')->pattern(['id' => '\d+']);
     Route::get('/article/list', 'Article/index');
-    Route::get('/article/category/group/:category_id', 'Article/list')->pattern(['category_id' => '\d+']);
+    Route::get('/article/category/:category_id', 'Article/list')->pattern(['category_id' => '\d+']);
     Route::get('/article/add', 'Article/add');
     Route::post('/article/add', 'Article/add');
     Route::get('/article/edit/:id', 'Article/edit')->pattern(['id' => '\d+']);
@@ -129,4 +129,5 @@ Route::group(Config::get('app.backend_prefix'), function () {
  */
 Route::get('/wavlink/', 'admin/Index/index');
 Route::get('/wavlink/language/:code', 'admin/Base/ChangeLanguage')->pattern(['code' => '[\w-]+']);
+//Route::get('/wavlink', 'admin/Index/index');
 //Route::get('/wavlink', 'admin/Index/index');
