@@ -11,6 +11,8 @@ namespace app\admin\controller;
 
 use app\admin\agency\category as agency;
 use think\App;
+use think\facade\Request;
+use think\response\Redirect;
 
 
 /**
@@ -52,8 +54,9 @@ class Category extends Base
     /***
      * @return false|mixed|string
      */
-    public function add()
+    public function add(Request $request)
     {
+
         if (Request()->isGet()) {
             return $this->fetch('', [
                 'to_level' => $this->toLevel,

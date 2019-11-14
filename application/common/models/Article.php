@@ -122,7 +122,7 @@ class Article extends Base
     public function getDataByIds($ids)
     {
         try {
-            $data = self::where('category_id', 'in', $ids)
+            $data = self::where('category_id', 'in', $ids)->where(['status' => 1])
                 ->order('id asc')
                 ->field('id,clicks,category_id,language_id,create_time,thumbnail,title,ftitle,url_title,description')
                 ->paginate();
