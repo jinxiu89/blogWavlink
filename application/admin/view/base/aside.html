@@ -111,7 +111,7 @@
                     </li>
                     <li>
                         <dl class="Hui-menu">
-                            <dt class="Hui-menu-title">系统设置<i class="Hui-iconfont Hui-admin-menu-dropdown-arrow">&#xe6d5;</i>
+                            <dt class="Hui-menu-title">系统设置设置<i class="Hui-iconfont Hui-admin-menu-dropdown-arrow">&#xe6d5;</i>
                             </dt>
                             <dd class="Hui-menu-item" id="system-setting">
                                 <ul>
@@ -137,7 +137,7 @@
                                         {/if}
                                     </li>
                                     <li id="permission">
-                                        {if condition="in_array('Permission/index',$access)"}
+                                        {if (in_array('Permission/index',$access))}
                                         <a href="/{$backendPrefix}/user/permission/list.html" title="">权限</a>
                                         {else /}
                                         <span title="您没有权限访问该功能">权限</span>

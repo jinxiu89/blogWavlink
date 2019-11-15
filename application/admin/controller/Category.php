@@ -42,7 +42,7 @@ class Category extends Base
 
     public function index()
     {
-//        $data = (new agency())->getCategory($this->language['id']);
+//      $data = (new agency())->getCategory($this->language['id']);
         $data = $this->agency->getCategory($this->language['id']);
         $count = $data->count();
         return $this->fetch('', [
@@ -54,7 +54,7 @@ class Category extends Base
     /***
      * @return false|mixed|string
      */
-    public function add(Request $request)
+    public function add()
     {
 
         if (Request()->isGet()) {
