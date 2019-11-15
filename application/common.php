@@ -136,7 +136,7 @@ function getThumb($content)
 {
     $pattern = "/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/";
     preg_match_all($pattern, $content, $matches);
-    if ($matches[1][0]) {
+    if ($matches[1]) {
         return $matches[1][0];
     } else {
         return "";//默认的图片

@@ -11,6 +11,8 @@ namespace app\admin\controller;
 
 use app\admin\agency\category as agency;
 use think\App;
+use think\facade\Request;
+use think\response\Redirect;
 
 
 /**
@@ -40,7 +42,7 @@ class Category extends Base
 
     public function index()
     {
-//        $data = (new agency())->getCategory($this->language['id']);
+//      $data = (new agency())->getCategory($this->language['id']);
         $data = $this->agency->getCategory($this->language['id']);
         $count = $data->count();
         return $this->fetch('', [
@@ -54,6 +56,7 @@ class Category extends Base
      */
     public function add()
     {
+
         if (Request()->isGet()) {
             return $this->fetch('', [
                 'to_level' => $this->toLevel,
