@@ -11,8 +11,6 @@ namespace app\admin\controller;
 
 use app\admin\agency\category as agency;
 use think\App;
-use think\facade\Request;
-use think\response\Redirect;
 
 
 /**
