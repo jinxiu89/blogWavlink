@@ -11,9 +11,8 @@
 use think\facade\Config;
 use think\facade\Env;
 use think\facade\Route;
-
-
-/***
+use app\admin\middleware\Auth;
+/**
  * 20190525-20190605
  * 用户功能模块路由
  * 管理用户只能在后台由超级用户来添加
@@ -46,11 +45,17 @@ Route::group(Config::get('app.backend_prefix'), function () {
     //TODO::
     Route::get('/user/edit/:id', '')->pattern(['id' => '\d+']);
     Route::post('/user/edit/:id', '')->pattern(['id' => '\d+']);
+
+})->prefix('admin/')->ext('html');
+
+
+Route::group(Config::get('app.backend_prefix'),function (){
+
     Route::get('/login', 'Auth/login');
     Route::post('/login', 'Auth/login');
     Route::get('/logout', 'Auth/logout');
-})->prefix('admin/')->ext('html');
 
+})->prefix('admin/')->ext('html');;
 /***
  * 20190612
  * 语言管理相关的路由
