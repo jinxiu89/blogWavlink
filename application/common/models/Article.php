@@ -141,7 +141,7 @@ class Article extends Base
     public function getDataByLanguage($language_id)
     {
         try {
-            $data = self::where(['language_id' => $language_id])
+            $data = self::where(['language_id' => $language_id,'status'=>1])
                 ->field('id,clicks,category_id,language_id,title,create_time,thumbnail,ftitle,url_title,description')
                 ->order('create_time desc,id asc')->paginate();
             return ['status' => true, 'message' => 'ok', 'data' => $data];
