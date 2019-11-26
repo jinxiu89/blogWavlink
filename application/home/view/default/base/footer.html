@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="g-foot">
     <div class="container">
         <div class="row">
@@ -36,4 +37,44 @@
             </div>
         </div>
     </div>
+=======
+<div class="g-foot">
+    <div class="container">
+        <div class="row">
+            <div class="company-info">
+                <dl>
+                    <dt>{:lang('statistics')}</dt>
+                    <dd>{:lang('articles')}{notempty name="ArticleCounts"}{$ArticleCounts}{else /}0{/notempty}</dd>
+                    <dd>{:lang('messages')}{notempty name="ArticleCounts"}{$ArticleCounts}{else /}0{/notempty}</dd>
+                    <!--<dd>{:lang('articles')}{notempty name="ArticleCounts"}{$ArticleCounts}{else /}0{/notempty}</dd>-->
+                    <!--{notempty name="about"}-->
+                    <!--{volist name="about" id="vo"}-->
+                    <!--<dd><a href="{$vo.url_title}">{$vo.title}</a></dd>-->
+                    <!--{/volist}-->
+                    <!--{/notempty}-->
+                </dl>
+                <dl>
+                    <dt>{:lang('Wavlink')}</dt>
+                    <dd><a href="https://www.wavlink.com/en_us/">{:lang('Wavlink(global)')}</a></dd>
+                    <dd><a href="https://www.wavlink.com/zh_cn/">{:lang('Wavlink(china)')}</a></dd>
+                    <dd><a href="https://www.uwmarket.com/">{:lang('Uwmarket')}</a></dd>
+                </dl>
+                <dl>
+                    <dt>{:lang('Community')}</dt>
+                    <!--<dd>-->
+                        <!--<form action="">-->
+                            <!--<input type="text" placeholder="{:lang('input your Email')}">-->
+                            <!--<input type="submit" value="{:lang('submit')}">-->
+                        <!--</form>-->
+                    <!--</dd>-->
+                    <dd>
+                        {:lang('community1')}
+                        {:lang('community2')}
+                        {:lang('community3')}
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+>>>>>>> 301e3c4052971c4e29904b2afed128ab72ab63dd
 </div>

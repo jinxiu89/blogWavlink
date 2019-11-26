@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {extend name="base:base-add" /}
 {block name="title"}
 <title>添加权限组</title>
@@ -52,4 +53,60 @@
         }, JSON);
     });
 </script>
+=======
+{extend name="base:base-add" /}
+{block name="title"}
+<title>添加权限组</title>
+{/block}
+{block name="form"}
+<form class="form form-horizontal" id="form-article-add">
+    <div class="row clearfix">
+        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>角色名称：</label>
+        <div class="form-controls col-xs-8 col-sm-4">
+            <input type="text" class="input-text" value="{$data.name}" placeholder="" id="name" name="name">
+        </div>
+    </div>
+    <div class="row clearfix">
+        <label class="form-label col-xs-4 col-sm-2">描述：</label>
+        <div class="form-controls col-xs-8 col-sm-9">
+            <textarea name="description" cols="" rows="" class="textarea" placeholder="说点什么...最少输入10个字符">{$data.description}</textarea>
+            <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+        </div>
+    </div>
+    <input type="hidden" id="id" name="id" value="{$data.id}">
+    <div class="row clearfix">
+        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+            <button class="btn btn-secondary radius add" type="button"><i class="Hui-iconfont">&#xe632;</i>
+                保存
+            </button>
+        </div>
+    </div>
+</form>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+    $(".add").click(function () {
+        var postData = {};
+        var data = $("form").serializeArray();
+        $.each(data, function () {
+            postData[this.name] = this.value
+        });
+        $.ajax({
+            url: "/{$backendPrefix}/user/permission/role/edit/{$data.id}.html",
+            type: "post",
+            data: postData,
+            "success": function (result) {
+                var msgData = JSON.parse(result);
+                if (msgData.status === true) {
+                    layer.msg(msgData.message, {icon: 1, time: 1000}, function () {
+                        window.parent.location.href = msgData.url
+                    })
+                } else {
+                    layer.msg(msgData.message, {icon: 5, time: 2000})
+                }
+            }
+        }, JSON);
+    });
+</script>
+>>>>>>> 301e3c4052971c4e29904b2afed128ab72ab63dd
 {/block}

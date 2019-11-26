@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {extend name="base:base" /}
 {block name="seo"}
 <!--/meta 作为公共模版分离出去-->
@@ -111,4 +112,119 @@
         }, JSON);
     });
 </script>
+=======
+{extend name="base:base" /}
+{block name="seo"}
+<!--/meta 作为公共模版分离出去-->
+<title>系统设置 - {$app_name}</title>
+{/block}
+{block name="nav"}
+<nav class="breadcrumb" style="background-color:#fff;padding: 0 24px">
+    首页
+    <span class="c-gray en">/</span>
+    系统设置
+    <span class="c-gray en">/</span>
+    网站配置
+</nav>
+{/block}
+{block name="main"}
+<div class="panel">
+    <div class="panel-body">
+        <form action="" method="post" class="form form-horizontal" id="form-system-base">
+            <div id="tab-system" class="HuiTab">
+                <div class="tabBar cl"><span>基本设置</span><span>安全设置</span><span>邮件设置</span></div>
+                <div class="tabCon">
+                    <div class="row clearfix">
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>网站名称：</label>
+                        <div class="form-controls col-xs-8 col-sm-9">
+                            <input type="text" id="title" name="title" placeholder="控制在25个字、50个字节以内" {notempty name="$data.title"} value="{$data.title}" {else /} value="" {/notempty} class="input-text">
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>关键词：</label>
+                        <div class="form-controls col-xs-8 col-sm-9">
+                            <input type="text" id="keywords" name="keywords" placeholder="5个左右,8汉字以内,用英文,隔开" {notempty name="$data.keywords"}value="{$data.keywords}" {else /} value="" {/notempty} class="input-text">
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>描述：</label>
+                        <div class="form-controls col-xs-8 col-sm-9">
+                            <input type="text" id="description" name="description" placeholder="空制在80个汉字，160个字符以内" {notempty name="$data.description"} value="{$data.description}" {else /} value="" {/notempty} class="input-text">
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>口号：</label>
+                        <div class="form-controls col-xs-8 col-sm-9">
+                            <input type="text" id="slogan" name="slogan" placeholder="空制在80个汉字，160个字符以内" {notempty name="$data.slogan"} value="{$data.slogan}" {else /} value="" {/notempty} class="input-text" >
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>底部版权信息：</label>
+                        <div class="form-controls col-xs-8 col-sm-9">
+                            <input type="text" id="Copyright" name="copyright" placeholder="&copy; 2019 wavlink.com" {notempty name="$data.copyright"} value="{$data.copyright}" {else /} value="" {/notempty} class="input-text">
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <label class="form-label col-xs-4 col-sm-2">备案号：</label>
+                        <div class="form-controls col-xs-8 col-sm-9">
+                            <input type="text" id="icp" name="icp" placeholder="京ICP备00000000号" {notempty name="$data.icp"}value="{$data.icp}" {else /} {/notempty} class="input-text">
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <label class="form-label col-xs-4 col-sm-2">统计代码：</label>
+                        <div class="form-controls col-xs-8 col-sm-9">
+                            <textarea class="textarea" name="analytics" cols="" rows="5">{notempty name="$data.analytics"}{$data.analytics}{/notempty}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="tabCon">
+                </div>
+                <div class="tabCon">
+                </div>
+            </div>
+            {notempty name="$data.id"}
+            <input type="hidden" name="id" value="{$data.id}">
+            {/notempty}
+            <div class="row clearfix">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                    <button  class="add btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__ADMIN__/business/js/main.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#menu-level").add('#system-setting').css("display", "block");
+        $("#website_setting").addClass("current");
+        $("#tab-system").Huitab();
+    });
+    $(".add").click(function () {
+        var postData = {};
+        var data = $("form").serializeArray();
+        $.each(data, function () {
+            postData[this.name] = this.value
+        });
+        $.ajax({
+            url: "/{$backendPrefix}/system/setting.html",
+            type: "post",
+            data: postData,
+            "success": function (result) {
+                var msgData = JSON.parse(result);
+                if (msgData.status === true) {
+                    layer.msg(msgData.message, {icon: 1, time: 1000}, function () {
+                        window.parent.location.href = msgData.url
+                    })
+                } else {
+                    layer.msg(msgData.message, {icon: 5, time: 2000})
+                }
+            }
+        }, JSON);
+    });
+</script>
+>>>>>>> 301e3c4052971c4e29904b2afed128ab72ab63dd
 {/block}

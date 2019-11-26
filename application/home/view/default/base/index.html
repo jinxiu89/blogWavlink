@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -184,4 +185,192 @@
 {block name="javascript"}
 {/block}
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{block name="title"} detail {/block}- {$setting.title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="__HOME__/css/template/public_components.css">
+    {block name="style"}
+    <link rel="stylesheet" href="__HOME__/css/pages/detail.css">
+    {/block}
+    {block name="seo"}{/block}
+</head>
+<body>
+{block name="g-header"}
+{include file="default/base/header"}
+{/block}
+{block name="g-nav"}
+{include file="default/base/nav"}
+{/block}
+<div class="sec">
+    <div class="container">
+        <div class="row">
+            {block name="g-path"}
+            <div class="g-path">
+                <a class="path-item" href="#">首页</a>
+                <span class="iconfont icon-icon_next_arrow"></span>
+                <a class="path-item" href="#">产品测评</a>
+            </div>
+            {/block}
+            {block name="g-main"}
+            <div class="g-main">
+                <div class="content">
+                    <div class="blog-detail">
+                        <div class="title">
+                            <h2>新品发布、睿因QUANTUM T8-3000M三频千兆路由器重磅来袭</h2>
+                            <h3>新品发布新品发布新品发布新品发布新品发布新品发布新品发布新品发布</h3>
+                            <div class="icon-box">
+                                <span><i class="iconfont icon-user"></i>wavlink</span>
+                                <span><i class="iconfont icon-ios-shijian"></i>2019/05/31</span>
+                                <span><i class="iconfont icon-yueduliang"></i>2000</span>
+                                <span class="zan"><i class="iconfont icon-zan"></i>200</span>
+                            </div>
+                        </div>
+                        <div class="des" style="min-height: 1000px">
+                            marketDown 文章内容
+                            <a href="#">新品发布、睿因QUANTUM T8-3000M三频千兆路由器重磅来袭新品发布、睿因QUANTUM
+                                T8-3000M三频千兆路由器重磅来袭新品发布、睿因QUANTUM T8-3000M三频千兆路由器重磅来袭</a>
+                        </div>
+                        <div class="community">
+                            <div class="zan">赞一个 <span class="iconfont icon-zan"></span></div>
+                            <div class="share">分享
+                                <span class="iconfont icon-share"></span>
+                                <div class="social">
+                                    <a href="#"><span class="iconfont icon-icon-test2"></span></a>
+                                    <a href="#"><span class="iconfont icon-icon-test1"></span></a>
+                                    <a href="#"><span class="iconfont icon-icon-test"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="label-box">
+                            <span><a href="#">新品发布</a></span>
+                            <span><a href="#">公司动态</a></span>
+                        </div>-->
+                        <div class="page-box">
+                            <p><a href="#"> <span>上一篇</span> <span>【新品发布】睿因QUANTUM D6-宽带升级优选方案</span></a></p>
+                            <p><a href="#"> <span>下一篇</span> <span>Wavlink Halo Base 分布式路由器</span></a></p>
+                        </div>
+                    </div>
+                    <div class="link-box">
+                        <div class="references">
+                            <h4>参考文献</h4>
+                            <div class="des">
+                                <p><a href="#">http://www.wavlink.com/test/test/test/test/test/test/test//test/test/test//test/test/test//test/test/test//test/test/test//test/test/test//test/test/test//test/test/test//test/test/test//test/test/test//test/test/test//test/test/test//test/test/test//test/test/test//test/test/test//test/test/test//test/test/test//test/test/test//test/test/test/test/test/test/test/test/test/test/test/test/test/test/</a>
+                                </p>
+                                <p><a href="#">http://www.wavlink.com/test/test/test/test/test/test/test/test/test/test/test/test</a>
+                                </p>
+                                <p><a href="#">http://www.wavlink.com/test/test/test/test/test/test/test</a></p>
+                            </div>
+                        </div>
+                        <div class="relevant">
+                            <h4>相关文章</h4>
+                            <div class="des">
+                                <p><a href="#">【新品发布】睿因QUANTUM D6-宽带升级优选方案</a></p>
+                                <p><a href="#">HOW TO RESET WAVLINK ROUTER</a></p>
+                                <p><a href="#">Wavlink Halo Base 分布式路由器</a></p>
+                                <p><a href="#">UTD01 performs well under NUC8 windows 10</a></p>
+                                <p><a href="#">WHEN NUC8I3BEH MEETS WAVLINK UTE01 </a></p>
+                            </div>
+                        </div>
+                        <div class="review">
+                            <h4>发表评论</h4>
+                            <div class="review-form">
+                                <form action="">
+                                    <div>
+                                        <label for="name">姓名（选填）</label>
+                                        <input id="name" type="text" placeholder="请输入您的昵称">
+                                    </div>
+                                    <div>
+                                        <label for="email">邮箱（必填）</label>
+                                        <input id="email" type="text" placeholder="请输入您的邮箱">
+                                    </div>
+                                    <div>
+                                        <label for="review">评论内容（必填）</label>
+                                        <textarea id="review" rows="5"></textarea>
+                                    </div>
+                                    <div>
+                                        <span><i class="iconfont icon-icon_im_face"></i> 表情</span>
+                                        <input type="submit" value="发表评论">
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="review-list">
+                                <div class="box">
+                                    <div class="img-box">
+                                        <img src="../img/user.png" alt="">
+                                    </div>
+                                    <div class="review-des">
+                                        <p>钰狼共舞</p>
+                                        <p>666</p>
+                                        <p>发表于 <span>2019/05/31</span></p>
+                                    </div>
+                                </div>
+                                <div class="box">
+                                    <div class="img-box">
+                                        <img src="../img/user.png" alt="">
+                                    </div>
+                                    <div class="review-des">
+                                        <p>钰狼共舞</p>
+                                        <p>学习</p>
+                                        <p>发表于 <span>2019/05/31</span></p>
+                                    </div>
+                                </div>
+                                <div class="box">
+                                    <div class="img-box">
+                                        <img src="../img/user.png" alt="">
+                                    </div>
+                                    <div class="review-des">
+                                        <p>钰狼共舞</p>
+                                        <p>牛批牛批牛批</p>
+                                        <p>发表于 <span>2019/05/31</span></p>
+                                    </div>
+                                </div>
+                                <div class="box">
+                                    <div class="img-box">
+                                        <img src="../img/user.png" alt="">
+                                    </div>
+                                    <div class="review-des">
+                                        <p>钰狼共舞</p>
+                                        <p>买国内阿里云吧，域名备案下，很划算的。一个服务器，可以放多个网站</p>
+                                        <p>发表于 <span>2019/05/31</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/block}
+            {block name="g-sidebar"}
+            {include file="default/base/g-sidebar"}
+            {/block}
+        </div>
+    </div>
+</div>
+{block name="g-foot"}
+{include file='default/base/footer' /}
+{/block}
+<div class="g-copyright">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="copyright">Copyright ©
+                <script>var nowYear = new Date().getFullYear();
+                document.write(nowYear)</script>
+                {$setting.copyright} {$setting.icp}
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__HOME__/lib/jquery/JQuery-3.4.0.js"></script>
+<script src="__HOME__/js/bootstrap.min.js"></script>
+<script src="__HOME__/js/public.js"></script>
+{$setting.analytics|raw}
+{block name="javascript"}
+{/block}
+</body>
+>>>>>>> 301e3c4052971c4e29904b2afed128ab72ab63dd
 </html>

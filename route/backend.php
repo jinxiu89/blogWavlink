@@ -11,9 +11,14 @@
 use think\facade\Config;
 use think\facade\Env;
 use think\facade\Route;
+<<<<<<< HEAD
 
 
 /***
+=======
+use app\admin\middleware\Auth;
+/**
+>>>>>>> 301e3c4052971c4e29904b2afed128ab72ab63dd
  * 20190525-20190605
  * 用户功能模块路由
  * 管理用户只能在后台由超级用户来添加
@@ -46,11 +51,25 @@ Route::group(Config::get('app.backend_prefix'), function () {
     //TODO::
     Route::get('/user/edit/:id', '')->pattern(['id' => '\d+']);
     Route::post('/user/edit/:id', '')->pattern(['id' => '\d+']);
+<<<<<<< HEAD
     Route::get('/login', 'Auth/login');
     Route::post('/login', 'Auth/login');
     Route::get('/logout', 'Auth/logout');
 })->prefix('admin/')->ext('html');
 
+=======
+
+})->prefix('admin/')->ext('html');
+
+
+Route::group(Config::get('app.backend_prefix'),function (){
+
+    Route::get('/login', 'Auth/login');
+    Route::post('/login', 'Auth/login');
+    Route::get('/logout', 'Auth/logout');
+
+})->prefix('admin/')->ext('html');;
+>>>>>>> 301e3c4052971c4e29904b2afed128ab72ab63dd
 /***
  * 20190612
  * 语言管理相关的路由
@@ -129,5 +148,8 @@ Route::group(Config::get('app.backend_prefix'), function () {
  */
 Route::get('/wavlink/', 'admin/Index/index');
 Route::get('/wavlink/language/:code', 'admin/Base/ChangeLanguage')->pattern(['code' => '[\w-]+']);
+<<<<<<< HEAD
 //Route::get('/wavlink', 'admin/Index/index');
+=======
+>>>>>>> 301e3c4052971c4e29904b2afed128ab72ab63dd
 //Route::get('/wavlink', 'admin/Index/index');
