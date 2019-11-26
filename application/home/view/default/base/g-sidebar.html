@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div class="g-sidebar">
     <div class="sidebar-box side-company">
         <div class="title">{:lang('company-title')}</div>
@@ -39,46 +38,4 @@
             </ul>
         </div>
     </div>
-=======
-<div class="g-sidebar">
-    <div class="sidebar-box side-company">
-        <div class="title">{:lang('company-title')}</div>
-        <div class="img-box">
-            <!--<img src="__HOME__/img/logo.png" alt="">-->
-        </div>
-        <div class="des">
-            <p>
-               {:lang('company-des')}
-            </p>
-            <details>
-                <summary>{:lang('more')}</summary>
-                {:lang('company-cont')}
-            </details>
-        </div>
-    </div>
-    <!--<div class="sidebar-box side-label">-->
-        <!--<div class="title">{:lang('tags')}</div>-->
-        <!--<div class="list">-->
-            <!--<span><a href="#">行业新闻</a></span>-->
-            <!--<span><a href="#">公司动态</a></span>-->
-            <!--<span><a href="#">新品发布</a></span>-->
-            <!--<span><a href="#">产品测评</a></span>-->
-            <!--<span><a href="#">活动策划</a></span>-->
-            <!--<span><a href="#">产品使用教程</a></span>-->
-            <!--<span><a href="#">其他</a></span>-->
-        <!--</div>-->
-    <!--</div>-->
-    <div class="sidebar-box side-new">
-        <div class="title">{:lang('Last update')}</div>
-        <div class="list">
-            <ul>
-                {notempty name="lastUpdate"}
-                {volist name="lastUpdate" id="vo"}
-                <li><a href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/{$vo.url_title}.html" title="{$vo.title}">{$vo.title}</a></li>
-                {/volist}
-                {/notempty}
-            </ul>
-        </div>
-    </div>
->>>>>>> 301e3c4052971c4e29904b2afed128ab72ab63dd
 </div>

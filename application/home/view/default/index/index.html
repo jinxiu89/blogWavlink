@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {extend name="default/base:index" /}
 {block name="title"}{:lang('home')}{/block}
 {block name="style"}
@@ -57,64 +56,4 @@
 <script>
     $("#home").addClass('active');
 </script>
-=======
-{extend name="default/base:index" /}
-{block name="title"}{:lang('home')}{/block}
-{block name="style"}
-<link rel="stylesheet" href="__HOME__/css/pages/list.css">
-{/block}
-{block name="seo"}
-<meta name="keywords" content="{$setting.keywords}">
-<meta name="description" content="{$setting.description}">
-{/block}
-{block name="g-path"}
-<div class="g-path">
-    <a class="path-item" href="/">{:lang('home-nav')}</a>
-</div>
-{/block}
-{block name="g-main"}
-<div class="g-main">
-    <div class="content">
-        <ul class="blog-list">
-            {notempty name="data"}
-            {volist name="data" id="vo"}
-            <li class="blog-item" {empty name="vo.thumbnail" }style="padding-left:15px;min-height:auto;" {/empty} >
-            {notempty name="vo.thumbnail"}
-            <a class="pic-link"
-               href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/{$vo.url_title}.html">
-                <img src="{$vo.thumbnail}" alt="{$vo.thumbnail}">
-            </a>
-            {/notempty}
-            <h2 class="title"><a
-                    href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/{$vo.url_title}.html">{$vo.title}</a>
-            </h2>
-            <div class="des">
-                {$vo.description}
-            </div>
-            <div class="info">
-                <span><a href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/index.html">{$vo.category_id|getCategoryNameByID}</a></span>
-                <span><i class="iconfont icon-ios-shijian"></i>{$vo.create_time|date='m/d/Y'}</span>
-                <!--<span><i class="iconfont icon-icon_comment"></i>5</span>-->
-                <span><i class="iconfont icon-yueduliang"></i>{$vo.clicks}</span>
-                <span><a href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/{$vo.url_title}.html">{:lang('Details')} ></a></span>
-            </div>
-            </li>
-            {/volist}
-            {else /}
-            <li class="blog-item">
-                没有数据
-            </li>
-            {/notempty}
-        </ul>
-        <div class="g-nav_page text-center">
-            {notempty name="data"}{$data|raw}{/notempty}
-        </div>
-    </div>
-</div>
-{/block}
-{block name="javascript"}
-<script>
-    $("#home").addClass('active');
-</script>
->>>>>>> 301e3c4052971c4e29904b2afed128ab72ab63dd
 {/block}
