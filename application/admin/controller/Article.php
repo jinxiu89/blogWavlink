@@ -37,6 +37,7 @@ class Article extends Base
         $result = (new articleAgency())->getAll($this->language['id']);
         $this->assign('data', $result['data']);
         $this->assign('count', $result['count']);
+        //dump($result);exit();
         return $this->fetch();
     }
 
@@ -45,8 +46,8 @@ class Article extends Base
         $result = (new articleAgency())->getDataByCategoryId($category_id);
         $this->assign('data', $result['data']);
         $this->assign('count', $result['count']);
+        //dump($result);exit();
         return $this->fetch();
-
     }
 
     public function add()

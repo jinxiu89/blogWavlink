@@ -10,7 +10,7 @@
           <option name="port" value="21" />
         </fileTransfer>
       </webServer>
-      <webServer id="0e6d6ac6-79f8-4d1f-96c6-4e4b0da7b71e" name="online" url="http://120.77.218.187">
+      <webServer id="0e6d6ac6-79f8-4d1f-96c6-4e4b0da7b71e" name="online" url="http://blog.wavlink.com">
         <fileTransfer host="120.77.218.187" port="21">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
