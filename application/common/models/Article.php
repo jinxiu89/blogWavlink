@@ -123,7 +123,7 @@ class Article extends Base
     {
         try {
             $data = self::where('category_id', 'in', $ids)->where(['status' => 1])
-                ->order('id asc')
+                ->order('create_time desc,id asc')
                 ->field('id,clicks,category_id,language_id,create_time,thumbnail,title,ftitle,url_title,description')
                 ->paginate();
             return ['status' => true, 'message' => 'ok', 'data' => $data];

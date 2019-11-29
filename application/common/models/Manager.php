@@ -9,6 +9,7 @@
 namespace app\common\models;
 
 
+use think\Collection;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\ModelNotFoundException;
 use think\exception\DbException;
@@ -44,7 +45,9 @@ class Manager extends Base
         );
         $language_id = $data['language_id'];
         try {
-            $user = self::where($map)->find()->toArray();
+            if(!$user = self::where($map)->find()){
+                return show(false, '用户不存在');
+            }
             if ($user['password'] != md5($data['password']) . Config::get('app.user_secret')) {
                 return show(false, '密码不正确', '');
             } else {
