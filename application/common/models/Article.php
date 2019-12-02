@@ -123,7 +123,7 @@ class Article extends Base
     {
         try {
             $data = self::where('category_id', 'in', $ids)->where(['status' => 1])
-                ->order('id asc')
+                ->order('create_time desc,id asc')
                 ->field('id,clicks,category_id,language_id,create_time,thumbnail,title,ftitle,url_title,description')
                 ->paginate();
             return ['status' => true, 'message' => 'ok', 'data' => $data];
@@ -141,7 +141,7 @@ class Article extends Base
     public function getDataByLanguage($language_id)
     {
         try {
-            $data = self::where(['language_id' => $language_id])
+            $data = self::where(['language_id' => $language_id,'status'=>1])
                 ->field('id,clicks,category_id,language_id,title,create_time,thumbnail,ftitle,url_title,description')
                 ->order('create_time desc,id asc')->paginate();
             return ['status' => true, 'message' => 'ok', 'data' => $data];

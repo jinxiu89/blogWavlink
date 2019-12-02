@@ -1,0 +1,197 @@
+{extend name="base:base-add" /}
+{block name="style"}
+<link rel="stylesheet" href="__LIB__/webuploader/0.1.5/webuploader.css">
+{/block}
+{block name="title"}
+<title>编辑文件</title>
+{/block}
+{block name="form"}
+<form class="form form-horizontal" id="form-article-add">
+    <div class="row clearfix">
+        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>所属产品：</label>
+        <div class="form-controls col-xs-8 col-sm-4">
+            <input type="text" class="input-text" value="{$data->file_id|getProductName}" disabled>
+            <input type="hidden" value="{$data->file_id}" name="file_id">
+        </div>
+    </div>
+    <div class="row clearfix">
+        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>标题：</label>
+        <div class="form-controls col-xs-8 col-sm-4">
+            <input type="text" class="input-text" value="{$data->title}" id="title" name="title">
+        </div>
+    </div>
+    <div class="row clearfix">
+        <label class="form-label col-xs-4 col-sm-2">关键词：</label>
+        <div class="form-controls col-xs-8 col-sm-4">
+            <input type="text" class="input-text" value="{$data->keywords}" id="keywords" name="keywords">
+        </div>
+    </div>
+    <div class="row clearfix">
+        <label class="form-label col-xs-4 col-sm-2">排序：</label>
+        <div class="form-controls col-xs-8 col-sm-1">
+            <input type="text" class="input-text" value="{$data->listorder}" placeholder="" id="listorder"
+                   name="listorder">
+        </div>
+    </div>
+    <div class="row clearfix">
+        <label class="form-label col-xs-4 col-sm-2">描述：</label>
+        <div class="form-controls col-xs-8 col-sm-9">
+            <textarea name="description" cols="" rows="" class="textarea" placeholder="说点什么...最少输入10个字符"
+                      datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！"
+                      onKeyUp="textarealength(this,100)">{$data->description}</textarea>
+            <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+        </div>
+    </div>
+    <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-2">文件：</label>
+        <div class="formControls col-xs-8 col-sm-9">
+            <div class="uploader-thum-container">
+                <div id="fileList" class="uploader-list"><span>{$data->aws_key} 保存时将被删除！</span></div>
+                <div id="filePicker">选择文件</div>
+                <button id="btn-star" type="button" class="btn btn-default btn-uploadstar radius ml-10">开始上传</button>
+            </div>
+            <input type="hidden" name="aws_key" value="" id="aws_key">
+            <input type="hidden" name="old_key" class="input-text" value="{$data->aws_key}">
+        </div>
+    </div>
+    <div class="row clearfix">
+        <label class="form-label col-xs-4 col-sm-2">文件大小：</label>
+        <div class="form-controls col-xs-8 col-sm-2">
+            <input type="text" class="input-text" value="{$data->size}" name="size">
+        </div>
+    </div>
+    <input type="hidden" name="id" value="{$data->id}">
+    <div class="row clearfix">
+        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+            <button class="btn btn-secondary radius add" type="button"><i class="Hui-iconfont">&#xe632;</i>
+                保存
+            </button>
+        </div>
+    </div>
+</form>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__LIB__/webuploader/0.1.5/webuploader.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var $list = $("#fileList");
+        var $btn = $("#btn-star");
+        var state = "pending";
+        uploader;
+        var uploader = WebUploader.create({
+            auto: false,
+            swf: '__LIB__/webuploader/0.1.5/Uploader.swf',
+            // 文件接收服务端。
+            server: '/wavlink/aws/uploader.html',
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: {
+                id: '#filePicker',
+                label: '选择文件',
+            },
+            // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+            resize: false,
+            method: 'POST',
+            fileNumLimit: 1,
+            // 只允许选择图片文件。
+            accept: {
+                title: 'Files',
+                extensions: 'zip,pdf,rar,doc,docx,xls,xlsx',
+                mimeTypes: '.zip,.pdf,.rar,.doc,.docs,.xls,.xlsx'
+            }
+        });
+        uploader.on('fileQueued', function (file) {
+            var $li = $(
+                '<div id="' + file.id + '" class="item">' +
+                '<div class="pic-box"><img></div>' +
+                '<div class="info">' + file.name + '</div>' +
+                '<p class="state">等待上传...</p>' +
+                '</div>'
+                ),
+                $img = $li.find('img');
+            $list.append($li);
+            // 创建缩略图
+            // 如果为非图片文件，可以不用调用此方法。
+            // thumbnailWidth x thumbnailHeight 为 100 x 100
+            uploader.makeThumb(file, function (error, src) {
+                if (error) {
+                    $img.replaceWith('<span>不能预览</span>');
+                    return;
+                }
+                $img.attr('src', src);
+            }, 100, 100);
+        });
+        // 文件上传过程中创建进度条实时显示。 percentage : 就是进度数字
+        uploader.on('uploadProgress', function (file, percentage) {
+            var $li = $('#' + file.id),
+                $percent = $li.find('.progress-box .sr-only');
+            // 避免重复创建
+            if (!$percent.length) {
+                $percent = $('<div class="progress-box"><span class="progress-bar radius"><span class="sr-only" style="width:0%"></span></span></div>').appendTo($li).find('.sr-only');
+            }
+            $li.find(".state").text("上传到亚马逊云，请稍后,根据网速快慢，300M的文件大约需要4分钟");
+            $percent.css('width', percentage * 100 + '%');
+        });
+
+        // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+        uploader.on('uploadSuccess', function (file, result) {
+            $('#' + file.id).addClass('upload-state-success').find(".state").text("已上传到亚马逊s3 files.iqs.link存储桶");
+            $('#aws_key').val(result._raw)
+        });
+
+        // 文件上传失败，显示上传出错。
+        uploader.on('uploadError', function (file, reason) {
+            $('#' + file.id).addClass('upload-state-error').find(".state").text(reason);
+        });
+
+        // 完成上传完了，成功或者失败，先删除进度条。
+        uploader.on('uploadComplete', function (file) {
+            $('#' + file.id).find('.progress-box').fadeOut();
+        });
+        uploader.on('all', function (type) {
+            if (type === 'startUpload') {
+                state = 'uploading';
+            } else if (type === 'stopUpload') {
+                state = 'paused';
+            } else if (type === 'uploadFinished') {
+                state = 'done';
+            }
+            if (state === 'uploading') {
+                $btn.text('暂停上传');
+            } else {
+                $btn.text('开始上传');
+            }
+        });
+
+        $btn.on('click', function () {
+            if ('uploading' === state) {
+                uploader.stop();
+            } else {
+                uploader.upload();
+            }
+        });
+    });
+    $(".add").click(function () {
+        var postData = {};
+        var data = $("form").serializeArray();
+        $.each(data, function () {
+            postData[this.name] = this.value
+        });
+        $.ajax({
+            url: "/wavlink/files/download/edit/{$data->id}.html",
+            type: "post",
+            data: postData,
+            "success": function (result) {
+                var msgData = JSON.parse(result);
+                if (msgData.status === true) {
+                    layer.msg(msgData.message, {icon: 1, time: 1000}, function () {
+                        window.parent.parent.location.href = msgData.url
+                    })
+                } else {
+                    layer.msg(msgData.message, {icon: 5, time: 2000})
+                }
+            }
+        }, JSON);
+    });
+</script>
+{/block}

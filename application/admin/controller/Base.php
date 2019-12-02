@@ -13,7 +13,10 @@ use app\admin\agency\category as CategoryAgency;
 use app\common\agency\auth as authAgency;
 use app\common\helper\Category as CategoryHelper;
 use app\common\models\Language;
+use think\App;
 use think\Controller;
+use think\Exception;
+use think\facade\Cache;
 use think\facade\Config;
 use think\facade\Request;
 use think\facade\Session;
@@ -38,9 +41,17 @@ class Base extends Controller
      * beforActionList 是用于在运行该控制器时 第一个先运行的几个方法名，很有必要，不然initialize方法会臃肿不堪，home模块也一样这里不赘述
      *
      */
+
+
     protected $beforeActionList = [
         'languageList', 'CategoryTree', 'init', 'Auth'
     ];
+
+    public function __construct(App $app = null)
+    {
+        parent::__construct($app);
+
+    }
 
     public function initialize()
     {
@@ -68,7 +79,7 @@ class Base extends Controller
         } else {
             $this->redirect('/' . $this->backendPrefix . '/login.html');
         }
-        /***
+        /**
          * 权限核对
          * 这里把变量名命名为handler是有深意的，所有的访问控制器/方法 理论上都是为操作者打开一扇门，这扇门允不允许你进去，就看你有没有这个门的权限
          * 允许直接访问的页面
@@ -121,5 +132,27 @@ class Base extends Controller
         $next = Request::header('referer');
         session('language', $language, 'admin');
         return redirect($next);
+    }
+
+    /**
+     * @return string
+     * 清理缓存
+     *
+     */
+    public function CacheClear()
+    {
+        $cachedir = __DIR__.'/../../../runtime/cache';
+        if (is_empty_dir($cachedir)){
+            return show(true,'很干净，不用清理！');;
+        }
+        try {
+            if (deltree($cachedir)===true){
+                return show(true,'清理成功！');
+            };
+        } catch (Exception $exception) {
+            return show(false,$exception->getMessage());
+        }
+        return show(false,'清理失败，原因未知！');
+
     }
 }

@@ -8,6 +8,8 @@
 
 namespace app\admin\controller;
 
+use think\Request;
+
 /**
  * Class Index
  * @package app\admin\controller

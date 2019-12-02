@@ -72,12 +72,12 @@ class article extends base
     public function getAll($language_id)
     {
         try {
-            $query = $this->model->where(['language_id' => $language_id])->field('id,category_id,title,keywords,mark,clicks')->order("id");
+            $query = $this->model->where(['language_id' => $language_id])->field('id,category_id,title,keywords,mark,clicks')->order("create_time desc,id desc");
             $data = $query->paginate();
             $count = $query->count();
             return ['data' => $data, 'count' => $count];
         } catch (Exception $e) {
-            return [];
+            return [false,$e->getMessage()];
         }
     }
 
@@ -102,7 +102,7 @@ class article extends base
     {
         try {
             $query = $this->model->where(['category_id' => $category_id])
-                ->order(['id' => 'asc'])
+                ->order('create_time desc,id desc')
                 ->field('id,category_id,title,keywords,mark,clicks');
             $data = $query->paginate();
             $count = $query->count();
