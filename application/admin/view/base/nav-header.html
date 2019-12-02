@@ -1,51 +1,3 @@
-<<<<<<< HEAD
-<!--_header 作为公共模版分离出去-->
-<header class="Hui-navbar">
-    <div class="navbar">
-        <div class="container-fluid clearfix">
-            <nav id="Hui-topNav" class="nav navbar-nav">
-                <ul class="clearfix">
-                </ul>
-            </nav>
-            <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar">
-                <ul class="clearfix">
-                    <li class="dropDown dropDown_hover">
-                        <a class="dropDown_A" href="javascript:;">切换语言</a>
-                        <ul class="dropDown-menu menu radius box-shadow">
-                            {notempty name="languageList"}
-                            {volist name="languageList" id="vo"}
-                            <li class="">
-                                <a href="/wavlink/language/{$vo.code}">{$vo.name}</a>
-                            </li>
-                            {/volist}
-                            {/notempty}
-                        </ul>
-                    </li>
-                    <li><span>{$language.name}</span></li>
-                    <li class="dropDown dropDown_hover"><a href="#" class="dropDown_A">{$session['name']} <i
-                            class="Hui-iconfont">&#xe6d5;</i></a>
-                        <ul class="dropDown-menu menu radius box-shadow">
-                            <li><a href="/wavlink/logout.html">退出</a></li>
-                        </ul>
-                    </li>
-                    <li id="Hui-skin" class="dropDown dropDown_hover right">
-                        <a href="javascript:void (0);" class="dropDown_A" title="换肤"><i class="Hui-iconfont"
-                                                                                        style="font-size:18px">&#xe62a;</i></a>
-                        <ul class="dropDown-menu menu radius box-shadow">
-                            <li><a href="javascript:void (0);" data-val="default" title="默认（蓝色）">默认（深蓝）</a></li>
-                            <li><a href="javascript:void (0);" data-val="black" title="黑色">黑色</a></li>
-                            <li><a href="javascript:void (0);" data-val="green" title="绿色">绿色</a></li>
-                            <li><a href="javascript:void (0);" data-val="red" title="红色">红色</a></li>
-                            <li><a href="javascript:void (0);" data-val="yellow" title="黄色">黄色</a></li>
-                            <li><a href="javascript:void (0);" data-val="orange" title="橙色">橙色</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</header>
-=======
 <!--_header 作为公共模版分离出去-->
 <header class="Hui-navbar">
     <div class="navbar">
@@ -93,5 +45,4 @@
         </div>
     </div>
 </header>
->>>>>>> newbranch
 <!--/_header 作为公共模版分离出去-->
