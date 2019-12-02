@@ -13,13 +13,17 @@ namespace app\admin\middleware;
 
 use app\common\agency\auth as authAgency;
 use Closure;
+<<<<<<< HEAD
 use think\Controller;
+=======
+>>>>>>> newbranch
 use think\facade\Config;
 use think\facade\Request;
 use think\facade\Session;
 
 class Auth extends Controller
 {
+<<<<<<< HEAD
     public function handle($request, Closure $closure)
     {
         if (Session::has('adminUser', 'admin')) {
@@ -50,6 +54,16 @@ class Auth extends Controller
             $this->assign('access', $check['data']);
         }
         $request->che = $this->assign('access', $check['data']);
+=======
+
+
+    public function handle($request, Closure $closure)
+    {
+        $session = Session::get('adminUser', 'admin');
+        $request->see = $session;
+
+
+>>>>>>> newbranch
         return $closure($request);
     }
 

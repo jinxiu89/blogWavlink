@@ -11,8 +11,7 @@
 use think\facade\Config;
 use think\facade\Env;
 use think\facade\Route;
-
-
+use app\admin\middleware\Auth;
 /***
  * 20190525-20190605
  * 用户功能模块路由
@@ -46,11 +45,17 @@ Route::group(Config::get('app.backend_prefix'), function () {
     //TODO::
     Route::get('/user/edit/:id', '')->pattern(['id' => '\d+']);
     Route::post('/user/edit/:id', '')->pattern(['id' => '\d+']);
+
+})->prefix('admin/')->ext('html');
+
+
+Route::group(Config::get('app.backend_prefix'),function (){
+
     Route::get('/login', 'Auth/login');
     Route::post('/login', 'Auth/login');
     Route::get('/logout', 'Auth/logout');
-})->prefix('admin/')->ext('html');
 
+})->prefix('admin/')->ext('html');;
 /***
  * 20190612
  * 语言管理相关的路由
@@ -109,6 +114,9 @@ Route::group(Config::get('app.backend_prefix'), function () {
     Route::get('/aws/uploader', 'aws/uploader');
     Route::get("/category/edit/:id", 'category/edit')->pattern(['id' => '\d+']);
     Route::get('/index', 'Index/index');
+
+    Route::get('/cache_clear','Base/CacheClear');
+
 })->prefix('admin/')->ext('html');
 
 /***
@@ -127,7 +135,12 @@ Route::group(Config::get('app.backend_prefix'), function () {
 /***
  * 公共部分的路由设置
  */
-Route::get('/wavlink/', 'admin/Index/index');
+
+Route::get('/wavlink/', 'admin/Index/index')->middleware(Auth::class);
 Route::get('/wavlink/language/:code', 'admin/Base/ChangeLanguage')->pattern(['code' => '[\w-]+']);
 //Route::get('/wavlink', 'admin/Index/index');
+<<<<<<< HEAD
 //Route::get('/wavlink', 'admin/Index/index');
+=======
+
+>>>>>>> newbranch
