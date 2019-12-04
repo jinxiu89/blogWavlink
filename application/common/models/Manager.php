@@ -9,13 +9,12 @@
 namespace app\common\models;
 
 
-use app\common\models\Language;
 use think\Collection;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\ModelNotFoundException;
 use think\exception\DbException;
 use think\facade\Config;
-
+use app\common\models\Language;
 
 /**
  * Class manager

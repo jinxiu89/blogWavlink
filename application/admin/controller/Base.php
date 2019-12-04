@@ -137,7 +137,7 @@ class Base extends Controller
     /**
      * @return string
      * 清理缓存
-     *123
+     *
      */
     public function CacheClear()
     {

@@ -2,20 +2,15 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-<<<<<<< HEAD
-      <webServer id="ca063378-9ad5-4450-8760-bb99e95e4d53" name="develop" url="http://192.168.3.16">
+      <webServer id="0f46dff4-8c2e-4173-82f9-8db314066d3b" name="Develop" url="http://blog.wavlink.com">
         <fileTransfer host="192.168.3.16" port="21">
-=======
-      <webServer id="3f661b33-1477-4e4c-8233-d394cf9c5f10" name="online" url="http://blog.wavlink.com">
-        <fileTransfer host="120.77.218.187" port="21">
->>>>>>> newbranch
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
           <option name="port" value="21" />
         </fileTransfer>
       </webServer>
-      <webServer id="0e6d6ac6-79f8-4d1f-96c6-4e4b0da7b71e" name="online" url="http://blog.wavlink.com">
+      <webServer id="c6676561-ab5d-4621-8c7a-00582657ad0d" name="onlie" url="http://blog.wavlink.com">
         <fileTransfer host="120.77.218.187" port="21">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
