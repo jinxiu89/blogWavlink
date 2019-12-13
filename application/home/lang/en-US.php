@@ -43,12 +43,10 @@ return [
      */
     'statistics'=>'statistics',
     'Wavlink'=>'Our website',
-    'Wavlink(global)'=>'Wavlink(global)',
-    'Wavlink(china)'=>'Wavlink(china)',
+    'Wavlink(global)'=>'Wavlink(Global)',
+    'Wavlink(china)'=>'Wavlink(China)',
     'Uwmarket'=>'Uwmarket',
-    'community1'=>'<span><a href="https://www.facebook.com/WavlinkOffical/"><i class="iconfont icon-icon-test1"></i></a></span>',
+    'community1'=>'<span><a href="https://www.facebook.com/WavlinkOfficial/"><i class="iconfont icon-icon-test1"></i></a></span>',
     'community2'=>'<span><a href="https://twitter.com/WavlinkOfficial"><i class="iconfont icon-icon-test2"></i></a></span>',
     'community3'=>'<span><a href="https://www.linkedin.com/company/wavlink-technology-ltd"><i class="iconfont">&#xe661;</i></a></span>',
-
-
 ];

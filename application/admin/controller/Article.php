@@ -48,6 +48,7 @@ class Article extends Base
         $this->assign('count', $result['count']);
         //dump($result);exit();
         return $this->fetch();
+
     }
 
     public function add()
