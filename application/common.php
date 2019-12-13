@@ -155,3 +155,56 @@ function counter($prefix, $ip, $expire)
     }
     return false;
 }
+
+/**
+ * @param $pathdir
+ * 清理缓存删除文件及文件夹
+ *
+ */
+
+function deltree($pathdir)
+{
+    //print_r($pathdir);exit();//调试时用的
+    if(is_empty_dir($pathdir))//如果是空的
+    {
+        rmdir($pathdir);//直接删除
+        return true;
+    }
+    else
+    {//否则读这个目录，除了.和..外
+        $d=dir($pathdir);
+        while($a=$d->read())
+        {
+            if(is_file($pathdir.'/'.$a) && ($a!='.') && ($a!='..')){unlink($pathdir.'/'.$a);}
+            //如果是文件就直接删除
+            if(is_dir($pathdir.'/'.$a) && ($a!='.') && ($a!='..'))
+            {//如果是目录
+                if(!is_empty_dir($pathdir.'/'.$a))//是否为空
+                {//如果不是，调用自身，不过是原来的路径+他下级的目录名
+                    deltree($pathdir.'/'.$a);
+                }
+                if(is_empty_dir($pathdir.'/'.$a))
+                {//如果是空就直接删除
+                    rmdir($pathdir.'/'.$a);
+                }
+            }
+        }
+        $d->close();
+        return true;
+    }
+}
+function is_empty_dir($pathdir)
+{
+    //判断目录是否为空
+    $d=opendir($pathdir);
+    $i=0;
+    while($a=readdir($d))
+    {
+        $i++;
+    }
+    closedir($d);
+    if($i>2){return false;}
+    else return true;
+}
+
+

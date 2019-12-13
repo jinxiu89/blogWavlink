@@ -72,7 +72,6 @@ class Article extends Base
             if ($result['status']==1) {
                 $ip = Request::ip();
                 if (empty(Cookie::has(md5($ip).$url_title, 'home_'))) {
-                    //如果120秒内未重复点击，点击次数加1
                     $result['data']['clicks']++;
                     Cookie::set(md5($ip).$url_title,1, ['prefix' => 'home_', 'expire' => 120]);
                     (new ArticleAgency())->updateClicks($result['data']);
@@ -80,8 +79,10 @@ class Article extends Base
                 $this->assign('data', $result['data']);
                 return $this->fetch($this->theme . '/article/details.html');
             }else{
+
                 return View::fetch('/500');
             }
+
         }
     }
 }

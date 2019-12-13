@@ -1,0 +1,85 @@
+{extend name="base:base" /}
+{block name="seo"}
+<!--/meta 作为公共模版分离出去-->
+<title>文件列表</title>
+{/block}
+{block name="nav"}
+<nav class="breadcrumb" style="background-color:#fff;padding: 0 24px">
+    首页
+    <span class="c-gray en">/</span>
+    产品管理
+    <span class="c-gray en">/</span>
+    产品列表
+</nav>
+{/block}
+{block name="main"}
+<div class="panel mt-20">
+    <div class="panel-body">
+        <div class="clearfix">
+							<span class="f-l">
+							<a class="btn btn-primary radius" onclick="add_or_edit('添加产品','/wavlink/files/add.html')"
+                               href="javascript:void (0);"><i class="Hui-iconfont">&#xe600;</i> 添加产品</a>
+							</span>
+            <span class="f-r">共有数据：<strong>{$count}</strong> 条</span>
+        </div>
+        <div class="mt-20 clearfix">
+            <table id="data-table-list"
+                   class="table table-border table-bordered table-bg table-hover table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="25"><input type="checkbox" name="" value=""></th>
+                    <th width="80">ID</th>
+                    <th width="320">产品标题</th>
+                    <th width="180">关键词</th>
+                    <th >描述</th>
+                    <th width="70">所属分类</th>
+                    <th width="120">更新时间</th>
+                    <th width="150">操作</th>
+                </tr>
+                </thead>
+                <tbody class="getData-list" data-currPage='1'>
+                {notempty name="data"}
+                {volist name="data" id="vo"}
+                <tr class="text-c">
+                    <td><input type="checkbox" value="" name=""></td>
+                    <td>{$vo.id}</td>
+                    <td class="text-l">{$vo.title}</td>
+                    <td>{$vo.keywords}</td>
+                    <td class="text-l">{$vo.description}</td>
+                    <td>{$vo.c_id}</td>
+                    <td>{$vo.create_time}</td>
+                    <td class="f-14 td-manage">
+                        <a style="text-decoration:none" class="ml-5 btn btn-primary"
+                           onClick="add_or_edit('编辑产品','/wavlink/files/edit/{$vo.id}.html')" href="javascript:void (0);"
+                           title="编辑产品"><i class="Hui-iconfont">&#xe6df;</i></a>
+                        <a style="text-decoration:none" class="ml-5 btn btn-secondary"
+                           onClick="add_or_edit('添加下载文件','/wavlink/files/{$vo.id}/download/add.html')" href="javascript:void (0);"
+                           title="添加下载文件"><i class="Hui-iconfont">&#xe61f;</i></a>
+                        <a style="text-decoration:none" class="ml-5 btn btn-default"
+                           onClick="add_or_edit('编辑下载文件','/wavlink/files/{$vo.id}/download/edit.html')" href="javascript:void (0);"
+                           title="编辑下载文件"><i class="Hui-iconfont">&#xe610;</i></a>
+
+                    </td>
+                </tr>
+                {/volist}
+                {else}
+                {/notempty}
+                </tbody>
+            </table>
+        </div>
+        <div id="laypage" class="text-c"></div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__LIB__/datatables/1.10.15/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="__LIB__/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="__ADMIN__/business/js/main.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#menu-files dd").css("display","block");
+        $("#menu-files #menu-file").addClass("current");
+    })
+</script>
+{/block}

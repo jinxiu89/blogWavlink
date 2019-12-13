@@ -18,10 +18,7 @@
     "require": {
         "php": ">=5.6.0",
         "topthink/framework": "5.1.*",
-      "ext-json": "*",
-        "topthink/think-captcha": "2.0.*",
-        "topthink/think-image": "^1.0",
-        "aws/aws-sdk-php": "^3.112"
+      "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
