@@ -8,7 +8,6 @@
 
 namespace app\admin\controller;
 
-
 use app\admin\agency\category as CategoryAgency;
 use app\common\agency\auth as authAgency;
 use app\common\helper\Category as CategoryHelper;
@@ -101,7 +100,7 @@ class Base extends Controller
         }
     }
 
-    /***
+    /**
      * 初始化配置信息
      */
     protected function init()
@@ -153,6 +152,5 @@ class Base extends Controller
             return show(false,$exception->getMessage());
         }
         return show(false,'清理失败，原因未知！');
-
     }
 }

@@ -79,10 +79,8 @@ class Article extends Base
                 $this->assign('data', $result['data']);
                 return $this->fetch($this->theme . '/article/details.html');
             }else{
-
-                return View::fetch('/500');
+                abort(404, '这篇文章不存在！');
             }
-
         }
     }
 }
