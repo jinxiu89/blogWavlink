@@ -9,8 +9,6 @@ namespace app\home\controller;
  */
 class Product extends Base
 {
-
-
     /***
      * @return mixed
      */

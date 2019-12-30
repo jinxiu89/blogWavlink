@@ -38,7 +38,6 @@ class AutoLoad extends Controller
      */
     public function setLanguage($code)
     {
-        Cookie::set('lang_var', $code);
         return redirect('/' . $code . '/main.html', [], 200);
     }
 }

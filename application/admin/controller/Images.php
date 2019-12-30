@@ -11,7 +11,6 @@ namespace app\admin\controller;
 use app\common\agency\media;
 
 header('Access-Control-Allow-Origin:*');
-
 /***
  * Class Images
  * @package app\admin\controller

@@ -9,6 +9,7 @@
 namespace app\home\controller;
 
 
+use think\App;
 use think\Controller;
 use think\facade\Config;
 use think\facade\Cookie;
@@ -20,6 +21,7 @@ use app\common\models\Category as CategoryModel;
 use app\common\helper\Category as CategoryHelper;
 use app\common\models\About as AboutModel;
 use app\common\models\Article as ArticleModel;
+
 
 /**
  * Class Base
@@ -38,6 +40,7 @@ class Base extends Controller
     protected $lastUpdate;
     protected $fileHost;
     protected $agency;
+    protected $code;
     protected $beforeActionList = [
         'setLanguage', 'setting', 'category', 'about', 'lastUpdate', 'PanelData', 'languageList', 'getAllArticle'
     ];
@@ -51,6 +54,7 @@ class Base extends Controller
          * 他用来定义主题的初始目录 以及 语言加载的目录
          */
         parent::initialize();
+
         /***
          * 获取当前模型名
          */
@@ -61,6 +65,17 @@ class Base extends Controller
         $this->theme = APP_PATH . $this->module . '/view' . Config::get('app.theme');
     }
 
+    public function __construct(App $app = null)
+    {
+        //判断URL地址与cookie是否一致，地址栏地址为准
+        $this->code = Cookie::get('lang_var');
+        $path=Request::path();
+        $newcode = explode('/',$path)[0];
+        if ($newcode!=$this->code){
+            Cookie::set('lang_var',$newcode);
+        }
+        parent::__construct($app);
+    }
     /***
      * 20190620
      * 前置操作：
@@ -79,7 +94,8 @@ class Base extends Controller
     protected function setLanguage()
     {
         $lang_var = Cookie::get('lang_var') ? Cookie::get('lang_var') : autoGetLang(Request::header());
-        if (empty($this->language)) {
+        if (empty($this->language))
+        {
             $this->language = (new Language())->getLanguageByCode($lang_var);
         }
         Lang::load(APP_PATH . $this->module . '/lang/' . $this->language['code'] . ".php");
@@ -154,7 +170,6 @@ class Base extends Controller
     {
         $this->languageList = (new Language())->getAll();
         $this->assign('languageList', $this->languageList);
-
     }
 
     /***
