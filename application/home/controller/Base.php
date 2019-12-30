@@ -21,7 +21,7 @@ use app\common\models\Category as CategoryModel;
 use app\common\helper\Category as CategoryHelper;
 use app\common\models\About as AboutModel;
 use app\common\models\Article as ArticleModel;
-use think\response\Redirect;
+
 
 /**
  * Class Base
@@ -76,7 +76,6 @@ class Base extends Controller
         }
         parent::__construct($app);
     }
-
     /***
      * 20190620
      * 前置操作：
@@ -95,7 +94,8 @@ class Base extends Controller
     protected function setLanguage()
     {
         $lang_var = Cookie::get('lang_var') ? Cookie::get('lang_var') : autoGetLang(Request::header());
-        if (empty($this->language)) {
+        if (empty($this->language))
+        {
             $this->language = (new Language())->getLanguageByCode($lang_var);
         }
         Lang::load(APP_PATH . $this->module . '/lang/' . $this->language['code'] . ".php");
@@ -170,7 +170,6 @@ class Base extends Controller
     {
         $this->languageList = (new Language())->getAll();
         $this->assign('languageList', $this->languageList);
-
     }
 
     /***
