@@ -3,6 +3,9 @@
 namespace app\home\controller;
 
 use app\common\agency\article;
+use app\common\models\Category;
+use think\Exception;
+use think\facade\Cookie;
 
 
 /**
