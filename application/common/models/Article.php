@@ -158,9 +158,12 @@ class Article extends Base
     public function getDataByUrl_title($url_title)
     {
         try {
-            return self::where(['url_title' => $url_title])->find();
+            if ($data = self::where(['url_title' => $url_title])->find()){
+                return ['status'=>true,'message'=>'查到了','data'=>$data->toArray()];
+            }
+            return ['status'=>false,'message'=>'未找到','data'=>$this->getLastSql()];
         } catch (Exception $exception) {
-            $this->error($exception->getMessage());
+            return ['status'=>false,'message'=>$exception->getMessage(),'data'=>$this->getLastSql()];
         }
     }
 }

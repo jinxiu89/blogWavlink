@@ -148,7 +148,7 @@ class Category extends Base
     public function getCategory($language_id)
     {
         try {
-            return self::where(['language_id' => $language_id])->field('id,parent_id,name,title,description')->order("parent_id")->all();
+            return self::where(['language_id' => $language_id])->field('id,parent_id,name,title,description,url_title')->order("parent_id")->all();
         } catch (Exception $exception) {
             $this->error($exception->getMessage());//todo:: 异常信息 最后处理
         }

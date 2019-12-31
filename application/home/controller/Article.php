@@ -10,7 +10,10 @@ namespace app\home\controller;
 
 use app\common\agency\category as agency;
 use app\common\agency\article as ArticleAgency;
+use app\common\models\Category;
 use think\App;
+use think\Exception;
+use think\facade\Config;
 use think\facade\Cookie;
 use think\facade\Request;
 use think\facade\View;
@@ -38,8 +41,10 @@ class Article extends Base
     public function lists($category)
     {
         if (request()->isGet()) {
-            if (!isset($category)) {
-                return "hello";
+            if (!empty(Cookie::has('categories'))){
+                if(!in_array($category,Cookie::get('categories'))){
+                    abort(404);
+                }
             }
             $categorys = $this->categoryAgency->getChild($category, $this->language['id']); // 获取SEO信息 以及 他的子分类ID
             $ids = $categorys['ids'];
@@ -64,22 +69,30 @@ class Article extends Base
      *         不存在则进行更新且设置新得cookie $ip获取 用户ip加密 与$url_title 拼接  生成本次唯一cookie
      *
      */
-    public function details($url_title)
+    public function details($category,$url_title)
     {
         if (request()->isGet()) {
-            $result = (new ArticleAgency())->getDataByUrl_title($url_title);
-            //dump($result['status']);exit();
-            if ($result['status']==1) {
-                $ip = Request::ip();
-                if (empty(Cookie::has(md5($ip).$url_title, 'home_'))) {
-                    $result['data']['clicks']++;
-                    Cookie::set(md5($ip).$url_title,1, ['prefix' => 'home_', 'expire' => 120]);
-                    (new ArticleAgency())->updateClicks($result['data']);
+            if (!empty(Cookie::has('categories'))){
+                if(!in_array($category,Cookie::get('categories'))){
+                    abort(404);
                 }
-                $this->assign('data', $result['data']);
-                return $this->fetch($this->theme . '/article/details.html');
-            }else{
-                abort(404, '这篇文章不存在！');
+            }
+            try {
+                $result = (new ArticleAgency())->getDataByUrl_title($url_title);
+                if ($result['status'] == true) {
+                    $ip = Request::ip();
+                    if (empty(Cookie::has(md5($ip) . $url_title, 'home_'))) {
+                        $result['data']['clicks']++;
+                        Cookie::set(md5($ip) . $url_title, 1, ['prefix' => 'home_', 'expire' => 120]);
+                        (new ArticleAgency())->updateClicks($result['data']);
+                    }
+
+                    $this->assign('data', $result['data']);
+                    return $this->fetch($this->theme . '/article/details.html');
+                }
+                abort(404);
+            } catch (Exception $exception) {
+                abort(404,$exception->getMessage());
             }
         }
     }

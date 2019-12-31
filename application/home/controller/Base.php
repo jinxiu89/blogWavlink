@@ -9,6 +9,7 @@
 namespace app\home\controller;
 
 
+use app\common\models\Category;
 use think\App;
 use think\Controller;
 use think\facade\Config;
@@ -42,7 +43,7 @@ class Base extends Controller
     protected $agency;
     protected $code;
     protected $beforeActionList = [
-        'setLanguage', 'setting', 'category', 'about', 'lastUpdate', 'PanelData', 'languageList', 'getAllArticle'
+        'setLanguage', 'setting', 'category', 'about', 'lastUpdate', 'PanelData', 'languageList', 'getAllArticle','categoryUrlTitleList'
     ];
 
     public function initialize()
@@ -191,9 +192,25 @@ class Base extends Controller
         $this->assign('ArticleCounts', $ArticleCounts);
     }
 
+    /**
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * 获取所有文章
+     */
     protected function getAllArticle()
     {
         $Article = (new ArticleModel())->getDataByLanguage($this->language['id']);
         $this->assign('ArticleData', $Article);
+    }
+    /**
+     * 获取所有分类路由标题并写入缓存，进行URL检测
+     */
+    public function categoryUrlTitleList(){
+        $categories = [];
+        $categories_data =(new Category())->getCategory($this->language);
+        foreach ($categories_data as $value){
+            $categories[] = $value['url_title'];
+        }
+        Cookie::set('categories',$categories,['expire'=>3600]);
     }
 }
