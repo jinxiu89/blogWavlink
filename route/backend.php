@@ -77,7 +77,7 @@ Route::group(Config::get('app.backend_prefix'), function () {
  * post管理相关的路由
  */
 Route::group(Config::get('app.backend_prefix'), function () {
-    Route::post('/article/category/list', 'Category/index');
+    Route::get('/article/category/list', 'Category/index');
     Route::get('/article/category/add', 'Category/add');
     Route::post('/article/category/add', 'Category/add');
     Route::get('/article/category/edit/:id', 'Category/edit')->pattern(['id' => '\d+']);
