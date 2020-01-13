@@ -9,6 +9,7 @@
 namespace app\admin\controller;
 
 use app\admin\agency\article as articleAgency;
+use think\Request;
 
 /***
  * Class Article
@@ -23,34 +24,53 @@ class Article extends Base
      */
     public function initialize()
     {
+
         parent::initialize();
         $this->url = '/' . $this->backendPrefix . '/article/list.html';
         $category = (new articleAgency())->getCategory($this->language['id']);
         $this->assign('category', json_encode($category));
     }
 
-    /***
-     *
+    /**
+     * @return      mixed
+     * @function    index   所有文章列表
+     * @array       result  逻辑层返回的结果
      */
     public function index()
     {
         $result = (new articleAgency())->getAll($this->language['id']);
-        $this->assign('data', $result['data']);
-        $this->assign('count', $result['count']);
-        //dump($result);exit();
-        return $this->fetch();
+        if ($result['status']==true){
+            $this->assign('data', $result['data']['paginate']);
+            $this->assign('count', $result['data']['count']);
+            //dump($result);exit();
+            return $this->fetch();
+        }else{
+            abort(404,$result['message']);
+        }
     }
 
-    public function list($category_id)
+    /**
+     * @param       $category_id            分类ID
+     * @return      mixed
+     * @function    articleListByCategory  按分类获取文章列表
+     * @array       result                 逻辑层返回的结果
+     */
+    public function articleListByCategory($category_id)
     {
         $result = (new articleAgency())->getDataByCategoryId($category_id);
-        $this->assign('data', $result['data']);
-        $this->assign('count', $result['count']);
-        //dump($result);exit();
-        return $this->fetch();
-
+        if ($result['status']==true){
+            $this->assign('data', $result['data']['paginate']);
+            $this->assign('count', $result['data']['count']);
+            return $this->fetch();
+        }else{
+            abort(404,$result['message']);
+        }
     }
 
+    /**
+     * @return false|mixed|string
+     * @throws \think\exception\PDOException
+     */
     public function add()
     {
         if (request()->isGet()) {
@@ -59,8 +79,8 @@ class Article extends Base
         }
         if (request()->isPost()) {
             $data = input('post.');
-            $markdown_html = strip_html_tags(['style', 'script', 'iframe'], $data['markdown-html-code'], true);
-            $refer_html = strip_html_tags(['style', 'script', 'iframe'], $data['refer-html-code'], true);
+            $markdown_html = strip_html_tags(['style', 'script'], $data['markdown-html-code'], true);
+            $refer_html = strip_html_tags(['style', 'script'], $data['refer-html-code'], true);
             $data['markdown_html_code'] = $markdown_html;
             $data['thumbnail'] = getThumb($data['markdown_html_code']);
             $data['refer_html_code'] = $refer_html;
@@ -84,16 +104,16 @@ class Article extends Base
      */
     public function edit($id)
     {
-        if (request()->isGet()) {
+        if ($this->request->isGet()) {
             $result = (new articleAgency())->getDataById($id);
             $this->assign('to_level', $this->toLevel);
             $this->assign('data', $result);
             return $this->fetch();
         }
-        if (request()->isPost()) {
+        if ($this->request->isPost()) {
             $data = input('post.');
-            $markdown_html = strip_html_tags(['style', 'script', 'iframe'], $data['markdown-html-code'], true);
-            $refer_html = strip_html_tags(['style', 'script', 'iframe'], $data['refer-html-code'], true);
+            $markdown_html = strip_html_tags(['style', 'script'], $data['markdown-html-code'], true);
+            $refer_html = strip_html_tags(['style', 'script'], $data['refer-html-code'], true);
             $data['markdown_html_code'] = $markdown_html;
             $data['thumbnail'] = getThumb($data['markdown_html_code']);
             $data['refer_html_code'] = $refer_html;

@@ -25,6 +25,10 @@ class category extends base
         $this->success = "保存成功";
         $this->failed = "保存失败";
     }
+    public function __construct($data = [])
+    {
+        parent::__construct($data);
+    }
 
     public function getCategory($language_id)
     {

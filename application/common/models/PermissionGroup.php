@@ -31,4 +31,5 @@ class PermissionGroup extends Base
     public function permissions(){
         return $this->hasMany('Permission','gid');
     }
+
 }

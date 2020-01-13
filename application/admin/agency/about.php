@@ -33,17 +33,16 @@ class about extends base
     public function getAllData($language_id)
     {
         if(!is_numeric($language_id)){
-            return ['status' => false, 'message' => 'error', 'data' => "语言Id必须为数字"];
+            return result(false,'语言Id必须为数字');
         }
-        return ['status' => true, 'message' => 'ok', 'data' => $this->model->getAllData($language_id)];
+        return $this->model->getAllData($language_id);
     }
-
     public function getDataById($id)
     {
         if(!is_numeric($id)){
-            return ['status' => false, 'message' => 'error', 'data' => "Id必须为数字"];
+            return result(false,'Id必须为数字');
         }
-        return ['status' => true, 'message' => 'ok', 'data' => $this->model->getDataById($id)];
+        return $this->model->getDataById($id);
     }
 
     /***
@@ -53,22 +52,10 @@ class about extends base
      */
     public function saveData($data)
     {
-        if (isset($data['id'])) {
-            //更新
-            if ($this->validate->check($data)) {
-                return $this->model->allowField(true)->save($data, ['id' => $data['id']]) ?
-                    ['status' => true, 'message' => $this->success] : ['status' => false, 'message' => $this->failed];
-            } else {
-                return ['status' => false, 'message' => $this->validate->getError()];
-            }
-        } else {
-            //保存
-            if ($this->validate->check($data)) {
-                return $this->model->allowField(true)->save($data) ?
-                    ['status' => true, 'message' => $this->success] : ['status' => false, 'message' => $this->failed];
-            } else {
-                return ['status' => false, 'message' => $this->validate->getError()];
-            }
+        if(!$this->validate->check($data)){
+            return result(false,$this->validate->getError());
+        }else{
+            return isset($data['id']) ? $this->model->updateDataBase($data,$data['id']) : $this->model->saveDataBase($data);
         }
     }
 }

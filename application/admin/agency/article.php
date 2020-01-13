@@ -63,7 +63,6 @@ class article extends base
                 $this->rollback();
                 return ['status' => false, 'message' => $exception->getMessage()];
             }
-
         } else {
             return ['status' => false, 'message' => $this->validate->getError()];
         }
@@ -73,11 +72,9 @@ class article extends base
     {
         try {
             $query = $this->model->where(['language_id' => $language_id])->field('id,category_id,title,keywords,mark,clicks')->order("create_time desc,id desc");
-            $data = $query->paginate();
-            $count = $query->count();
-            return ['data' => $data, 'count' => $count];
-        } catch (Exception $e) {
-            return [false,$e->getMessage()];
+            return result(true,'查询成功',['paginate'=>$query->paginate(),'count'=>$query->count()]);
+        } catch (Exception $exception) {
+            return result(false,$exception->getMessage());
         }
     }
 
@@ -102,13 +99,11 @@ class article extends base
     {
         try {
             $query = $this->model->where(['category_id' => $category_id])
-                ->order('create_time desc,id desc')
-                ->field('id,category_id,title,keywords,mark,clicks');
-            $data = $query->paginate();
-            $count = $query->count();
-            return ['data' => $data, 'count' => $count];
+                                 ->order('create_time desc,id desc')
+                                 ->field('id,category_id,title,keywords,mark,clicks');
+            return result(true,'查询成功',['paginate'=>$query->paginate(),'count'=>$query->count()]);
         } catch (Exception $exception) {
-            return [];
+            return result(false,$exception->getMessage());
         }
     }
 }
