@@ -86,7 +86,6 @@ class Article extends Base
                         Cookie::set(md5($ip) . $url_title, 1, ['prefix' => 'home_', 'expire' => 120]);
                         (new ArticleAgency())->updateClicks($result['data']);
                     }
-
                     $this->assign('data', $result['data']);
                     return $this->fetch($this->theme . '/article/details.html');
                 }

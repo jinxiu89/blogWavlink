@@ -10,6 +10,8 @@ namespace app\admin\controller;
 
 use app\admin\agency\about as agency;
 use think\App;
+use think\Request;
+
 
 /***
  * 创建日期：20190618
@@ -34,13 +36,14 @@ class About extends Base
         parent::initialize();
         $this->url = '/' . $this->backendPrefix . '/system/about/list.html';
     }
-
     public function index()
     {
         $result = $this->agency->getAllData($this->language['id']);
-        if ($result['status'] == true) {
-            $this->assign('data', $result['data']);
+        //dump($result);exit();
+        if ($result['status'] == false) {
+            return show($result['status'], $result['message']);
         }
+        $this->assign('data', $result['data']);
         return $this->fetch();
     }
 
@@ -53,14 +56,13 @@ class About extends Base
             $data = input('post.');
             $data['language_id'] = $this->language['id'];
             $result = $this->agency->saveData($data);
-            if ($result['status']) {
+            if ($result['status']==true) {
                 return show($result['status'], $result['message'], $this->url);
             } else {
                 return show($result['status'], $result['message']);
             }
         }
     }
-
     public function edit($id)
     {
         if (request()->isGet()) {

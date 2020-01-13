@@ -23,7 +23,7 @@ Route::group('en-US', function () {
     Route::get('/article/:category', 'Article/lists')->pattern(['category' => '[\w-]+']);
     Route::get('/product/index', 'Product/index');
     Route::get('/main', 'Index/index');
-    Route::miss('Error/notFound');
+
 })->prefix('home/')->ext('html');
 
 Route::group('en-us', function () {
@@ -32,7 +32,7 @@ Route::group('en-us', function () {
     Route::get('/article/:category', 'Article/lists')->pattern(['category' => '[\w-]+']);
     Route::get('/product/index', 'Product/index');
     Route::get('/main', 'Index/index');
-    Route::miss('Error/notFound');
+
 })->prefix('home/')->ext('html');
 /***
  *
@@ -43,7 +43,7 @@ Route::group('zh-CN', function () {
     Route::get('/article/:category', 'Article/lists')->pattern(['category' => '[\w-]+']);
     Route::get('/product/index', 'Product/index');
     Route::get('/main', 'Index/index');
-    Route::miss('Error/notFound');
+
 })->prefix('home/')->ext('html');
 
 Route::group('zh-cn', function () {
@@ -52,7 +52,7 @@ Route::group('zh-cn', function () {
     Route::get('/article/:category', 'Article/lists')->pattern(['category' => '[\w-]+']);
     Route::get('/product/index', 'Product/index');
     Route::get('/main', 'Index/index');
-    Route::miss('Error/notFound');
+
 })->prefix('home/')->ext('html');
 
 Route::group('ja', function () {
@@ -61,7 +61,7 @@ Route::group('ja', function () {
     Route::get('/article/:category', 'Article/lists')->pattern(['category' => '[\w-]+']);
     Route::get('/product/index', 'Product/index');
     Route::get('/main', 'Index/index');
-    Route::miss('Error/notFound');
+
 })->prefix('home/')->ext('html');
 
 /***

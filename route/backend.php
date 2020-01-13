@@ -77,13 +77,13 @@ Route::group(Config::get('app.backend_prefix'), function () {
  * post管理相关的路由
  */
 Route::group(Config::get('app.backend_prefix'), function () {
-    Route::get('/article/category/list', 'Category/index');
+    Route::post('/article/category/list', 'Category/index');
     Route::get('/article/category/add', 'Category/add');
     Route::post('/article/category/add', 'Category/add');
     Route::get('/article/category/edit/:id', 'Category/edit')->pattern(['id' => '\d+']);
     Route::post('/article/category/edit/:id', 'Category/edit')->pattern(['id' => '\d+']);
     Route::get('/article/list', 'Article/index');
-    Route::get('/article/category/:category_id', 'Article/list')->pattern(['category_id' => '\d+']);
+    Route::get('/article/category/:category_id', 'Article/articleListByCategory')->pattern(['category_id' => '\d+']);
     Route::get('/article/add', 'Article/add');
     Route::post('/article/add', 'Article/add');
     Route::get('/article/edit/:id', 'Article/edit')->pattern(['id' => '\d+']);
@@ -93,6 +93,7 @@ Route::group(Config::get('app.backend_prefix'), function () {
  * 20190617
  * 系统设置部分
  */
+
 Route::group(Config::get('app.backend_prefix'), function () {
     Route::get('/system/setting', 'Setting/setting');
     Route::post('/system/setting', 'Setting/setting');

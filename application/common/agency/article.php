@@ -49,7 +49,6 @@ class article extends Base
                 return ['status' => false, 'message' => $result['message']];
             }
         } else {//假
-
             if (!Cache::store('file')->get('data_' . $language_id)) {
                 $result = $this->model->getDataByLanguage($language_id); //['status'=>true/false,'message'=>'ok/错误信息','data'=>"为真就有数据，为假就没有"]
                 if ($result['status'] == true) {

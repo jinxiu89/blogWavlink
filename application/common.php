@@ -35,7 +35,9 @@ function show($status, $message = '', $url = '')
     );
     return json_encode($res);
 }
-
+function result($status,$message='',$data = null){
+    return ['status'=>$status,'message'=>$message,'data'=>$data];
+}
 /***
  * @param $gid
  */

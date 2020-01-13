@@ -59,7 +59,7 @@ class permissionGroup extends base
                 try {
                     return $this->model->allowField(true)->save($data) ?
                         ['status' => true, 'message' => $this->success] : ['status' => false, 'message' => $this->failed];
-                } catch (Exception $e) {
+                } catch (Exception $exception) {
                     return ['status' => false, 'message' => $exception->getMessage()];
                 }
             } else {
