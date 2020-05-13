@@ -39,6 +39,7 @@ class Article extends Base
     public function index()
     {
         $result = (new articleAgency())->getAll($this->language['id']);
+        //dump($result['data']['paginate']);exit();
         if ($result['status']==true){
             $this->assign('data', $result['data']['paginate']);
             $this->assign('count', $result['data']['count']);
@@ -82,7 +83,6 @@ class Article extends Base
             $markdown_html = strip_html_tags(['style', 'script'], $data['markdown-html-code'], true);
             $refer_html = strip_html_tags(['style', 'script'], $data['refer-html-code'], true);
             $data['markdown_html_code'] = $markdown_html;
-            $data['thumbnail'] = getThumb($data['markdown_html_code']);
             $data['refer_html_code'] = $refer_html;
             unset($data['markdown-html-code']);
             unset($data['refer-html-code']);
@@ -115,7 +115,6 @@ class Article extends Base
             $markdown_html = strip_html_tags(['style', 'script'], $data['markdown-html-code'], true);
             $refer_html = strip_html_tags(['style', 'script'], $data['refer-html-code'], true);
             $data['markdown_html_code'] = $markdown_html;
-            $data['thumbnail'] = getThumb($data['markdown_html_code']);
             $data['refer_html_code'] = $refer_html;
             unset($data['markdown-html-code']);
             unset($data['refer-html-code']);

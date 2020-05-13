@@ -29,8 +29,10 @@ class Aws extends Controller
         }
         if (Request()->isPost()) {
             $soure = $this->request->file('file');
+            $filePath = $soure->getInfo('tmp_name');
+            //dump($filePath);exit();
             $key = 'WavlinkBlog/' . date("Y/m/d") . '/' . $soure->getInfo('name');
-            $result = AwsHelper::uploader($soure, $key);
+            $result = AwsHelper::uploader($filePath,$key);
             if ($result) {
                 return $result;
             }
