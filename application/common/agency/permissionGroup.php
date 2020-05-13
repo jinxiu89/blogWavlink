@@ -47,6 +47,7 @@ class permissionGroup extends Model
             try {
                 $result = $this->model->get($data['id'])->toArray();
             } catch (Exception $exception) {
+
                 $result['name']=$exception->getMessage();
             }
             $result = $this->model->get($data['id'])->toArray();

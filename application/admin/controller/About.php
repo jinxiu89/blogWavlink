@@ -48,7 +48,9 @@ class About extends Base
     }
 
     public function add()
+
     {
+
         if (request()->isGet()) {
             return $this->fetch();
         }

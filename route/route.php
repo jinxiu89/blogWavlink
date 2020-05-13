@@ -71,4 +71,4 @@ Route::group('ja', function () {
  */
 Route::get('/', 'home/AutoLoad/autoload');
 Route::get('/language/:code', 'home/AutoLoad/setLanguage')->pattern(['code' => '[\w-]+']);
-Route::miss('home/Error/notfound');
+//Route::miss('home/Error/notfound');

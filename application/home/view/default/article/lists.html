@@ -30,7 +30,7 @@
                 <a href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/{$vo.url_title}.html">{$vo.title}</a>
             </h2>
             <div class="des">
-                {$vo.description}
+                {$vo.description|raw}
             </div>
             <div class="info">
                 <span><a href="/{$lang_var}/article/{$vo.category_id|getCategoryUrlById}/index.html">{$vo.category_id|getCategoryNameByID}</a></span>
