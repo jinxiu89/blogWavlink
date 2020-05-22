@@ -93,6 +93,6 @@ class article extends Base
      */
     public function updateClicks($data)
     {
-        $this->model->save($data, ['id' => $data['id']]);
+        $this->model->allowField('clicks')->save($data, ['id' => $data['id']]);
     }
 }
