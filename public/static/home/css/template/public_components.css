@@ -1,0 +1,585 @@
+/**
+* @name: public_components
+* @description: wavlink.com 博客 公共导航条、footer样式
+* @author: huang(1367428189@qq.com)
+* @update: 2019-05-28 16:00
+*/
+@import "../../lib/Bootstrap/bootstrap-3.3.7.min.css";
+@import "reset.css";
+@import "../../lib/iconfont/iconfont.css";
+/**
+* @name: variables.less
+* @description: wavlink.com 博客 公共变量定义文件
+* @author: huang(1367428189@qq.com)
+* @update: 2019-05-28 16:00
+*/
+/**
+* @name: mixins.less
+* @description: wavlink.com 博客 公共类定义
+* @author: huang(1367428189@qq.com)
+* @update: 2019-05-28 16:00
+*/
+body {
+  background: #f2f2f2;
+}
+/* head */
+.g-nav {
+  display: block;
+  height: 50px;
+  line-height: 50px;
+  background: #fff;
+}
+.g-nav .container {
+  position: relative;
+}
+.g-nav .rowbefore,
+.g-nav .row:after {
+  content: " ";
+  display: table;
+  zoom: 1;
+}
+.g-nav .row:after {
+  clear: both;
+}
+.g-nav .logo {
+  float: left;
+}
+.g-nav .logo img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 34px;
+  margin: 8px 0;
+}
+.g-nav .search-bar {
+  float: right;
+  padding-left: 20px;
+  font-size: 20px;
+}
+.g-nav .search-bar:hover {
+  cursor: pointer;
+  color: #476fad;
+}
+.g-nav .search-box {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  padding: 20px;
+  background: #fff;
+}
+.g-nav .search-box form {
+  position: relative;
+  line-height: normal;
+}
+.g-nav .search-box form input {
+  padding: 0 30px 0 15px;
+  width: 200px;
+  height: 30px;
+  font-size: 12px;
+  color: #888;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border: 1px solid #888;
+}
+.g-nav .search-box form span {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  display: block;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 20px;
+  background: #E5E9F2;
+}
+.g-nav .search-box form span:hover {
+  cursor: pointer;
+  background: #476fad;
+}
+.g-nav .menu-bar {
+  float: right;
+  font-size: 24px;
+}
+.g-nav .menu {
+  float: right;
+  margin-right: 100px;
+}
+.g-nav .menu .menu-item {
+  float: left;
+  position: relative;
+}
+.g-nav .menu .menu-item a {
+  padding: 0 20px;
+  color: #333;
+  white-space: nowrap;
+  display: block;
+  height: 50px;
+  line-height: 50px;
+}
+.g-nav .menu .menu-item a:hover {
+  color: #476fad;
+  background: none;
+  text-decoration: none;
+}
+.g-nav .menu .menu-item a:focus {
+  text-decoration: none;
+}
+.g-nav .menu .active {
+  background: #476fad;
+}
+.g-nav .menu .active a {
+  color: #fff;
+}
+.g-nav .menu .active a:hover {
+  color: #fff;
+}
+.g-nav .menu .menu-item .dropdown-menu {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  padding: 0;
+  border: none;
+  background: #fff;
+}
+.g-nav .menu .menu-item .dropdown-menu li {
+  border-bottom: 1px solid #E5E9F2;
+}
+.g-nav .menu .menu-item .dropdown-menu li:nth-last-of-type(1) {
+  border-bottom: none;
+}
+.g-nav .menu .menu-item .dropdown-menu li a {
+  padding: 15px 30px;
+  color: #333;
+  text-align: center;
+  height: auto;
+  line-height: normal;
+}
+.g-nav .menu .menu-item .dropdown-menu li a:hover {
+  text-decoration: none;
+  color: #476fad;
+  background: #eee;
+}
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .g-nav .menu {
+    float: left;
+    padding-left: 20px;
+    margin-right: 0;
+  }
+  .g-nav .menu .menu-item a {
+    padding: 0 15px;
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .g-nav {
+    height: auto;
+  }
+  .g-nav .logo {
+    padding-left: 15px;
+  }
+  .g-nav .search-bar {
+    padding-right: 20px;
+  }
+  .g-nav .menu-bar {
+    float: right;
+    padding-right: 15px;
+  }
+  .g-nav .menu {
+    display: none;
+    float: none;
+    margin: 50px 0 0;
+    width: 100%;
+    background: #fff;
+  }
+  .g-nav .menu .menu-item {
+    float: none;
+    border-bottom: 1px solid #E5E9F2;
+  }
+  .g-nav .menu .menu-item:nth-last-of-type(1) {
+    border-bottom: none;
+  }
+  .g-nav .menu .menu-item a {
+    padding: 0 15px;
+    font-size: 12px;
+  }
+  .g-nav .menu .menu-item .dropdown-menu {
+    position: static;
+    width: 100%;
+    float: none;
+    margin: 0;
+    background: #fff;
+    box-shadow: none;
+  }
+  .g-nav .menu .menu-item .dropdown-menu li a {
+    color: #333;
+    text-align: left;
+  }
+}
+/* head结束 */
+/* foot */
+.g-foot {
+  margin-top: 10%;
+  background: #333;
+}
+.g-foot .company-info {
+  padding: 10% 20px;
+  color: #fff;
+}
+.g-foot .company-infobefore,
+.g-foot .company-info:after {
+  content: " ";
+  display: table;
+  zoom: 1;
+}
+.g-foot .company-info:after {
+  clear: both;
+}
+.g-foot .company-info dl {
+  float: left;
+  width: 33.33%;
+}
+.g-foot .company-info dt {
+  font-size: 16px;
+  font-weight: normal;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+}
+.g-foot .company-info dd {
+  color: #888;
+  font-size: 14px;
+  display: block;
+  height: 25px;
+  line-height: 25px;
+}
+.g-foot .company-info dd a {
+  color: #888;
+}
+.g-foot .company-info dd a:hover {
+  color: #476fad;
+  text-decoration: none;
+}
+.g-foot .company-info dd .iconfont {
+  font-size: 32px;
+}
+.g-foot .company-info dd p {
+  float: left;
+  width: 33.33%;
+  text-align: center;
+}
+.g-foot .company-info dd p img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.g-foot .company-info form {
+  margin: 9px 0;
+}
+.g-foot .company-info formbefore,
+.g-foot .company-info form:after {
+  content: " ";
+  display: table;
+  zoom: 1;
+}
+.g-foot .company-info form:after {
+  clear: both;
+}
+.g-foot .company-info form input {
+  float: left;
+  border: 1px solid #E5E9F2;
+  display: block;
+  height: 32px;
+  line-height: 32px;
+  font-size: 12px;
+}
+.g-foot .company-info form input[type="text"] {
+  padding-left: 15px;
+  width: 250px;
+  border-radius: 5px 0 0 5px;
+  -webkit-border-radius: 5px 0 0 5px;
+  -moz-border-radius: 5px 0 0 5px;
+  color: #888;
+}
+.g-foot .company-info form input[type="submit"] {
+  padding: 0 12px;
+  border-left: none;
+  background: #fff;
+  color: #333;
+  border-radius: 0 5px 5px 0;
+  -webkit-border-radius: 0 5px 5px 0;
+  -moz-border-radius: 0 5px 5px 0;
+}
+.g-foot .company-info form input[type="submit"]:hover {
+  background: #476fad;
+}
+@media screen and (max-width: 767px) {
+  .g-foot .company-info dl {
+    float: none;
+    width: 100%;
+  }
+  .g-foot .company-info form {
+    position: relative;
+  }
+  .g-foot .company-info form input {
+    display: block;
+    height: 28px;
+    line-height: 28px;
+  }
+  .g-foot .company-info form input[type="text"] {
+    padding: 0 50px 0 15px;
+    width: 100%;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+  }
+  .g-foot .company-info form input[type="submit"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    border-left: 1px solid #E5E9F2;
+    border-radius: 0 5px 5px 0;
+    -webkit-border-radius: 0 5px 5px 0;
+    -moz-border-radius: 0 5px 5px 0;
+  }
+}
+.g-copyright {
+  background: #000;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 12px;
+  color: #fff;
+}
+/* foot结束 */
+/* 页面公共组件样式 */
+/* path */
+.g-path {
+  margin: 20px 0;
+  padding: 0 15px;
+  line-height: 50px;
+  background: #fff;
+}
+.g-path .path-item {
+  color: #333;
+}
+.g-path .path-item:hover {
+  color: #476fad;
+}
+.g-path .iconfont {
+  margin: 0 15px;
+}
+@media screen and (max-width: 767px) {
+  .g-path {
+    padding: 0 20px;
+  }
+}
+/* path */
+/* 文章列表 */
+.g-main {
+  float: left;
+  width: 100%;
+}
+.g-main .content {
+  padding-right: 375px;
+}
+@media screen and (max-width: 767px) {
+  .g-main {
+    float: none;
+  }
+  .g-main .content {
+    padding-right: 0;
+  }
+}
+@media screen and (max-width: 992px) {
+  .g-main {
+    float: none;
+  }
+  .g-main .content {
+    padding-right: 0;
+  }
+}
+/* 文章列表结束 */
+/* g-sidebar */
+.g-sidebar {
+  float: left;
+  width: 360px;
+  margin-left: -360px;
+}
+.g-sidebar .sidebar-box {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  background: #fff;
+}
+.g-sidebar .sidebar-box .title {
+  padding: 0 15px;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  font-weight: bold;
+  border-bottom: 1px solid #E5E9F2;
+}
+.g-sidebar .side-company .img-box {
+  padding: 15px;
+}
+.g-sidebar .side-company .des {
+  padding: 0 15px;
+}
+.g-sidebar .side-company .des details {
+  padding-top: 15px;
+}
+.g-sidebar .side-company .des details summary:hover {
+  cursor: pointer;
+}
+.g-sidebar .side-company .des details p {
+  padding-top: 15px;
+}
+.g-sidebar .side-label .list {
+  padding: 0 15px;
+}
+.g-sidebar .side-label .listbefore,
+.g-sidebar .side-label .list:after {
+  content: " ";
+  display: table;
+  zoom: 1;
+}
+.g-sidebar .side-label .list:after {
+  clear: both;
+}
+.g-sidebar .side-label .list span {
+  float: left;
+  margin-top: 10px;
+  padding: 0 10px;
+  width: 50%;
+  text-align: center;
+  display: block;
+  height: 32px;
+  line-height: 32px;
+}
+.g-sidebar .side-label .list span a {
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  background: #E5E9F2;
+  color: #333;
+}
+.g-sidebar .side-label .list span a:hover {
+  background: #476fad;
+  color: #fff;
+  text-decoration: none;
+}
+.g-sidebar .side-new .list {
+  padding: 0 15px;
+}
+.g-sidebar .side-new .list li {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #E5E9F2;
+}
+.g-sidebar .side-new .list li:nth-last-of-type(1) {
+  border-bottom: none;
+}
+.g-sidebar .side-new .list li a {
+  color: #333;
+}
+.g-sidebar .side-new .list li a:hover {
+  color: #476fad;
+}
+@media screen and (max-width: 767px) {
+  .g-sidebar {
+    display: none;
+  }
+}
+@media screen and (max-width: 992px) {
+  .g-sidebar {
+    display: none;
+  }
+}
+/* g-sidebar结束 */
+/*page-404*/
+.page-404 {
+  margin: 10% 0 0;
+}
+.page-404 .page-404-des {
+  padding: 50px 15px;
+  background: #fff;
+}
+.page-404 .page-404-desbefore,
+.page-404 .page-404-des:after {
+  content: " ";
+  display: table;
+  zoom: 1;
+}
+.page-404 .page-404-des:after {
+  clear: both;
+}
+.page-404 .page-404-des .page-404-img {
+  float: left;
+  width: 45%;
+  padding-right: 50px;
+  text-align: right;
+}
+.page-404 .page-404-des .page-404-reason {
+  float: left;
+  width: 50%;
+  padding-left: 50px;
+}
+.page-404 .page-404-des .page-404-reason h2 {
+  margin: 0 0 20px;
+  font-size: 18px;
+}
+.page-404 .page-404-des .page-404-reason h3 {
+  margin: 20px 0 0;
+}
+.page-404 .page-404-des .page-404-reason p span a.btn-info {
+  margin: 5px;
+  background: #3d65a3;
+  border-color: #3d65a3;
+}
+.page-404 .page-404-des .page-404-reason p span a.btn-info:hover {
+  background: #ff6300;
+  border-color: #ff6300;
+}
+.page-404 .page-404-des .page-404-reason p span a.btn-primary {
+  margin: 5px;
+  background: #1897bb;
+  border-color: #1897bb;
+}
+.page-404 .page-404-des .page-404-reason p span a.btn-primary:hover {
+  background: #198fbb;
+  border-color: #198fbb;
+}
+.page-404 .page-404-recommend {
+  margin-top: 20px;
+}
+.page-404 .page-404-recommend h3 {
+  padding: 0 15px;
+  font-size: 18px;
+  display: block;
+  height: 50px;
+  line-height: 50px;
+  background: #fff;
+  border-bottom: 1px solid #E5E9F2;
+}
+@media screen and (max-width: 767px) {
+  .page-404 .page-404-des .page-404-img {
+    display: none;
+  }
+  .page-404 .page-404-des .page-404-reason {
+    width: 100%;
+    padding-left: 0;
+  }
+}
+/*page-404结束*/
+/* 页面公共组件样式结束 */
+/*# sourceMappingURL=public_components.css.map */

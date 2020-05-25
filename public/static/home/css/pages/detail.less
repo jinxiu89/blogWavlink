@@ -1,0 +1,257 @@
+/**
+* @name: public_components
+* @description: wavlink.com 博客 公共导航条、footer样式
+* @author: huang(1367428189@qq.com)
+* @update: 2019-05-28 16:00
+*/
+
+@import "../template/variables";
+@import "../template/mixins";
+
+.blog-detail {
+    padding: 15px;
+    background: @white;
+    .title {
+        padding: 15px;
+        border-bottom: 1px solid @border-color;
+    }
+    .title h2 {
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .title h3 {
+        margin-bottom: 20px;
+        font-size: 16px;
+        text-align: center;
+    }
+    .title .icon-box {
+        text-align: center;
+    }
+    .title .icon-box span {
+        margin-right: 20px;
+        color: @white-smoke;
+        &.zan {
+            cursor: pointer;
+            color: @hover;
+        }
+    }
+    .title .icon-box span .iconfont{
+        padding-right: 5px;
+    }
+    .title .icon-box span a {
+        color: @white-smoke;
+    }
+    
+    .des {
+        padding: 15px;
+    }
+    
+    .community {
+        padding: 15px;
+        text-align: center;
+        .zan,
+        .share {
+            display: inline-block;
+            padding: 8px 40px;
+            cursor: pointer;
+            color: @white;
+            .iconfont {
+                color: @white;
+            }
+        }
+        .zan {
+            background: @base;
+            &:hover {
+                background: @hover;
+            }
+        }
+        .share {
+            position: relative;
+            background: @share-bgColor;
+            &:hover {
+                background: @share-hover;
+            }
+            &:hover .social {
+                display: block!important;
+            }
+          &:before {
+            position: absolute;
+            top: -10px;
+            left: 0;
+            content: "";
+            display: block;
+            height: 10px;
+            width: 100%;
+            background: none;
+
+          }
+        }
+        .share .social {
+            display: none!important;
+            position: absolute;
+            top: -50px;
+            left: 0;
+            min-width: 100%;
+            #text-vertical(40px);
+            text-align: center;
+            background: @share-bgColor;
+            &:after {
+                content: "";
+                position: absolute;
+                top: 40px;left: 50%;
+                width: 0;height: 0;
+                margin-left: -10px;
+                border-width: 10px 10px 0;
+                border-style: solid;
+                border-color: @share-bgColor transparent transparent;
+            }
+        }
+        .share .social a {
+            color: @dark;
+            &:hover {
+                text-decoration: none;
+            }
+            &:hover .iconfont {
+                color: @border-color;
+            }
+        }
+        .share .social .iconfont {
+            font-size: 24px;
+        }
+    }
+    
+    .page-box {
+        .clearFix();
+        padding: 15px;
+    }
+    .page-box .left {
+        float: left;
+    }
+    .page-box .right {
+        float: right;
+    }
+    .page-box a {
+        color: @dark;
+        &:hover {
+            color: @hover;
+        }
+    }
+}
+.link-box {
+    margin-top: 20px;
+    .references,
+    .relevant,
+    .review {
+        margin-bottom: 20px;
+        background: @white;
+    }
+    h4 {
+        padding: 0 20px;
+        #text-vertical(40px);
+        border-bottom: 1px solid @border-color;
+    }
+    .des {
+        padding: 20px;
+    }
+    .des p {
+        .text-overflow()
+    }
+    .des p a {
+        color: @dark;
+        &:hover {
+            color: @hover;
+        }
+    }
+    .review .review-form {
+        padding: 20px;
+        border-bottom: 1px solid @border-color;
+        form div {
+            .clearFix();
+            margin-bottom: 20px;
+        }
+        textarea,
+        input {
+            padding: 8px 10px;
+            width: 100%;
+            border: 1px solid @border-color;
+            line-height: 14px;
+            outline: none;
+            &[type="submit"] {
+                .fr();
+                width: auto;
+                &:hover {
+                    background: @hover;
+                }
+            }
+        }
+        label {
+            font-weight: normal;
+        }
+    }
+    .review .review-list {
+        padding: 20px;
+        .box {
+            .clearFix();
+            padding: 20px 0;
+            border-bottom: 1px solid @border-color;
+        }
+        .box .img-box {
+            overflow: hidden;
+            .fl();
+            width: 60px;
+            height: 60px;
+        }
+        .box .img-box img {
+            .img-responsive();
+            .center-block();
+        }
+        .box .review-des {
+            .fl();
+            padding: 0 20px;
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .blog-detail {
+        .title {
+            padding: 0 0 15px;
+        }
+        .title h2 {
+            font-size: 14px;
+        }
+        .title h3 {
+            font-size: 12px;
+        }
+        .title .icon-box span {
+            margin-right: 10px;
+            font-size: 12px;
+        }
+        .des {
+            padding: 15px 0;
+        }
+        .community .zan,
+        .community .share {
+            padding: 6px 30px;
+            font-size: 12px;
+        }
+        .page-box {
+            padding: 0;
+        }
+        .page-box a {
+            font-size: 12px;
+        }
+    }
+    .link-box {
+        h4 {
+            font-size: 14px;
+        }
+        .des {
+            padding: 15px;
+        }
+        .des p {
+            font-size: 12px;
+        }
+    }
+}

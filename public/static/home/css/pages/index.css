@@ -1,0 +1,192 @@
+/**
+* @name: public_components
+* @description: wavlink.com 博客 公共导航条、footer样式
+* @author: huang(1367428189@qq.com)
+* @update: 2019-05-28 16:00
+*/
+/**
+* @name: variables.less
+* @description: wavlink.com 博客 公共变量定义文件
+* @author: huang(1367428189@qq.com)
+* @update: 2019-05-28 16:00
+*/
+/**
+* @name: mixins.less
+* @description: wavlink.com 博客 公共类定义
+* @author: huang(1367428189@qq.com)
+* @update: 2019-05-28 16:00
+*/
+.banner {
+  position: relative;
+}
+.banner .banner-des {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+}
+.banner .banner-des .title {
+  font-size: 32px;
+}
+.banner .banner-des .des {
+  font-size: 18px;
+  padding: 20px 0;
+}
+.banner .banner-des .detail-link {
+  font-size: 12px;
+}
+@media screen and (max-width: 767px) {
+  .banner .banner-des .title {
+    font-size: 18px;
+  }
+  .banner .banner-des .des {
+    font-size: 16px;
+  }
+}
+.sec {
+  margin: 5% 0;
+}
+.sec .new-message .title,
+.sec .new-video .title {
+  margin-bottom: 20px;
+  padding: 0 20px;
+  display: block;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #fff;
+}
+.sec .new-message .titlebefore,
+.sec .new-video .titlebefore,
+.sec .new-message .title:after,
+.sec .new-video .title:after {
+  content: " ";
+  display: table;
+  zoom: 1;
+}
+.sec .new-message .title:after,
+.sec .new-video .title:after {
+  clear: both;
+}
+.sec .new-message .title .title-info,
+.sec .new-video .title .title-info {
+  float: left;
+  font-size: 32px;
+}
+.sec .new-message .title .detail-link,
+.sec .new-video .title .detail-link {
+  float: right;
+  font-size: 14px;
+}
+.sec .new-message .title .detail-link:hover,
+.sec .new-video .title .detail-link:hover {
+  color: #476fad;
+}
+.sec .new-message .message-box {
+  margin: 10px 0;
+  background: #fff;
+}
+.sec .new-message .message-boxbefore,
+.sec .new-message .message-box:after {
+  content: " ";
+  display: table;
+  zoom: 1;
+}
+.sec .new-message .message-box:after {
+  clear: both;
+}
+.sec .new-message .message-box:nth-of-type(2n+1) .img-box {
+  float: left;
+}
+.sec .new-message .message-box:nth-of-type(2n+1) .des {
+  float: left;
+}
+.sec .new-message .message-box:nth-of-type(2n+2) .img-box {
+  float: right;
+}
+.sec .new-message .message-box:nth-of-type(2n+2) .des {
+  float: right;
+}
+.sec .new-message .message-box .img-box {
+  width: 50%;
+  overflow: hidden;
+}
+.sec .new-message .message-box .img-box a img {
+  transition: transform 1s;
+}
+.sec .new-message .message-box .img-box a:hover img {
+  transform: scale(1.1);
+}
+.sec .new-message .message-box .des {
+  width: 50%;
+  padding: 5% 10% 0;
+}
+.sec .new-message .message-box .des .des-title {
+  font-size: 28px;
+}
+.sec .new-message .message-box .des p {
+  padding: 20px 0;
+}
+.sec .new-video {
+  margin-top: 5%;
+  text-align: center;
+}
+.sec .new-videobefore,
+.sec .new-video:after {
+  content: " ";
+  display: table;
+  zoom: 1;
+}
+.sec .new-video:after {
+  clear: both;
+}
+.sec .new-video .video-box {
+  display: inline-block;
+}
+.sec .new-video .video-box:hover {
+  cursor: pointer;
+}
+.sec .new-video .left {
+  float: left;
+}
+.sec .new-video .right {
+  float: right;
+}
+@media screen and (max-width: 767px) {
+  .sec .new-message .title .title-info,
+  .sec .new-video .title .title-info {
+    float: left;
+    font-size: 18px;
+    display: block;
+    height: 50px;
+    line-height: 50px;
+  }
+  .sec .new-message .title .detail-link,
+  .sec .new-video .title .detail-link {
+    float: right;
+    font-size: 14px;
+  }
+  .sec .new-message .title .detail-link:hover,
+  .sec .new-video .title .detail-link:hover {
+    color: #476fad;
+  }
+  .sec .new-message .message-box .img-box {
+    float: none;
+    width: 100%;
+  }
+  .sec .new-message .message-box .des {
+    float: none;
+    width: 100%;
+    padding: 20px 15px;
+  }
+  .sec .new-message .message-box .des .des-title {
+    font-size: 16px;
+  }
+  .sec .new-message .message-box .des a {
+    font-size: 12px;
+  }
+  .sec .new-video .video-box {
+    float: none;
+    display: block;
+    width: 100%;
+  }
+}
+/*# sourceMappingURL=index.css.map */
