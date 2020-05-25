@@ -1,0 +1,121 @@
+/**
+* @name: public_components
+* @description: wavlink.com 博客 公共导航条、footer样式
+* @author: huang(1367428189@qq.com)
+* @update: 2019-05-28 16:00
+*/
+/**
+* @name: variables.less
+* @description: wavlink.com 博客 公共变量定义文件
+* @author: huang(1367428189@qq.com)
+* @update: 2019-05-28 16:00
+*/
+/**
+* @name: mixins.less
+* @description: wavlink.com 博客 公共类定义
+* @author: huang(1367428189@qq.com)
+* @update: 2019-05-28 16:00
+*/
+/* 文章列表 */
+.blog-list .blog-item {
+  position: relative;
+  margin-bottom: 20px;
+  min-height: 150px;
+  box-sizing: content-box;
+  background: #fff;
+  padding: 15px 15px 55px 250px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+.blog-list .blog-item .pic-link {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  display: block;
+  border: none;
+  width: 220px;
+  height: 150px;
+  overflow: hidden;
+}
+.blog-list .blog-item .pic-link img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.blog-list .blog-item .title {
+  font-size: 16px;
+  font-weight: bold;
+}
+.blog-list .blog-item .title a {
+  color: #333;
+}
+.blog-list .blog-item .title a:hover {
+  color: #476fad;
+}
+.blog-list .blog-item .des {
+  margin: 20px 0;
+}
+.blog-list .blog-item .info {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 0 15px;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  background: #f9fafc;
+  border-top: 1px solid #E5E9F2;
+  border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0 0 5px 5px;
+  -moz-border-radius: 0 0 5px 5px;
+}
+.blog-list .blog-item .info span {
+  margin-right: 20px;
+  font-size: 12px;
+}
+.blog-list .blog-item .info span:nth-last-of-type(1) {
+  float: right;
+}
+.blog-list .blog-item .info a:hover {
+  color: #476fad;
+}
+.blog-list .blog-item .info .iconfont {
+  padding-right: 5px;
+  font-size: 14px;
+}
+@media screen and (max-width: 767px) {
+  .blog-list .blog-item {
+    padding: 0;
+  }
+  .blog-list .blog-item .pic-link {
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+  .blog-list .blog-item .title {
+    margin-top: 20px;
+    padding: 0 15px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 22px;
+  }
+  .blog-list .blog-item .des {
+    padding: 0 15px;
+    font-size: 12px;
+  }
+  .blog-list .blog-item .info {
+    position: static;
+  }
+  .blog-list .blog-item .info span {
+    margin-right: 10px;
+  }
+  .blog-list .blog-item .info span:nth-last-of-type(1) {
+    display: none;
+  }
+}
+/* 文章列表结束 */
+/*# sourceMappingURL=list.css.map */

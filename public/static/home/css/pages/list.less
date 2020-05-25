@@ -1,0 +1,107 @@
+/**
+* @name: public_components
+* @description: wavlink.com 博客 公共导航条、footer样式
+* @author: huang(1367428189@qq.com)
+* @update: 2019-05-28 16:00
+*/
+
+@import "../template/variables";
+@import "../template/mixins";
+
+/* 文章列表 */
+.blog-list {
+    .blog-item {
+        position: relative;
+        margin-bottom: 20px;
+        min-height: 150px;
+        box-sizing: content-box;
+        background: @white;
+        padding: 15px 15px 55px 250px;
+        #border-radius(5px);
+    }
+    .blog-item .pic-link {
+        position: absolute;
+        left: 15px;
+        top: 15px;
+        //z-index: 99;
+        display: block;
+        border: none;
+        width: 220px;
+        height: 150px;
+        overflow: hidden;
+        img {
+            .img-responsive();
+            .center-block();
+        }
+    }
+    .blog-item .title{
+        font-size: 16px;
+        font-weight: bold;
+        a {
+            color: @dark;
+            &:hover {
+                color: @hover;
+            }
+        }
+    }
+    .blog-item .des {
+        margin: 20px 0;
+    }
+    .blog-item .info {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        padding: 0 15px;
+        #text-vertical(40px);
+        background: @blog-item-info-bgColor;
+        border-top: 1px solid @border-color;
+        #border-radius(0 0 5px 5px);
+        span {
+            margin-right: 20px;
+            font-size: 12px;
+            &:nth-last-of-type(1) {
+                .fr()
+            }
+        }
+        a:hover {
+            color: @hover;
+        }
+        .iconfont {
+            padding-right: 5px;
+            font-size: 14px;
+        }
+    }
+    @media screen and (max-width: 767px) {
+        .blog-item {
+            padding: 0;
+        }
+        .blog-item .pic-link {
+            position: static;
+            width: 100%;
+            height: auto;
+            //padding: 0 20px;
+        }
+        .blog-item .title {
+            margin-top: 20px;
+            padding: 0 15px;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 22px;
+        }
+        .blog-item .des {
+            padding: 0 15px;
+            font-size: 12px;
+        }
+        .blog-item .info {
+            position: static;
+            span {
+                margin-right: 10px;
+                &:nth-last-of-type(1) {
+                    display: none
+                }
+            }
+        }
+    }
+}
+/* 文章列表结束 */

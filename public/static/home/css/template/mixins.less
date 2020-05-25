@@ -1,0 +1,56 @@
+/**
+* @name: mixins.less
+* @description: wavlink.com 博客 公共类定义
+* @author: huang(1367428189@qq.com)
+* @update: 2019-05-28 16:00
+*/
+
+#border-radius(@radius: 50%) {
+    border-radius: @radius;
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+}
+
+.img-responsive() {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.center-block() {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fl() {
+    float: left;
+}
+
+.fr() {
+    float: right;
+}
+
+.clearFix() {
+    &before,
+    &:after{
+        content: " ";
+        display: table;
+        zoom: 1;
+    }
+    &:after{
+        clear: both;
+    }
+}
+
+.text-overflow() {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#text-vertical(@height: 50px) {
+    display: block;
+    height: @height;
+    line-height: @height;
+}

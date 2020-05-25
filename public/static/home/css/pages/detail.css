@@ -1,0 +1,295 @@
+/**
+* @name: public_components
+* @description: wavlink.com 博客 公共导航条、footer样式
+* @author: huang(1367428189@qq.com)
+* @update: 2019-05-28 16:00
+*/
+/**
+* @name: variables.less
+* @description: wavlink.com 博客 公共变量定义文件
+* @author: huang(1367428189@qq.com)
+* @update: 2019-05-28 16:00
+*/
+/**
+* @name: mixins.less
+* @description: wavlink.com 博客 公共类定义
+* @author: huang(1367428189@qq.com)
+* @update: 2019-05-28 16:00
+*/
+.blog-detail {
+  padding: 15px;
+  background: #fff;
+}
+.blog-detail .title {
+  padding: 15px;
+  border-bottom: 1px solid #E5E9F2;
+}
+.blog-detail .title h2 {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.blog-detail .title h3 {
+  margin-bottom: 20px;
+  font-size: 16px;
+  text-align: center;
+}
+.blog-detail .title .icon-box {
+  text-align: center;
+}
+.blog-detail .title .icon-box span {
+  margin-right: 20px;
+  color: #888;
+}
+.blog-detail .title .icon-box span.zan {
+  cursor: pointer;
+  color: #476fad;
+}
+.blog-detail .title .icon-box span .iconfont {
+  padding-right: 5px;
+}
+.blog-detail .title .icon-box span a {
+  color: #888;
+}
+.blog-detail .des {
+  padding: 15px;
+}
+.blog-detail .community {
+  padding: 15px;
+  text-align: center;
+}
+.blog-detail .community .zan,
+.blog-detail .community .share {
+  display: inline-block;
+  padding: 8px 40px;
+  cursor: pointer;
+  color: #fff;
+}
+.blog-detail .community .zan .iconfont,
+.blog-detail .community .share .iconfont {
+  color: #fff;
+}
+.blog-detail .community .zan {
+  background: #3d65a3;
+}
+.blog-detail .community .zan:hover {
+  background: #476fad;
+}
+.blog-detail .community .share {
+  position: relative;
+  background: #5fcec0;
+}
+.blog-detail .community .share:hover {
+  background: #69d8ca;
+}
+.blog-detail .community .share:hover .social {
+  display: block!important;
+}
+.blog-detail .community .share:before {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  content: "";
+  display: block;
+  height: 10px;
+  width: 100%;
+  background: none;
+}
+.blog-detail .community .share .social {
+  display: none!important;
+  position: absolute;
+  top: -50px;
+  left: 0;
+  min-width: 100%;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background: #5fcec0;
+}
+.blog-detail .community .share .social:after {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -10px;
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: #5fcec0 transparent transparent;
+}
+.blog-detail .community .share .social a {
+  color: #333;
+}
+.blog-detail .community .share .social a:hover {
+  text-decoration: none;
+}
+.blog-detail .community .share .social a:hover .iconfont {
+  color: #E5E9F2;
+}
+.blog-detail .community .share .social .iconfont {
+  font-size: 24px;
+}
+.blog-detail .page-box {
+  padding: 15px;
+}
+.blog-detail .page-boxbefore,
+.blog-detail .page-box:after {
+  content: " ";
+  display: table;
+  zoom: 1;
+}
+.blog-detail .page-box:after {
+  clear: both;
+}
+.blog-detail .page-box .left {
+  float: left;
+}
+.blog-detail .page-box .right {
+  float: right;
+}
+.blog-detail .page-box a {
+  color: #333;
+}
+.blog-detail .page-box a:hover {
+  color: #476fad;
+}
+.link-box {
+  margin-top: 20px;
+}
+.link-box .references,
+.link-box .relevant,
+.link-box .review {
+  margin-bottom: 20px;
+  background: #fff;
+}
+.link-box h4 {
+  padding: 0 20px;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #E5E9F2;
+}
+.link-box .des {
+  padding: 20px;
+}
+.link-box .des p {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.link-box .des p a {
+  color: #333;
+}
+.link-box .des p a:hover {
+  color: #476fad;
+}
+.link-box .review .review-form {
+  padding: 20px;
+  border-bottom: 1px solid #E5E9F2;
+}
+.link-box .review .review-form form div {
+  margin-bottom: 20px;
+}
+.link-box .review .review-form form divbefore,
+.link-box .review .review-form form div:after {
+  content: " ";
+  display: table;
+  zoom: 1;
+}
+.link-box .review .review-form form div:after {
+  clear: both;
+}
+.link-box .review .review-form textarea,
+.link-box .review .review-form input {
+  padding: 8px 10px;
+  width: 100%;
+  border: 1px solid #E5E9F2;
+  line-height: 14px;
+  outline: none;
+}
+.link-box .review .review-form textarea[type="submit"],
+.link-box .review .review-form input[type="submit"] {
+  float: right;
+  width: auto;
+}
+.link-box .review .review-form textarea[type="submit"]:hover,
+.link-box .review .review-form input[type="submit"]:hover {
+  background: #476fad;
+}
+.link-box .review .review-form label {
+  font-weight: normal;
+}
+.link-box .review .review-list {
+  padding: 20px;
+}
+.link-box .review .review-list .box {
+  padding: 20px 0;
+  border-bottom: 1px solid #E5E9F2;
+}
+.link-box .review .review-list .boxbefore,
+.link-box .review .review-list .box:after {
+  content: " ";
+  display: table;
+  zoom: 1;
+}
+.link-box .review .review-list .box:after {
+  clear: both;
+}
+.link-box .review .review-list .box .img-box {
+  overflow: hidden;
+  float: left;
+  width: 60px;
+  height: 60px;
+}
+.link-box .review .review-list .box .img-box img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.link-box .review .review-list .box .review-des {
+  float: left;
+  padding: 0 20px;
+}
+@media screen and (max-width: 767px) {
+  .blog-detail .title {
+    padding: 0 0 15px;
+  }
+  .blog-detail .title h2 {
+    font-size: 14px;
+  }
+  .blog-detail .title h3 {
+    font-size: 12px;
+  }
+  .blog-detail .title .icon-box span {
+    margin-right: 10px;
+    font-size: 12px;
+  }
+  .blog-detail .des {
+    padding: 15px 0;
+  }
+  .blog-detail .community .zan,
+  .blog-detail .community .share {
+    padding: 6px 30px;
+    font-size: 12px;
+  }
+  .blog-detail .page-box {
+    padding: 0;
+  }
+  .blog-detail .page-box a {
+    font-size: 12px;
+  }
+  .link-box h4 {
+    font-size: 14px;
+  }
+  .link-box .des {
+    padding: 15px;
+  }
+  .link-box .des p {
+    font-size: 12px;
+  }
+}
+/*# sourceMappingURL=detail.css.map */

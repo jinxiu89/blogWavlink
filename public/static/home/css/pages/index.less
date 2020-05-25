@@ -1,0 +1,155 @@
+/**
+* @name: public_components
+* @description: wavlink.com 博客 公共导航条、footer样式
+* @author: huang(1367428189@qq.com)
+* @update: 2019-05-28 16:00
+*/
+
+@import "../template/variables";
+@import "../template/mixins";
+
+.banner {
+    position: relative;
+    .banner-des {
+        position: absolute;
+        top: 20%;
+        left: 10%;
+        .title {
+            font-size: 32px;
+        }
+        .des {
+            font-size: 18px;
+            padding: 20px 0;
+        }
+        .detail-link {
+            font-size: 12px;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .banner-des .title {
+            font-size: 18px;
+        }
+        .banner-des .des {
+            font-size: 16px;
+        }
+    }
+}
+
+.sec {
+    margin: 5% 0;
+    .new-message .title,
+    .new-video .title {
+        .clearFix();
+        margin-bottom: 20px;
+        padding: 0 20px;
+        #text-vertical(50px);
+        border-bottom: 1px solid @white;
+        .title-info {
+            .fl();
+            font-size: 32px;
+        }
+        .detail-link {
+            .fr();
+            font-size: 14px;
+            &:hover {
+                color: @hover;
+            }
+        }
+    }
+    .new-message {
+        .message-box {
+            .clearFix();
+            margin: 10px 0;
+            background: @white;
+        }
+        .message-box:nth-of-type(2n+1) .img-box {
+            .fl()
+        }
+        .message-box:nth-of-type(2n+1) .des {
+            .fl()
+        }
+        .message-box:nth-of-type(2n+2) .img-box {
+            .fr()
+        }
+        .message-box:nth-of-type(2n+2) .des {
+            .fr()
+        }
+        .message-box .img-box {
+            width: 50%;
+            overflow: hidden;
+        }
+        .message-box .img-box a img {
+            transition: transform 1s;
+        }
+        .message-box .img-box a:hover img {
+            transform: scale(1.1);
+        }
+        .message-box .des {
+            width: 50%;
+            padding: 5% 10% 0;
+        }
+        .message-box .des .des-title {
+            font-size: 28px;
+        }
+        .message-box .des p {
+            padding: 20px 0;
+        }
+    }
+    .new-video {
+        .clearFix();
+        margin-top: 5%;
+        text-align: center;
+        .video-box {
+            display: inline-block;
+            &:hover {
+                cursor: pointer
+            }
+        }
+        .left {
+            .fl();
+        }
+        .right {
+            .fr();
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .new-message .title .title-info,
+        .new-video .title .title-info {
+            .fl();
+            font-size: 18px;
+            #text-vertical(50px);
+        }
+        .new-message .title .detail-link,
+        .new-video .title .detail-link {
+            .fr();
+            font-size: 14px;
+            &:hover {
+                color: @hover;
+            }
+        }
+
+        .new-message .message-box .img-box  {
+            float: none;
+            width: 100%;
+        }
+        .new-message .message-box .des {
+            float: none;
+            width: 100%;
+            padding: 20px 15px;
+        }
+        .new-message .message-box .des .des-title {
+            font-size: 16px;
+        }
+        .new-message .message-box .des a {
+            font-size: 12px;
+        }
+        
+        .new-video .video-box {
+            float: none;
+            display: block;
+            width: 100%;
+        }
+    }
+}
