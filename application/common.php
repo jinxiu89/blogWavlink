@@ -35,9 +35,12 @@ function show($status, $message = '', $url = '')
     );
     return json_encode($res);
 }
-function result($status,$message='',$data = null){
-    return ['status'=>$status,'message'=>$message,'data'=>$data];
+
+function result($status, $message = '', $data = null)
+{
+    return ['status' => $status, 'message' => $message, 'data' => $data];
 }
+
 /***
  * @param $gid
  */
@@ -90,8 +93,14 @@ function autoGetLang($header)
     } else {
         $lang_code = $header['accept-language'];
         $code = explode(',', $lang_code);
+        if ($code[0] == 'en-us' or $code[0] == 'zh-cn') {
+            $code = $code[0];
+        } else {
+            $code = 'en-us';
+        }
+
         //在extra 里配置各国语言代码对应相应的模块
-        return $code[0];
+        return $code;
     }
 }
 
@@ -153,7 +162,7 @@ function counter($prefix, $ip, $expire)
     $ip = md5($ip);
     if (Cookie::has('ip', $prefix)) {//没有 就设置一个
         Cookie::set('ip', $ip, ['prefix' => $prefix, 'expire' => $expire]);
-        return Cookie::get('ip',$prefix);
+        return Cookie::get('ip', $prefix);
     }
     return false;
 }
@@ -167,27 +176,24 @@ function counter($prefix, $ip, $expire)
 function deltree($pathdir)
 {
     //print_r($pathdir);exit();//调试时用的
-    if(is_empty_dir($pathdir))//如果是空的
+    if (is_empty_dir($pathdir))//如果是空的
     {
         rmdir($pathdir);//直接删除
         return true;
-    }
-    else
-    {//否则读这个目录，除了.和..外
-        $d=dir($pathdir);
-        while($a=$d->read())
-        {
-            if(is_file($pathdir.'/'.$a) && ($a!='.') && ($a!='..')){unlink($pathdir.'/'.$a);}
+    } else {//否则读这个目录，除了.和..外
+        $d = dir($pathdir);
+        while ($a = $d->read()) {
+            if (is_file($pathdir . '/' . $a) && ($a != '.') && ($a != '..')) {
+                unlink($pathdir . '/' . $a);
+            }
             //如果是文件就直接删除
-            if(is_dir($pathdir.'/'.$a) && ($a!='.') && ($a!='..'))
-            {//如果是目录
-                if(!is_empty_dir($pathdir.'/'.$a))//是否为空
+            if (is_dir($pathdir . '/' . $a) && ($a != '.') && ($a != '..')) {//如果是目录
+                if (!is_empty_dir($pathdir . '/' . $a))//是否为空
                 {//如果不是，调用自身，不过是原来的路径+他下级的目录名
-                    deltree($pathdir.'/'.$a);
+                    deltree($pathdir . '/' . $a);
                 }
-                if(is_empty_dir($pathdir.'/'.$a))
-                {//如果是空就直接删除
-                    rmdir($pathdir.'/'.$a);
+                if (is_empty_dir($pathdir . '/' . $a)) {//如果是空就直接删除
+                    rmdir($pathdir . '/' . $a);
                 }
             }
         }
@@ -195,18 +201,19 @@ function deltree($pathdir)
         return true;
     }
 }
+
 function is_empty_dir($pathdir)
 {
     //判断目录是否为空
-    $d=opendir($pathdir);
-    $i=0;
-    while($a=readdir($d))
-    {
+    $d = opendir($pathdir);
+    $i = 0;
+    while ($a = readdir($d)) {
         $i++;
     }
     closedir($d);
-    if($i>2){return false;}
-    else return true;
+    if ($i > 2) {
+        return false;
+    } else return true;
 }
 
 
