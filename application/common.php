@@ -98,7 +98,6 @@ function autoGetLang($header)
         } else {
             $code = 'en-us';
         }
-
         //在extra 里配置各国语言代码对应相应的模块
         return $code;
     }

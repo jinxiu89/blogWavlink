@@ -8,6 +8,7 @@
 
 namespace app\home\controller;
 
+header('X-Frame-Options: ALLOW-FROM www.wavlink/');
 
 use app\common\models\Category;
 use think\App;

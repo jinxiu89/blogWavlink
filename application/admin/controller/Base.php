@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: admin
@@ -7,6 +8,8 @@
  */
 
 namespace app\admin\controller;
+
+header('X-Frame-Options: ALLOW-FROM www.wavlink/');
 
 use app\admin\agency\category as CategoryAgency;
 use app\common\agency\auth as authAgency;
@@ -30,7 +33,7 @@ class Base extends Controller
     protected $backendPrefix;
     protected $user;
     protected $websiteName; //所有的页面的后缀；
-    protected $auth;//认证类
+    protected $auth; //认证类
     protected $language;
     protected $url;
     protected $fileHost;
@@ -49,13 +52,12 @@ class Base extends Controller
     public function __construct(App $app = null)
     {
         parent::__construct($app);
-
     }
 
     public function initialize()
     {
         parent::initialize();
-        $this->language = Session::get('language', 'admin');//在用户登录时选择的语言会被存储在language中，后台所有的操作都将携带该属性
+        $this->language = Session::get('language', 'admin'); //在用户登录时选择的语言会被存储在language中，后台所有的操作都将携带该属性
         $this->backendPrefix = Config::get('app.backend_prefix');
         $this->assign('language', $this->language);
     }
@@ -92,10 +94,10 @@ class Base extends Controller
         //todo:: 免校验的Handler还没处理
         $uid = $session['id'];
         $check = (new authAgency())->checkPermission($handler, $notCheck, $uid);
-        if ($check['status'] == false) {//假，没权限
+        if ($check['status'] == false) { //假，没权限
             $this->assign('access', $check['data']);
             return show(0, $check['message']);
-        } else {//有权限
+        } else { //有权限
             $this->assign('access', $check['data']);
         }
     }
@@ -140,17 +142,17 @@ class Base extends Controller
      */
     public function CacheClear()
     {
-        $cachedir = __DIR__.'/../../../runtime/cache';
-        if (is_empty_dir($cachedir)){
-            return show(true,'很干净，不用清理！');;
+        $cachedir = __DIR__ . '/../../../runtime/cache';
+        if (is_empty_dir($cachedir)) {
+            return show(true, '很干净，不用清理！');;
         }
         try {
-            if (deltree($cachedir)===true){
-                return show(true,'清理成功！');
+            if (deltree($cachedir) === true) {
+                return show(true, '清理成功！');
             };
         } catch (Exception $exception) {
-            return show(false,$exception->getMessage());
+            return show(false, $exception->getMessage());
         }
-        return show(false,'清理失败，原因未知！');
+        return show(false, '清理失败，原因未知！');
     }
 }
